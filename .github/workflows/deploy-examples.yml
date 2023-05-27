@@ -38,4 +38,5 @@ jobs:
           name: github-pages
           retention-days: 1
       - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v1
