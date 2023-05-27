@@ -31,8 +31,8 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
-	  - name: Tar
-	    run: tar -czvf artifact.tar.gz demos/
+      - name: Tar
+        run: tar -czvf artifact.tar.gz demos/
       - uses: actions/upload-artifact@v3
         with:
           name: Upload artifact
