@@ -1,0 +1,82 @@
+{
+	"name": "sequential-workflow-editor",
+	"version": "0.1.0",
+	"type": "module",
+	"main": "./lib/esm/index.js",
+	"types": "./lib/index.d.ts",
+	"exports": {
+		".": {
+			"types": {
+				"require": "./lib/index.d.ts",
+				"default": "./lib/index.d.ts"
+			},
+			"default": {
+				"require": "./lib/cjs/index.cjs",
+				"default": "./lib/esm/index.js"
+			}
+		},
+		"./css/editor.css": {
+			"default": "./css/editor.css"
+		}
+	},
+	"homepage": "https://nocode-js.com/",
+	"license": "SEE LICENSE IN LICENSE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nocode-js/sequential-workflow-editor.git"
+	},
+	"files": [
+		"css/",
+		"lib/",
+		"dist/"
+	],
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"scripts": {
+		"prepare": "cp ../LICENSE LICENSE && cp ../README.md README.md",
+		"clean": "rm -rf lib && rm -rf build && rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2",
+		"start": "rollup -c --watch",
+		"start:clean": "yarn clean && npm run start",
+		"build": "yarn clean && rollup -c",
+		"eslint": "eslint ./src --ext .ts",
+		"test": "karma start karma.conf.cjs",
+		"test:single": "karma start karma.conf.cjs --single-run",
+		"prettier": "prettier --check ./src",
+		"prettier:fix": "prettier --write ./src ./css"
+	},
+	"dependencies": {
+		"sequential-workflow-editor-model": "^0.1.0",
+		"sequential-workflow-model": "^0.1.3"
+	},
+	"peerDependencies": {
+		"sequential-workflow-editor-model": "^0.1.0",
+		"sequential-workflow-model": "^0.1.3"
+	},
+	"devDependencies": {
+		"rollup": "^3.20.2",
+		"rollup-plugin-dts": "^5.3.0",
+		"rollup-plugin-typescript2": "^0.34.1",
+		"@rollup/plugin-node-resolve": "^15.0.2",
+		"typescript": "^4.9.4",
+		"prettier": "^2.8.7",
+		"@typescript-eslint/eslint-plugin": "^5.47.0",
+		"@typescript-eslint/parser": "^5.47.0",
+		"eslint": "^8.30.0",
+		"karma": "^6.4.2",
+		"karma-chrome-launcher": "^3.2.0",
+		"karma-jasmine": "^5.1.0",
+		"karma-spec-reporter": "^0.0.36",
+		"karma-typescript": "^5.5.4",
+		"karma-typescript-es6-transform": "^5.5.4"
+	},
+	"keywords": [
+		"workflow",
+		"designer",
+		"editor",
+		"builder",
+		"nocode",
+		"lowcode",
+		"flow"
+	]
+}
