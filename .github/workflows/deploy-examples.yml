@@ -32,10 +32,10 @@ jobs:
       - name: Build
         run: yarn build
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           path: demos/
           name: github-pages
           retention-days: 1
       - name: Deploy
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v1
