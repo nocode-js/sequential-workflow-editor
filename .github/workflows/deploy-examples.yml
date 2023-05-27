@@ -33,9 +33,10 @@ jobs:
         run: yarn build
       - name: Tar
         run: tar -czvf artifact.tar.gz demos/
-      - uses: actions/upload-artifact@v3
+      - name: Upload artifact
+	    uses: actions/upload-artifact@v3
         with:
-          name: Upload artifact
           path: artifact.tar.gz
+		  name: github-pages
       - name: Deploy
         uses: actions/deploy-pages@v2
