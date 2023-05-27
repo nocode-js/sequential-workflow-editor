@@ -17,9 +17,6 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -32,10 +29,13 @@ jobs:
       - name: Build
         run: yarn build
       - name: Upload artifact
-        uses: aactions/upload-pages-artifact@v1
+        uses: aactions/upload-artifact@v1
         with:
           path: demos/
           name: github-pages
           retention-days: 1
       - name: Deploy
+        environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
         uses: actions/deploy-pages@v2
