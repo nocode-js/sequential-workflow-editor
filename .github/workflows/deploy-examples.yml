@@ -33,11 +33,9 @@ jobs:
       - name: Build
         run: yarn build
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: demos/webpack-app/public/
-          name: github-pages
-          retention-days: 1
+          path: demos/webpack-app/public
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v1
