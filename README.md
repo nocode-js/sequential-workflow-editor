@@ -6,7 +6,7 @@ Powerful workflow editor builder for sequential workflows. Written in TypeScript
 
 ## 👀 Examples
 
-* [🛠 Playground](./demos/webpack-app/public/playground.html)
+* [🛠 Playground](https://nocode-js.github.io/sequential-workflow-editor/webpack-app/public/playground.html)
 
 ## 🚀 Installation
 
