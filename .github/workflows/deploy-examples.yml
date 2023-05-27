@@ -34,9 +34,9 @@ jobs:
       - name: Tar
         run: tar -czvf artifact.tar.gz demos/
       - name: Upload artifact
-	    uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           path: artifact.tar.gz
-		  name: github-pages
+          name: github-pages
       - name: Deploy
         uses: actions/deploy-pages@v2
