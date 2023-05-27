@@ -34,7 +34,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          path: demos/
+          path: demos/webpack-app/public/
           name: github-pages
           retention-days: 1
       - name: Deploy
