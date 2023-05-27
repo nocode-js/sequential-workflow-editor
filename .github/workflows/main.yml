@@ -16,10 +16,10 @@ jobs:
         node: [16]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Setup Node 16
+        uses: actions/checkout@v3
+      - name: Setup Node 18
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: "18"
       - name: Packages
         run: bash .github/workflows/packages.sh
