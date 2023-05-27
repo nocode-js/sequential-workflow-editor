@@ -1,0 +1,41 @@
+name: deploy examples
+on:
+  push:
+    branches:
+      - main
+      - feat/ci
+jobs:
+  build:
+    name: Build
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        node:
+          - 16
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Install
+        run: yarn install
+      - name: Build
+        run: yarn build
+	  - name: Tar
+	    run: tar -czvf artifact.tar.gz demos/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Upload artifact
+          path: artifact.tar.gz
+      - name: Deploy
+        uses: actions/deploy-pages@v2
