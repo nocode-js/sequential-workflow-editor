@@ -16,6 +16,9 @@ export class VariablesService {
 	}
 
 	public set<TValue>(name: string, value: TValue) {
+		if (value === undefined) {
+			throw new Error('Cannot set variable to undefined');
+		}
 		this.state[name] = value;
 	}
 

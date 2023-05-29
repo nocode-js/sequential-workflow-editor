@@ -1,40 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>🛠 Playground - Sequential Workflow Editor</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	<link rel="icon" href="./assets/favicon.ico">
+	<head>
+		<meta charset="UTF-8" />
+		<title>🛠 Playground - Sequential Workflow Editor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="icon" href="./assets/favicon.ico" />
+		<link rel="stylesheet" href="./assets/style.css" />
+		<script src="./builds/playground.js" defer></script>
+	</head>
+	<body>
+		<div id="designer"></div>
 
-	<style>
-		html, body {margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; font: 14px/1.3em Arial, Verdana, sans-serif;}
-		body {display: flex; flex-direction: row;}
-		#designer {flex: 3;}
-		#playground {flex: 1; padding: 10px; box-sizing: border-box; background-color: #CCC;}
-		#playground h2 {margin: 0; padding: 10px 0;}
-		#playground h4 {margin: 0; padding: 10px 0;}
-		#playground .variables {padding: 0 5px 5px; background: #BBB; border-radius: 5px;}
-		#playground .variable-row label {display: block; padding: 5px 0;}
-		#playground .variable-row input[type=text] {padding: 5px; width: 100%; box-sizing: border-box; border: 1px solid #999; outline: 0; border-radius: 5px;}
-		#playground .logs {width: 100%; padding: 5px; height: 400px; box-sizing: border-box; border: 1px solid #999;  border-radius: 5px; outline: 0;}
-	</style>
-</head>
-<body>
-	<div id="designer"></div>
+		<div id="playground">
+			<div class="title">
+				<h2>🛠 Playground</h2>
+				<a href="https://github.com/nocode-js/sequential-workflow-editor" target="_blank">GitHub</a>
+			</div>
 
-	<div id="playground">
-		<h2>🛠 Playground</h2>
+			<h4>Inputs</h4>
+			<div id="inputs" class="variables"></div>
 
-		<h4>Inputs</h4>
-		<div id="inputs" class="variables"></div>
+			<h4>Logs</h4>
+			<ul id="logs" class="logs"></ul>
 
-		<h4>Logs</h4>
-		<textarea id="logs" class="logs"></textarea>
-
-		<h4>Outputs</h4>
-		<div id="outputs" class="variables"></div>
-	</div>
-
-	<script src="./builds/playground.js"></script>
-</body>
+			<h4>Outputs</h4>
+			<div id="outputs" class="variables"></div>
+		</div>
+	</body>
 </html>

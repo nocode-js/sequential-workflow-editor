@@ -10,8 +10,8 @@
 		"build": "yarn clean && webpack --mode production",
 		"eslint": "eslint ./src --ext .ts",
 		"test:single": "echo \"No tests yet\"",
-		"prettier": "prettier --check ./src",
-		"prettier:fix": "prettier --write ./src"
+		"prettier": "prettier --check ./src ./public/**/*.{html,css}",
+		"prettier:fix": "prettier --write ./src ./public/**/*.{html,css}"
 	},
 	"dependencies": {
 		"xstate": "^4.37.2",

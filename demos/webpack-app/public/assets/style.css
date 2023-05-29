@@ -1,0 +1,91 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	font: 14px/1.3em Arial, Verdana, sans-serif;
+}
+body {
+	display: flex;
+	flex-direction: row;
+}
+#designer {
+	flex: 3;
+}
+@media (max-width: 768px) {
+	body {
+		flex-direction: column;
+	}
+	#designer {
+		flex: 2;
+	}
+}
+#playground {
+	flex: 1;
+	padding: 10px;
+	box-sizing: border-box;
+	background-color: #ccc;
+	overflow: auto;
+}
+#playground .title h2 {
+	display: inline-block;
+	margin: 0;
+	padding: 10px 0;
+}
+#playground .title a {
+	color: #333;
+	text-decoration: underline;
+	margin: 0 5px;
+}
+#playground .title a:hover {
+	text-decoration: none;
+}
+#playground h4 {
+	margin: 0;
+	padding: 10px 0;
+}
+#playground .variables {
+	padding: 0 5px 5px;
+	background: #bbb;
+	border-radius: 5px;
+}
+#playground .variable-row label {
+	display: block;
+	padding: 5px 0;
+}
+#playground .variable-row input[type='text'] {
+	padding: 5px;
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid #999;
+	outline: 0;
+	border-radius: 5px;
+}
+#playground .logs {
+	width: 100%;
+	margin: 0;
+	padding: 5px;
+	height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-sizing: border-box;
+	border: 1px solid #999;
+	border-radius: 5px;
+	outline: 0;
+	background: #fff;
+}
+#playground .log {
+	margin: 0;
+	padding: 3px;
+	border-top: 1px solid #ccc;
+	list-style: none;
+}
+#playground .log:first-child {
+	border-top: 0;
+}
+#playground .log.log-trace {
+	font-size: 8pt;
+	color: #999;
+}

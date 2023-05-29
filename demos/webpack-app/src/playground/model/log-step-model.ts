@@ -1,7 +1,9 @@
 import {
+	AnyVariables,
 	Dynamic,
 	NullableVariable,
 	ValueKnownType,
+	anyVariablesValueModel,
 	createStepModel,
 	dynamicValueModel,
 	nullableVariableValueModel,
@@ -14,6 +16,7 @@ export interface LogStep extends Step {
 	componentType: 'task';
 	properties: {
 		message: Dynamic<string | NullableVariable>;
+		variables: AnyVariables;
 	};
 }
 
@@ -33,4 +36,6 @@ export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 			})
 		)
 		.label('Text');
+
+	step.property('variables').value(anyVariablesValueModel({})).label('Log variables');
 });
