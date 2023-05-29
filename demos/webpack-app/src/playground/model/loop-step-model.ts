@@ -42,6 +42,14 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 			})
 		);
 
+	step.property('operator')
+		.label('Operator')
+		.value(
+			choiceValueModel({
+				choices: ['<', '<=']
+			})
+		);
+
 	step.property('to')
 		.label('To')
 		.value(
@@ -57,7 +65,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 		);
 
 	step.property('increment')
-		.label('increment')
+		.label('Increment')
 		.value(
 			dynamicValueModel({
 				choices: [
@@ -69,14 +77,6 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 						variableType: ValueKnownType.number
 					})
 				]
-			})
-		);
-
-	step.property('operator')
-		.label('Operator')
-		.value(
-			choiceValueModel({
-				choices: ['<', '<=']
 			})
 		);
 

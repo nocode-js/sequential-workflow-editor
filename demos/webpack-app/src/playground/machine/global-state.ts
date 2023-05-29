@@ -1,4 +1,5 @@
 import { DynamicsService } from './services/dynamics-service';
+import { LoggerService } from './services/logger-service';
 import { VariableState, VariablesService } from './services/variables-service';
 
 export interface GlobalState {
@@ -7,4 +8,5 @@ export interface GlobalState {
 
 	$variables: VariablesService;
 	$dynamics: DynamicsService;
+	$logger: LoggerService;
 }

@@ -2,22 +2,24 @@ import { SimpleEvent, ValueKnownType, ValueType, VariableDefinition, VariableDef
 import { MyDefinition } from './model/definition-model';
 import { VariableState } from './machine/services/variables-service';
 
+export type RawInputData = Record<string, string>;
+
 export class Playground {
-	public static create() {
-		const logs = document.getElementById('logs') as HTMLTextAreaElement;
+	public static create(inputData: RawInputData) {
+		const logs = document.getElementById('logs') as HTMLElement;
 		const inputList = document.getElementById('inputs') as HTMLElement;
 		const outputList = document.getElementById('outputs') as HTMLElement;
-		return new Playground(logs, inputList, outputList);
+		return new Playground(logs, inputData, inputList, outputList);
 	}
 
-	private readonly inputData: Record<string, string> = {};
 	private inputVariables?: VariableDefinition[];
-	private readonly outputData: Record<string, string> = {};
+	private readonly outputData: RawInputData = {};
 	private outputFields: Record<string, HTMLInputElement> = {};
 	public readonly onInputChanged = new SimpleEvent<void>();
 
 	private constructor(
-		private readonly logs: HTMLTextAreaElement,
+		private readonly logs: HTMLElement,
+		private readonly inputData: RawInputData,
 		private readonly inputList: HTMLElement,
 		private readonly outputList: HTMLElement
 	) {
@@ -30,7 +32,11 @@ export class Playground {
 		this.outputFields = this.reloadFields(this.outputList, definition.properties.outputs, null);
 	}
 
-	public readInputVariables(): VariableState {
+	public readInputData(): RawInputData {
+		return this.inputData;
+	}
+
+	public readInputVariableState(): VariableState {
 		if (!this.inputVariables) {
 			throw new Error('Input variables not set');
 		}
@@ -58,11 +64,19 @@ export class Playground {
 	}
 
 	public clearLogs() {
-		this.logs.value = '';
+		this.logs.innerHTML = '';
 	}
 
-	public log(message: string) {
-		this.logs.value = `${message}\n` + this.logs.value;
+	public log(message: string, level: 'info' | 'trace' = 'info') {
+		const log = document.createElement('div');
+		log.className = `log log-${level}`;
+		for (const line of message.split('\n')) {
+			const item = document.createElement('div');
+			item.innerText = line;
+			log.appendChild(item);
+		}
+		this.logs.appendChild(log);
+		this.logs.scrollTop = this.logs.scrollHeight;
 	}
 
 	private reloadFields(
