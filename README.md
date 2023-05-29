@@ -1,3 +1,5 @@
+![Sequential Workflow Editor](.github/cover.png)
+
 # Sequential Workflow Editor
 
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fnocode-js%2Fsequential-workflow-editor%2Fbadge%3Fref%3Dmain&style=flat-square)](https://github.com/nocode-js/sequential-workflow-editor/actions) [![License: GPLv3](https://img.shields.io/badge/license-GPL-blue?style=flat-square)](/LICENSE) [![View this project on NPM](https://img.shields.io/npm/v/sequential-workflow-editor.svg?style=flat-square)](https://npmjs.org/package/sequential-workflow-editor)
