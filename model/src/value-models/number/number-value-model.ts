@@ -15,6 +15,7 @@ export const numberValueModelId = 'number';
 export function numberValueModel(configuration: NumberValueModelConfiguration): ValueModelFactory<NumberValueModel> {
 	return (path: Path) => ({
 		id: numberValueModelId,
+		label: 'Number',
 		path,
 		configuration,
 		getDefaultValue() {

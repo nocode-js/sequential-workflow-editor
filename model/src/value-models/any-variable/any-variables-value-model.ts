@@ -14,6 +14,7 @@ export const anyVariablesValueModelId = 'anyVariables';
 export function anyVariablesValueModel(configuration: AnyVariablesValueModelConfiguration): ValueModelFactory<AnyVariablesValueModel> {
 	return (path: Path) => ({
 		id: anyVariablesValueModelId,
+		label: 'Variables',
 		path,
 		configuration,
 		getDefaultValue() {

@@ -23,7 +23,7 @@ export interface CalculateStep extends Step {
 
 export const calculateStepModel = createStepModel<CalculateStep>('calculate', 'task', step => {
 	const val = dynamicValueModel({
-		choices: [
+		models: [
 			numberValueModel({}),
 			nullableVariableValueModel({
 				isRequired: true,
@@ -31,6 +31,13 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 			})
 		]
 	});
+
+	step.property('result').value(
+		nullableVariableValueModel({
+			variableType: ValueKnownType.number,
+			isRequired: true
+		})
+	);
 
 	step.property('a').value(val).label('A');
 
@@ -41,11 +48,4 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 	);
 
 	step.property('b').value(val).label('B');
-
-	step.property('result').value(
-		nullableVariableValueModel({
-			variableType: ValueKnownType.number,
-			isRequired: true
-		})
-	);
 });

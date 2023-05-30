@@ -11,7 +11,7 @@ const definition: MyDefinition = {
 	sequence: [
 		{
 			id: 'a282bc1908816678905a3c94049478aa',
-			name: 'index < loops',
+			name: '$index < $loops',
 			type: 'loop',
 			componentType: 'container',
 			properties: {
@@ -20,28 +20,28 @@ const definition: MyDefinition = {
 				to: { modelId: 'nullableVariable', value: { name: 'loops' } },
 				increment: { modelId: 'number', value: 1 },
 				indexVariable: { name: 'index', type: 'number' },
-				variables: { variables: [{ name: 'diff', type: 'number' }] }
+				variables: { variables: [{ name: 'remainder', type: 'number' }] }
 			},
 			sequence: [
 				{
 					id: '32529a3fbef39d5e480df8454164edae',
-					name: 'diff = index % 2',
+					name: '$remainder = $index % 2',
 					type: 'calculate',
 					componentType: 'task',
 					properties: {
 						a: { modelId: 'nullableVariable', value: { name: 'index' } },
 						operator: '%',
 						b: { modelId: 'number', value: 2 },
-						result: { name: 'diff' }
+						result: { name: 'remainder' }
 					}
 				},
 				{
 					id: 'f2f35f162f009e7683cf31c24a1e9589',
-					name: 'If diff == 0',
+					name: 'If $remainder == 0',
 					type: 'if',
 					componentType: 'switch',
 					properties: {
-						a: { modelId: 'nullableVariable', value: { name: 'diff' } },
+						a: { modelId: 'nullableVariable', value: { name: 'remainder' } },
 						operator: '=',
 						b: { modelId: 'number', value: 0 }
 					},

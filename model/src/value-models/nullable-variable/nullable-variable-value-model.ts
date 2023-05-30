@@ -18,6 +18,7 @@ export function nullableVariableValueModel(
 ): ValueModelFactory<NullableVariableValueModel> {
 	return (path: Path) => ({
 		id: nullableVariableValueModelId,
+		label: 'Variable',
 		path,
 		configuration,
 		getDefaultValue(): NullableVariable {

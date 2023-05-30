@@ -10,10 +10,10 @@ export function dynamicValueEditor(
 	context: ValueModelContext<DynamicValueModel>,
 	services: EditorServices
 ): ValueEditor<DynamicValueModel> {
-	if (!context.model.childModels) {
-		throw new Error('childModels is required');
+	if (!context.model.subModels) {
+		throw new Error('subModels is required');
 	}
-	const childModels = context.model.childModels;
+	const subModels = context.model.subModels;
 
 	function validate() {
 		if (editor) {
@@ -27,7 +27,7 @@ export function dynamicValueEditor(
 		}
 
 		const value = context.getValue();
-		const model = childModels.find(model => model.id === value.modelId);
+		const model = subModels.find(model => model.id === value.modelId);
 		if (!model || !model.id) {
 			throw new Error(`Model not found: ${value.modelId}`);
 		}
@@ -40,7 +40,7 @@ export function dynamicValueEditor(
 	}
 
 	function onTypeChanged() {
-		const newModel = childModels[childModelSelect.getSelectedIndex()];
+		const newModel = subModels[subModelSelect.getSelectedIndex()];
 		const defaultValue = {
 			modelId: newModel.id,
 			value: newModel.getDefaultValue(services.activator)
@@ -50,12 +50,12 @@ export function dynamicValueEditor(
 	}
 
 	const startValue = context.getValue();
-	const childModelSelect = selectComponent({
+	const subModelSelect = selectComponent({
 		size: 'small'
 	});
-	childModelSelect.setValues(context.model.childModels.map(model => model.id));
-	childModelSelect.selectIndex(context.model.childModels.findIndex(model => model.id === startValue.modelId));
-	childModelSelect.onSelected.subscribe(onTypeChanged);
+	subModelSelect.setValues(context.model.subModels.map(model => model.label));
+	subModelSelect.selectIndex(context.model.subModels.findIndex(model => model.id === startValue.modelId));
+	subModelSelect.onSelected.subscribe(onTypeChanged);
 
 	const placeholder = Html.element('div', {
 		class: 'swe-dynamic-placeholder'
@@ -67,7 +67,7 @@ export function dynamicValueEditor(
 
 	return {
 		view: container.view,
-		controlView: childModelSelect.view,
+		controlView: subModelSelect.view,
 		validate
 	};
 }

@@ -30,7 +30,7 @@ export const setStringValueModel = createStepModel<SetStringValueStep>('setStrin
 	step.property('value')
 		.value(
 			dynamicValueModel({
-				choices: [
+				models: [
 					stringValueModel({
 						minLength: 1
 					}),

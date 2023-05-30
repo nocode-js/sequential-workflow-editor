@@ -24,7 +24,7 @@ export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 	step.property('message')
 		.value(
 			dynamicValueModel({
-				choices: [
+				models: [
 					stringValueModel({
 						minLength: 1
 					}),

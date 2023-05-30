@@ -21,6 +21,7 @@ export function branchesValueModel<TConfiguration extends BranchesValueModelConf
 ): ValueModelFactory<BranchesValueModel<BranchesOf<TConfiguration>>> {
 	return (path: Path) => ({
 		id: branchesValueModelId,
+		label: 'Branches',
 		path,
 		configuration,
 		getDefaultValue(activator: ModelActivator): BranchesOf<TConfiguration> {

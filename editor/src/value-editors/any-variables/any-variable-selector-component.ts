@@ -10,6 +10,7 @@ import { selectComponent } from '../../components/select-component';
 import { Component } from '../../components/component';
 import { rowComponent } from '../../components/row-component';
 import { buttonComponent } from '../../components/button-component';
+import { formatVariableName } from '../../core/variable-name-formatter';
 
 export interface AnyVariableSelectorComponent extends Component {
 	onAdded: SimpleEvent<AnyVariable>;
@@ -27,7 +28,7 @@ export function anyVariableSelectorComponent(context: ValueModelContext<AnyVaria
 
 	function reloadVariableSelector() {
 		variables = context.getVariables(getSelectedValueType());
-		const variableNames = variables.map(variable => variable.name);
+		const variableNames = variables.map(variable => formatVariableName(variable.name));
 		variableSelect.setValues(['-', ...variableNames]);
 	}
 

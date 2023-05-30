@@ -16,6 +16,7 @@ export function variableDefinitionsValueModel(
 ): ValueModelFactory<VariableDefinitionsValueModel> {
 	return (path: Path) => ({
 		id: variableDefinitionsValueModelId,
+		label: 'Variable definitions',
 		path,
 		configuration,
 		getDefaultValue() {
