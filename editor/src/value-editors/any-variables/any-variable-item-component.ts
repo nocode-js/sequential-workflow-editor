@@ -4,6 +4,7 @@ import { validationErrorComponent } from '../../components/validation-error-comp
 import { Component } from '../../components/component';
 import { buttonComponent } from '../../components/button-component';
 import { rowComponent } from '../../components/row-component';
+import { formatVariableName } from '../../core/variable-name-formatter';
 
 export interface AnyVariableItemComponent extends Component {
 	onDeleteClicked: SimpleEvent<void>;
@@ -20,7 +21,7 @@ export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItem
 	const view = Html.element('div');
 
 	const name = Html.element('span');
-	name.innerText = `${variable.name} (${variable.type})`;
+	name.innerText = `${formatVariableName(variable.name)} (${variable.type})`;
 
 	const deleteButton = buttonComponent('Delete');
 	deleteButton.onClick.subscribe(() => onDeleteClicked.forward());

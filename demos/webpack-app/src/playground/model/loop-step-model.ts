@@ -32,7 +32,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 		.label('From')
 		.value(
 			dynamicValueModel({
-				choices: [
+				models: [
 					numberValueModel({}),
 					nullableVariableValueModel({
 						isRequired: true,
@@ -54,7 +54,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 		.label('To')
 		.value(
 			dynamicValueModel({
-				choices: [
+				models: [
 					numberValueModel({}),
 					nullableVariableValueModel({
 						isRequired: true,
@@ -68,7 +68,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 		.label('Increment')
 		.value(
 			dynamicValueModel({
-				choices: [
+				models: [
 					numberValueModel({
 						defaultValue: 1
 					}),

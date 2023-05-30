@@ -42,9 +42,10 @@ export type ValueModelFactoryOfValue<TValue extends PropertyValue = PropertyValu
 
 export interface ValueModel<TValue extends PropertyValue = PropertyValue, TConfiguration extends object = object> {
 	id: ValueModelId;
+	label: string;
 	path: Path;
 	configuration: TConfiguration;
-	childModels?: ValueModel[];
+	subModels?: ValueModel[];
 	getDefaultValue(activator: ModelActivator): TValue;
 	getVariableDefinitions(context: ValueModelContext<ValueModel<TValue, TConfiguration>>): VariableDefinition[] | null;
 	validate(context: ValueModelContext<ValueModel<TValue, TConfiguration>>): ValidationResult;

@@ -23,7 +23,7 @@ export interface IfStep extends BranchedStep {
 
 export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step => {
 	const val = dynamicValueModel({
-		choices: [
+		models: [
 			numberValueModel({}),
 			nullableVariableValueModel({
 				isRequired: true,

@@ -18,6 +18,7 @@ export function choiceValueModel(configuration: ChoiceValueModelConfiguration): 
 
 	return (path: Path) => ({
 		id: choiceValueModelId,
+		label: 'Choice',
 		path,
 		configuration,
 		getDefaultValue() {

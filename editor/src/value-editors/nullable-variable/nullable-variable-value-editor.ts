@@ -4,6 +4,7 @@ import { valueEditorContainerComponent } from '../../components/value-editor-con
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { rowComponent } from '../../components/row-component';
 import { selectComponent } from '../../components/select-component';
+import { formatVariableName } from '../../core/variable-name-formatter';
 
 export const nullableVariableValueEditorId = 'nullableVariable';
 
@@ -31,12 +32,7 @@ export function nullableVariableValueEditor(
 	const select = selectComponent({
 		stretched: true
 	});
-	select.setValues([
-		'- Select variable -',
-		...variables.map(variable => {
-			return variable.name;
-		})
-	]);
+	select.setValues(['- Select variable -', ...variables.map(variable => formatVariableName(variable.name))]);
 	if (startValue) {
 		select.selectIndex(variables.findIndex(variable => variable.name === startValue.name) + 1);
 	} else {

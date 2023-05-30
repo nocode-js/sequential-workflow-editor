@@ -14,6 +14,7 @@ export const sequenceValueModelId = 'sequence';
 export function sequenceValueModel(configuration: SequenceValueModelConfiguration): ValueModelFactory<SequenceValueModel> {
 	return (path: Path) => ({
 		id: sequenceValueModelId,
+		label: 'Sequence',
 		path,
 		configuration,
 		editorId: null,
