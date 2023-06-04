@@ -1,3 +1,7 @@
+## 0.2.1
+
+Fixed bug with removing a message about an empty list.
+
 ## 0.2.0
 
 **Breaking changes:**
