@@ -27,4 +27,23 @@ describe('DynamicListComponent', () => {
 
 		expect(component.view.children.length).toBe(0);
 	});
+
+	it('shows empty message, when items appear, then message disappears', () => {
+		const component = dynamicListComponent({
+			emptyMessage: 'List is empty'
+		});
+
+		expect(component.view.children.length).toBe(0);
+
+		component.set([]);
+
+		expect(component.view.children.length).toBe(1);
+		expect(component.view.children[0].textContent).toBe('List is empty');
+
+		const item = Html.element('div');
+		component.set([{ view: item }]);
+
+		expect(component.view.children.length).toBe(1);
+		expect(component.view.children[0]).toBe(item);
+	});
 });

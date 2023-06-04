@@ -14,6 +14,10 @@ export function dynamicListComponent<TComponent extends Component>(
 	configuration?: DynamicListComponentConfiguration
 ): DynamicListComponent<TComponent> {
 	function set(set: TComponent[]) {
+		if (emptyRow) {
+			view.removeChild(emptyRow);
+			emptyRow = null;
+		}
 		components.forEach(component => view.removeChild(component.view));
 		components.length = 0;
 
@@ -23,14 +27,15 @@ export function dynamicListComponent<TComponent extends Component>(
 				view.appendChild(component.view);
 			});
 		} else if (configuration?.emptyMessage) {
-			const message = Html.element('div', {
+			emptyRow = Html.element('div', {
 				class: 'swe-dynamic-list-empty-row'
 			});
-			message.innerText = configuration.emptyMessage;
-			view.appendChild(message);
+			emptyRow.innerText = configuration.emptyMessage;
+			view.appendChild(emptyRow);
 		}
 	}
 
+	let emptyRow: HTMLElement | null = null;
 	const components: TComponent[] = [];
 	const view = Html.element('div', {
 		class: 'swe-dynamic-list'
