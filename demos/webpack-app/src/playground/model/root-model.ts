@@ -11,11 +11,7 @@ export const rootModel = createRootModel<MyDefinition>(root => {
 				return inputs.variables.length > 0 ? null : 'At least one input is required';
 			}
 		});
-	root.property('outputs').value(
-		variableDefinitionsValueModel({
-			label: 'Outputs'
-		})
-	);
+	root.property('outputs').value(variableDefinitionsValueModel({})).label('Outputs');
 	root.sequence().value(
 		sequenceValueModel({
 			sequence: []

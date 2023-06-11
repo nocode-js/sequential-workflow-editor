@@ -27,7 +27,7 @@ export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step 
 			numberValueModel({}),
 			nullableVariableValueModel({
 				isRequired: true,
-				variableType: ValueKnownType.number
+				valueType: ValueKnownType.number
 			})
 		]
 	});

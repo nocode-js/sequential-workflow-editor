@@ -1,11 +1,12 @@
 import { ValueModel, ValueModelFactory, ValidationResult } from '../../model';
 import { Path } from '../../core/path';
-import { VariableDefinition, VariableDefinitions } from '../../types';
+import { ValueType, VariableDefinition, VariableDefinitions } from '../../types';
 import { ValueModelContext } from '../../context';
 import { variableNameValidator } from '../variable-name-validator';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface VariableDefinitionsValueModelConfiguration {}
+export interface VariableDefinitionsValueModelConfiguration {
+	valueTypes?: ValueType[];
+}
 
 export type VariableDefinitionsValueModel = ValueModel<VariableDefinitions, VariableDefinitionsValueModelConfiguration>;
 
@@ -45,6 +46,9 @@ export function variableDefinitionsValueModel(
 				if (context.isVariableDuplicated(variable.name)) {
 					errors[index] = 'Variable name is already used';
 					return;
+				}
+				if (configuration.valueTypes && !configuration.valueTypes.includes(variable.type)) {
+					errors[index] = 'Value type is not allowed';
 				}
 			});
 

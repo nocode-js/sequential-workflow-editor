@@ -1,6 +1,6 @@
 import { createAtomActivity } from 'sequential-workflow-machine';
 import { GlobalState } from '../global-state';
-import { SetStringValueStep } from '../../model/set-string-value-model';
+import { SetStringValueStep } from '../../model/set-string-value-step-model';
 
 export const setStringValueActivity = createAtomActivity<SetStringValueStep, GlobalState>({
 	init: () => ({}),

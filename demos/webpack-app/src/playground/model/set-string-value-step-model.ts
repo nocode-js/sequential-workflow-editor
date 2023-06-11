@@ -18,11 +18,11 @@ export interface SetStringValueStep extends Step {
 	};
 }
 
-export const setStringValueModel = createStepModel<SetStringValueStep>('setStringValue', 'task', step => {
+export const setStringValueStepModel = createStepModel<SetStringValueStep>('setStringValue', 'task', step => {
 	step.property('variable')
 		.value(
 			nullableVariableValueModel({
-				variableType: ValueKnownType.string,
+				valueType: ValueKnownType.string,
 				isRequired: true
 			})
 		)
@@ -35,7 +35,7 @@ export const setStringValueModel = createStepModel<SetStringValueStep>('setStrin
 						minLength: 1
 					}),
 					nullableVariableValueModel({
-						variableType: ValueKnownType.string,
+						valueType: ValueKnownType.string,
 						isRequired: true
 					})
 				]

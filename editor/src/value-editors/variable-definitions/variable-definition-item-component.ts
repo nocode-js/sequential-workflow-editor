@@ -5,6 +5,7 @@ import { Component } from '../../components/component';
 import { rowComponent } from '../../components/row-component';
 import { buttonComponent } from '../../components/button-component';
 import { selectComponent } from '../../components/select-component';
+import { filterValueTypes } from '../../core/filter-value-types';
 
 export interface VariableDefinitionItemComponent extends Component {
 	onNameChanged: SimpleEvent<string>;
@@ -36,7 +37,8 @@ export function variableDefinitionItemComponent(
 	});
 	input.value = variable.name;
 
-	const valueTypes = context.getValueTypes();
+	const valueTypes = filterValueTypes(context.getValueTypes(), context.model.configuration.valueTypes);
+
 	const typeSelect = selectComponent({
 		stretched: true
 	});

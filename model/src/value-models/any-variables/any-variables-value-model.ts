@@ -33,7 +33,7 @@ export function anyVariablesValueModel(configuration: AnyVariablesValueModelConf
 					return;
 				}
 				if (configuration.valueTypes && !configuration.valueTypes.includes(variable.type)) {
-					errors[index] = `Variable ${variable.name} has wrong type`;
+					errors[index] = `Variable ${variable.name} has invalid type`;
 					return;
 				}
 			});

@@ -96,7 +96,7 @@ import { EditorProvider } from 'sequential-workflow-editor';
 import { Uid } from 'sequential-workflow-designer';
 
 export const editorProvider = EditorProvider.create(definitionModel, {
-	uidGenerator: Uid.next
+  uidGenerator: Uid.next
 });
 ```
 

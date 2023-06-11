@@ -27,14 +27,14 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 			numberValueModel({}),
 			nullableVariableValueModel({
 				isRequired: true,
-				variableType: ValueKnownType.number
+				valueType: ValueKnownType.number
 			})
 		]
 	});
 
 	step.property('result').value(
 		nullableVariableValueModel({
-			variableType: ValueKnownType.number,
+			valueType: ValueKnownType.number,
 			isRequired: true
 		})
 	);

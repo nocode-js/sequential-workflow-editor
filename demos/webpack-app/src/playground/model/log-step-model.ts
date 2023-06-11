@@ -30,7 +30,7 @@ export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 					}),
 					nullableVariableValueModel({
 						isRequired: true,
-						variableType: ValueKnownType.string
+						valueType: ValueKnownType.string
 					})
 				]
 			})

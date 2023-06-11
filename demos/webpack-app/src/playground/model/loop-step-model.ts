@@ -36,7 +36,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 					numberValueModel({}),
 					nullableVariableValueModel({
 						isRequired: true,
-						variableType: ValueKnownType.number
+						valueType: ValueKnownType.number
 					})
 				]
 			})
@@ -58,7 +58,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 					numberValueModel({}),
 					nullableVariableValueModel({
 						isRequired: true,
-						variableType: ValueKnownType.number
+						valueType: ValueKnownType.number
 					})
 				]
 			})
@@ -74,7 +74,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 					}),
 					nullableVariableValueModel({
 						isRequired: true,
-						variableType: ValueKnownType.number
+						valueType: ValueKnownType.number
 					})
 				]
 			})
@@ -84,7 +84,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 		.label('Index variable')
 		.value(
 			nullableVariableDefinitionValueModel({
-				variableType: ValueKnownType.number,
+				valueType: ValueKnownType.number,
 				isRequired: true,
 				defaultValue: {
 					name: 'index',
