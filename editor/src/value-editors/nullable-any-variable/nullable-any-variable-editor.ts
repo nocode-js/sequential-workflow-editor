@@ -1,4 +1,4 @@
-import { NullableVariableValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { NullableAnyVariableValueModel, NullableVariableValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { validationErrorComponent } from '../../components/validation-error-component';
@@ -7,10 +7,10 @@ import { selectComponent } from '../../components/select-component';
 import { formatVariableNameWithType } from '../../core/variable-name-formatter';
 import { filterVariablesByType } from '../../core/filter-variables-by-type';
 
-export const nullableVariableValueEditorId = 'nullableVariable';
+export const nullableAnyVariableValueEditorId = 'nullableAnyVariable';
 
-export function nullableVariableValueEditor(
-	context: ValueModelContext<NullableVariableValueModel>
+export function nullableAnyVariableValueEditor(
+	context: ValueModelContext<NullableAnyVariableValueModel>
 ): ValueEditor<NullableVariableValueModel> {
 	function validate() {
 		validation.setDefaultError(context.validate());
@@ -20,15 +20,17 @@ export function nullableVariableValueEditor(
 		if (selectedIndex === 0) {
 			context.setValue(null);
 		} else {
+			const variable = variables[selectedIndex - 1];
 			context.setValue({
-				name: variables[selectedIndex - 1].name
+				name: variable.name,
+				type: variable.type
 			});
 		}
 		validate();
 	}
 
 	const startValue = context.getValue();
-	const variables = filterVariablesByType(context.getVariables(), context.model.configuration.valueType);
+	const variables = filterVariablesByType(context.getVariables(), context.model.configuration.valueTypes);
 
 	const select = selectComponent({
 		stretched: true

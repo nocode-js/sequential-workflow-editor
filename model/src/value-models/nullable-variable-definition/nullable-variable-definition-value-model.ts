@@ -5,7 +5,7 @@ import { ValueModelContext } from '../../context';
 import { variableNameValidator } from '../variable-name-validator';
 
 export interface NullableVariableDefinitionValueModelConfiguration {
-	variableType: ValueType;
+	valueType: ValueType;
 	isRequired?: boolean;
 	defaultValue?: VariableDefinition;
 }
@@ -45,8 +45,8 @@ export function nullableVariableDefinitionValueModel(
 				if (nameError) {
 					return createValidationSingleError(nameError);
 				}
-				if (value.type !== configuration.variableType) {
-					return createValidationSingleError(`Variable type must be ${configuration.variableType}.`);
+				if (value.type !== configuration.valueType) {
+					return createValidationSingleError(`Variable type must be ${configuration.valueType}.`);
 				}
 				if (context.isVariableDuplicated(value.name)) {
 					return createValidationSingleError('Variable name is already used.');

@@ -28,7 +28,9 @@ export class App {
 				root: editorProvider.createRootValidator()
 			},
 			steps: {
-				iconUrlProvider: (_, type: string) => `./assets/icon-${type}.svg`
+				iconUrlProvider: (componentType: string, type: string) => {
+					return componentType === 'task' ? './assets/icon-task.svg' : `./assets/icon-${type}.svg`;
+				}
 			},
 			toolbox: {
 				groups: [

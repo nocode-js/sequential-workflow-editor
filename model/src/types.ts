@@ -20,6 +20,8 @@ export interface AnyVariable {
 	type: ValueType;
 }
 
+export type NullableAnyVariable = AnyVariable | null;
+
 export interface AnyVariables {
 	variables: AnyVariable[];
 }

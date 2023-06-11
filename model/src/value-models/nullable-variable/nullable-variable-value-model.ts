@@ -5,7 +5,7 @@ import { ValueType } from '../../types';
 import { ValueModelContext } from '../../context';
 
 export interface NullableVariableValueModelConfiguration {
-	variableType: ValueType;
+	valueType: ValueType;
 	isRequired?: boolean;
 }
 
@@ -31,7 +31,7 @@ export function nullableVariableValueModel(
 				return createValidationSingleError(`The variable is required.`);
 			}
 			if (value && value.name) {
-				if (!context.hasVariable(value.name, configuration.variableType)) {
+				if (!context.hasVariable(value.name, configuration.valueType)) {
 					return createValidationSingleError(`The variable ${value.name} is not found.`);
 				}
 			}

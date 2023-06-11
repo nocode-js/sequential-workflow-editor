@@ -3,6 +3,7 @@ import { ContextVariable, ValidationResult, ValueModel } from '../model';
 import { Path } from '../core/path';
 import { DefinitionContext } from './definition-context';
 import { SimpleEvent } from '../core/simple-event';
+import { ValueType } from '../types';
 
 export class ValueModelContext<TValueModel extends ValueModel = ValueModel> {
 	public static create<TValueModel extends ValueModel>(
@@ -25,22 +26,20 @@ export class ValueModelContext<TValueModel extends ValueModel = ValueModel> {
 		this.onValueChanged.forward(this.model.path);
 	}
 
-	public getValueTypes(): string[] {
+	public getValueTypes(): ValueType[] {
 		return this.definitionContext.definitionModel.valueTypes;
 	}
 
 	public hasVariable(name: string, valueType: string): boolean {
-		const variables = this.definitionContext.variablesProvider.getVariables();
-		return variables.some(v => v.name === name && v.type === valueType);
+		return this.getVariables().some(v => v.name === name && v.type === valueType);
 	}
 
 	public isVariableDuplicated(name: string): boolean {
-		const variables = this.definitionContext.variablesProvider.getVariables();
-		return variables.filter(v => v.name === name).length > 1;
+		return this.getVariables().filter(v => v.name === name).length > 1;
 	}
 
-	public getVariables(valueType: string): ContextVariable[] {
-		return this.definitionContext.variablesProvider.getVariables().filter(v => v.type === valueType);
+	public getVariables(): ContextVariable[] {
+		return this.definitionContext.variablesProvider.getVariables();
 	}
 
 	public validate(): ValidationResult {

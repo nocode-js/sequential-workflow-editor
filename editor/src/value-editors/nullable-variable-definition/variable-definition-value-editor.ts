@@ -25,7 +25,7 @@ export function nullableVariableDefinitionValueEditor(
 	input.addEventListener('input', () => {
 		context.setValue({
 			name: input.value,
-			type: context.model.configuration.variableType
+			type: context.model.configuration.valueType
 		});
 		validate();
 	});

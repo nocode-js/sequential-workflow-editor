@@ -11,10 +11,12 @@ import { anyVariablesValueEditor, anyVariablesValueEditorId } from './any-variab
 import { dynamicValueEditor, dynamicValueEditorId } from './dynamic/dynamic-value-editor';
 import { choiceValueEditor, choiceValueEditorId } from './choice/choice-value-editor';
 import { branchesValueModelId, sequenceValueModelId } from 'sequential-workflow-editor-model';
+import { nullableAnyVariableValueEditor, nullableAnyVariableValueEditorId } from './nullable-any-variable/nullable-any-variable-editor';
 
 const editors: { id: string; factory: ValueEditorFactory | null }[] = [
 	{ id: anyVariablesValueEditorId, factory: anyVariablesValueEditor as ValueEditorFactory },
 	{ id: choiceValueEditorId, factory: choiceValueEditor as ValueEditorFactory },
+	{ id: nullableAnyVariableValueEditorId, factory: nullableAnyVariableValueEditor as ValueEditorFactory },
 	{ id: dynamicValueEditorId, factory: dynamicValueEditor as ValueEditorFactory },
 	{ id: nullableVariableValueEditorId, factory: nullableVariableValueEditor as ValueEditorFactory },
 	{ id: nullableVariableDefinitionValueEditorId, factory: nullableVariableDefinitionValueEditor as ValueEditorFactory },
