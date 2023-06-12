@@ -49,7 +49,8 @@ export function dynamicValueModel<TValueModelFactory extends ValueModelFactory[]
 				const value = context.getValue();
 				const model = subModels.find(m => m.id === value.modelId);
 				if (!model) {
-					throw new Error(`Cannot find model id: ${value.modelId}`);
+					const availableModels = subModels.map(m => m.id).join(', ');
+					throw new Error(`Cannot find sub model id: ${value.modelId} (available: ${availableModels})`);
 				}
 				const childContext = context.createChildContext(model);
 				return model.validate(childContext);
