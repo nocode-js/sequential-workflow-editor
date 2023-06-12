@@ -1,13 +1,14 @@
 import {
 	Dynamic,
 	NullableVariable,
-	ValueKnownType,
+	booleanValueModel,
 	branchesValueModel,
 	choiceValueModel,
 	createBranchedStepModel,
 	dynamicValueModel,
-	nullableVariableValueModel,
-	numberValueModel
+	nullableAnyVariableValueModel,
+	numberValueModel,
+	stringValueModel
 } from 'sequential-workflow-editor-model';
 import { BranchedStep } from 'sequential-workflow-model';
 
@@ -15,34 +16,35 @@ export interface IfStep extends BranchedStep {
 	type: 'if';
 	componentType: 'switch';
 	properties: {
-		a: Dynamic<number | NullableVariable>;
+		a: Dynamic<number | string | boolean | NullableVariable>;
 		operator: string;
-		b: Dynamic<number | NullableVariable>;
+		b: Dynamic<number | string | boolean | NullableVariable>;
 	};
 }
 
 export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step => {
-	const val = dynamicValueModel({
+	const ab = dynamicValueModel({
 		models: [
 			numberValueModel({}),
-			nullableVariableValueModel({
-				isRequired: true,
-				valueType: ValueKnownType.number
+			stringValueModel({}),
+			booleanValueModel({}),
+			nullableAnyVariableValueModel({
+				isRequired: true
 			})
 		]
 	});
 
-	step.property('a').value(val).label('A');
+	step.property('a').value(ab).label('A');
 
 	step.property('operator')
 		.label('Operator')
 		.value(
 			choiceValueModel({
-				choices: ['=', '!=', '>', '>=', '<', '<=']
+				choices: ['==', '===', '!=', '!==', '>', '>=', '<', '<=']
 			})
 		);
 
-	step.property('b').value(val).label('B');
+	step.property('b').value(ab).label('B');
 
 	step.branches().value(
 		branchesValueModel({

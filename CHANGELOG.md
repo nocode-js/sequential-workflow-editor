@@ -1,3 +1,7 @@
+## 0.3.1
+
+Added new value model: boolean (`booleanValueModel({ ... })`).
+
 ## 0.3.0
 
 * Added new value model: nullable any variable (`nullableAnyVariableValueModel({ ... })`). This value model allows you to select any variable. Additionally, you can specify a variable type that can be selected by a user.

@@ -41,8 +41,8 @@ const definition: MyDefinition = {
 					type: 'if',
 					componentType: 'switch',
 					properties: {
-						a: { modelId: 'nullableVariable', value: { name: 'remainder' } },
-						operator: '=',
+						a: { modelId: 'nullableAnyVariable', value: { name: 'remainder', type: 'number' } },
+						operator: '==',
 						b: { modelId: 'number', value: 0 }
 					},
 					branches: {
