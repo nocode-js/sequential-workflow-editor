@@ -1,9 +1,11 @@
 import { DefinitionContext, Path, PropertyModel, PropertyModels, SimpleEvent } from 'sequential-workflow-editor-model';
-import { PropertyEditor } from './property-editor';
+import { PropertyEditor } from './property-editor/property-editor';
 import { EditorServices, ValueEditorEditorFactoryResolver } from './value-editors';
+import { EditorHeader, EditorHeaderData } from './editor-header';
 
 export class Editor {
 	public static create(
+		headerData: EditorHeaderData | null,
 		propertyModels: PropertyModels,
 		definitionContext: DefinitionContext,
 		editorServices: EditorServices,
@@ -11,6 +13,11 @@ export class Editor {
 	): Editor {
 		const root = document.createElement('div');
 		root.className = `swe-editor swe-type-${typeClassName}`;
+
+		if (headerData) {
+			const header = EditorHeader.create(headerData);
+			root.appendChild(header.view);
+		}
 
 		const editors = new Map<PropertyModel, PropertyEditor>();
 		for (const propertyModel of propertyModels) {

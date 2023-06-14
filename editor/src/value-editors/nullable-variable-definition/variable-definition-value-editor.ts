@@ -2,8 +2,8 @@ import { NullableVariableDefinitionValueModel, ValueModelContext } from 'sequent
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { ValueEditor } from '../value-editor';
 import { validationErrorComponent } from '../../components/validation-error-component';
-import { Html } from '../../core/html';
 import { rowComponent } from '../../components/row-component';
+import { inputComponent } from '../../components/input-component';
 
 export const nullableVariableDefinitionValueEditorId = 'nullableVariableDefinition';
 
@@ -14,22 +14,17 @@ export function nullableVariableDefinitionValueEditor(
 		validation.setDefaultError(context.validate());
 	}
 
-	const input = Html.element('input', {
-		class: 'swe-input swe-stretched',
-		type: 'text'
-	});
-	input.value = context.getValue()?.name || '';
-
-	const row = rowComponent([input]);
-
-	input.addEventListener('input', () => {
+	const startValue = context.getValue()?.name || '';
+	const input = inputComponent(startValue);
+	input.onChanged.subscribe(value => {
 		context.setValue({
-			name: input.value,
+			name: value,
 			type: context.model.configuration.valueType
 		});
 		validate();
 	});
 
+	const row = rowComponent([input.view]);
 	const validation = validationErrorComponent();
 	const container = valueEditorContainerComponent([row.view, validation.view]);
 

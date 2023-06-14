@@ -14,7 +14,7 @@ export type BranchesValueModel<TBranches extends Branches> = ValueModel<TBranche
 
 type BranchesOf<TConfiguration extends BranchesValueModelConfiguration> = Record<keyof TConfiguration['branches'], Sequence>;
 
-export const branchesValueModelId = 'workflow.branches';
+export const branchesValueModelId = 'branches';
 
 export function branchesValueModel<TConfiguration extends BranchesValueModelConfiguration>(
 	configuration: TConfiguration

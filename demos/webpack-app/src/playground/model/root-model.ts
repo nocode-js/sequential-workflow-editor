@@ -3,6 +3,7 @@ import { MyDefinition } from './definition-model';
 
 export const rootModel = createRootModel<MyDefinition>(root => {
 	root.property('inputs')
+		.hint('Variables passed to the workflow from the outside.')
 		.value(variableDefinitionsValueModel({}))
 		.dependentProperty('outputs')
 		.customValidator({
@@ -11,7 +12,9 @@ export const rootModel = createRootModel<MyDefinition>(root => {
 				return inputs.variables.length > 0 ? null : 'At least one input is required';
 			}
 		});
-	root.property('outputs').value(variableDefinitionsValueModel({})).label('Outputs');
+
+	root.property('outputs').hint('Variables returned from the workflow.').value(variableDefinitionsValueModel({})).label('Outputs');
+
 	root.sequence().value(
 		sequenceValueModel({
 			sequence: []

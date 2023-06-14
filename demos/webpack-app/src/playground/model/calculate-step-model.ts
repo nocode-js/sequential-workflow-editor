@@ -22,6 +22,9 @@ export interface CalculateStep extends Step {
 }
 
 export const calculateStepModel = createStepModel<CalculateStep>('calculate', 'task', step => {
+	step.category('Values');
+	step.description('Calculate value from two numbers. Result is stored in variable.');
+
 	const val = dynamicValueModel({
 		models: [
 			numberValueModel({}),

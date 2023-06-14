@@ -6,6 +6,7 @@ import { rowComponent } from '../../components/row-component';
 import { buttonComponent } from '../../components/button-component';
 import { selectComponent } from '../../components/select-component';
 import { filterValueTypes } from '../../core/filter-value-types';
+import { inputComponent } from '../../components/input-component';
 
 export interface VariableDefinitionItemComponent extends Component {
 	onNameChanged: SimpleEvent<string>;
@@ -30,12 +31,9 @@ export function variableDefinitionItemComponent(
 		class: 'swe-variable-definition-item'
 	});
 
-	const input = Html.element('input', {
-		class: 'swe-input swe-stretched',
-		type: 'text',
+	const input = inputComponent(variable.name, {
 		placeholder: 'Variable name'
 	});
-	input.value = variable.name;
 
 	const valueTypes = filterValueTypes(context.getValueTypes(), context.model.configuration.valueTypes);
 
@@ -51,9 +49,9 @@ export function variableDefinitionItemComponent(
 
 	const validation = validationErrorComponent();
 
-	input.addEventListener('input', () => onNameChanged.forward(input.value), false);
+	input.onChanged.subscribe(value => onNameChanged.forward(value));
 
-	const row = rowComponent([input, typeSelect.view, deleteButton.view], {
+	const row = rowComponent([input.view, typeSelect.view, deleteButton.view], {
 		cols: [2, 1, null]
 	});
 	view.appendChild(row.view);

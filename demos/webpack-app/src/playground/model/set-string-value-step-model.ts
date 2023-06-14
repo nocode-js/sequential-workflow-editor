@@ -19,6 +19,8 @@ export interface SetStringValueStep extends Step {
 }
 
 export const setStringValueStepModel = createStepModel<SetStringValueStep>('setStringValue', 'task', step => {
+	step.category('Values');
+
 	step.property('variable')
 		.value(
 			nullableVariableValueModel({

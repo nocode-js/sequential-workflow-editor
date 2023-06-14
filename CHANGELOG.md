@@ -1,3 +1,8 @@
+## 0.3.2
+
+* The `StepModel` interface has two new properties: `category` and `description`. The category is used to group steps in the toolbox. The description is used to display an additional information about a step in the editor.
+* The `PropertyModel` interface has one new property: `hint`. The hint is used to display an additional information about a property in the editor.
+
 ## 0.3.1
 
 Added new value model: boolean (`booleanValueModel({ ... })`).

@@ -10,6 +10,8 @@ const namePath = Path.create(['name']);
 
 export class StepModelBuilder<TStep extends Step> {
 	protected readonly circularDependencyDetector = new CircularDependencyDetector();
+	private _description?: string;
+	private _category?: string;
 	private readonly nameBuilder = new PropertyModelBuilder<string>(namePath, this.circularDependencyDetector);
 	private readonly propertyBuilder: PropertyModelBuilder[] = [];
 
@@ -22,10 +24,39 @@ export class StepModelBuilder<TStep extends Step> {
 		}
 	}
 
+	/**
+	 * Sets the category of the step. This field is used in the toolbox to group steps.
+	 * @param category The category of the step.
+	 * @example `builder.category('Utilities');`
+	 */
+	public category(category: string): this {
+		this._category = category;
+		return this;
+	}
+
+	/**
+	 * Sets the description of the step.
+	 * @param description The description of the step.
+	 * @example `builder.description('This step does something useful.');`
+	 */
+	public description(description: string): this {
+		this._description = description;
+		return this;
+	}
+
+	/**
+	 * @returns The builder for the `name` property.
+	 * @example `builder.name().value(stringValueModel({ defaultValue: 'Some name' })).label('Name');`
+	 */
 	public name(): PropertyModelBuilder<string, TStep['properties']> {
 		return this.nameBuilder;
 	}
 
+	/**
+	 * @param propertyName Name of the property in the step.
+	 * @returns The builder for the property.
+	 * @example `builder.property('foo').value(stringValueModel({ defaultValue: 'Some value' })).label('Foo');`
+	 */
 	public property<Key extends keyof TStep['properties']>(
 		propertyName: Key
 	): PropertyModelBuilder<TStep['properties'][Key], TStep['properties']> {
@@ -47,6 +78,8 @@ export class StepModelBuilder<TStep extends Step> {
 		return {
 			type: this.type,
 			componentType: this.componentType,
+			category: this._category,
+			description: this._description,
 			name: this.nameBuilder.build(),
 			properties: this.propertyBuilder.map(builder => builder.build())
 		};

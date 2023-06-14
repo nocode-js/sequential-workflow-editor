@@ -6,10 +6,12 @@ import {
 	SimpleEvent,
 	ValueModelContext
 } from 'sequential-workflow-editor-model';
-import { EditorServices, ValueEditor } from './value-editors';
-import { Html } from './core/html';
-import { Component } from './components/component';
-import { PropertyValidationErrorComponent, propertyValidationErrorComponent } from './components/property-validation-error-component';
+import { EditorServices, ValueEditor } from '../value-editors';
+import { Html } from '../core/html';
+import { Component } from '../components/component';
+import { PropertyValidationErrorComponent, propertyValidationErrorComponent } from '../components/property-validation-error-component';
+import { Icons } from '../core/icons';
+import { PropertyHintComponent, propertyHint } from './property-hint';
 
 export class PropertyEditor implements Component {
 	public static create(
@@ -20,6 +22,7 @@ export class PropertyEditor implements Component {
 		const valueContext = ValueModelContext.create(propertyModel.value, definitionContext);
 		const valueEditorFactory = editorServices.valueEditorFactoryResolver(propertyModel.value.id);
 		const valueEditor = valueEditorFactory(valueContext, editorServices);
+		let hint: PropertyHintComponent | null = null;
 
 		const nameClassName = propertyModel.name;
 		const view = Html.element('div', {
@@ -35,6 +38,20 @@ export class PropertyEditor implements Component {
 
 		header.appendChild(label);
 		view.appendChild(header);
+
+		if (propertyModel.hint) {
+			const toggle = Html.element('span', {
+				class: 'swe-property-header-hint-toggle'
+			});
+			const toggleIcon = Icons.createSvg(Icons.help, 'swe-property-header-hint-toggle-icon');
+			toggle.appendChild(toggleIcon);
+			toggle.addEventListener('click', () => hint?.toggle(), false);
+			header.appendChild(toggle);
+
+			hint = propertyHint(propertyModel.hint);
+			view.appendChild(hint.view);
+		}
+
 		view.appendChild(valueEditor.view);
 
 		if (valueEditor.controlView) {

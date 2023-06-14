@@ -8,7 +8,23 @@
 .swe-editor {
 	margin: 10px 0 0;
 	font-size: 13px;
-	line-height: 1.3em;
+	line-height: 1.3rem;
+}
+.swe-editor-header {
+	padding: 0 10px 5px;
+}
+.swe-editor-header-title {
+	margin: 0;
+	padding: 5px 0 10px;
+	font-size: 1.4rem;
+	line-height: 1.3rem;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.swe-editor-header-description {
+	margin: 0 0 10px;
+	color: #666;
 }
 
 /* properties */
@@ -24,13 +40,43 @@
 }
 .swe-property-header-label {
 	display: block;
-	flex: 1;
 	padding: 0;
 	margin: 0;
 	font-size: 1.05rem;
+	line-height: 1.3rem;
+}
+.swe-property-header-hint-toggle {
+	display: block;
+	width: 18px;
+	height: 18px;
+	margin: 0 8px;
+	background: #ddd;
+	border-radius: 50% 50%;
+	text-align: center;
+	font-size: 11px;
+	cursor: pointer;
+}
+.swe-property-header-hint-toggle:hover {
+	background: #eee;
+}
+.swe-property-header-hint-toggle-icon {
+	width: 70%;
+	height: 70%;
+	margin: 15%;
+}
+.swe-property-header-hint-toggle-icon path {
+	fill: #777;
 }
 .swe-property-header-control {
+	flex: 1;
 	text-align: right;
+}
+.swe-property-hint-text {
+	margin: 0 0 10px;
+	padding: 6px 10px;
+	border-radius: 5px;
+	background: #eee;
+	border: 1px solid #ddd;
 }
 .swe-validation-error-text {
 	margin: 0 0 10px;

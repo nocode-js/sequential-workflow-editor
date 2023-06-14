@@ -28,6 +28,9 @@ export interface LoopStep extends SequentialStep {
 }
 
 export const loopStepModel = createSequentialStepModel('loop', 'container', step => {
+	step.category('Logic');
+	step.description('Loop over a range of numbers.');
+
 	step.property('from')
 		.label('From')
 		.value(

@@ -22,6 +22,8 @@ export type StepModels = Record<string, StepModel>;
 export interface StepModel {
 	type: string;
 	componentType: string;
+	category?: string;
+	description?: string;
 	name: PropertyModel<string>;
 	properties: PropertyModels;
 }
@@ -31,6 +33,7 @@ export type PropertyModels = PropertyModel[];
 export interface PropertyModel<TValue extends PropertyValue = PropertyValue, TConfiguration extends object = object> {
 	name: string;
 	label: string;
+	hint?: string;
 	dependencies: Path[];
 	customValidator?: CustomValidator<TValue>;
 	value: ValueModel<TValue, TConfiguration>;
