@@ -23,6 +23,9 @@ export interface IfStep extends BranchedStep {
 }
 
 export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step => {
+	step.category('Logic');
+	step.description('Check condition and execute different branches.');
+
 	const ab = dynamicValueModel({
 		models: [
 			numberValueModel({}),
@@ -34,7 +37,7 @@ export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step 
 		]
 	});
 
-	step.property('a').value(ab).label('A');
+	step.property('a').value(ab).label('A').hint('Left side of comparison.');
 
 	step.property('operator')
 		.label('Operator')
@@ -42,9 +45,10 @@ export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step 
 			choiceValueModel({
 				choices: ['==', '===', '!=', '!==', '>', '>=', '<', '<=']
 			})
-		);
+		)
+		.hint('Comparison operator.\nStep supports strict and non-strict operators.');
 
-	step.property('b').value(ab).label('B');
+	step.property('b').value(ab).label('B').hint('Right side of comparison.');
 
 	step.branches().value(
 		branchesValueModel({

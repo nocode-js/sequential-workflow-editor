@@ -2,8 +2,8 @@ import { NumberValueModel, ValueModelContext } from 'sequential-workflow-editor-
 import { ValueEditor } from '../value-editor';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { validationErrorComponent } from '../../components/validation-error-component';
-import { Html } from '../../core/html';
 import { rowComponent } from '../../components/row-component';
+import { inputComponent } from '../../components/input-component';
 
 export const numberValueEditorId = 'number';
 
@@ -12,18 +12,17 @@ export function numberValueEditor(context: ValueModelContext<NumberValueModel>):
 		validation.setDefaultError(context.validate());
 	}
 
-	const input = Html.element('input', {
-		class: 'swe-input swe-stretched',
+	const startValue = String(context.getValue());
+	const input = inputComponent(startValue, {
 		type: 'number'
 	});
-	input.value = String(context.getValue());
-
-	const row = rowComponent([input]);
-
-	input.addEventListener('input', () => {
-		context.setValue(parseInt(input.value, 10));
+	input.onChanged.subscribe(value => {
+		const num = value.length > 0 ? Number(value) : NaN;
+		context.setValue(num);
 		validate();
 	});
+
+	const row = rowComponent([input.view]);
 
 	const validation = validationErrorComponent();
 	const container = valueEditorContainerComponent([row.view, validation.view]);

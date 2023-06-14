@@ -8,9 +8,11 @@ import {
 	RootValidator,
 	StepEditorContext,
 	StepEditorProvider,
-	StepValidator
+	StepValidator,
+	ToolboxGroup
 } from './external-types';
 import { EditorProviderConfiguration } from './editor-provider-configuration';
+import { EditorHeaderData } from './editor-header';
 
 export class EditorProvider<TDefinition extends Definition> {
 	public static create<TDef extends Definition>(
@@ -20,7 +22,7 @@ export class EditorProvider<TDefinition extends Definition> {
 		const definitionWalker = configuration.definitionWalker ?? new DefinitionWalker();
 		const activator = ModelActivator.create(definitionModel, configuration.uidGenerator);
 		const validator = ModelValidator.create(definitionModel, definitionWalker);
-		return new EditorProvider(activator, validator, definitionModel, definitionWalker);
+		return new EditorProvider(activator, validator, definitionModel, definitionWalker, configuration);
 	}
 
 	private readonly services: EditorServices = {
@@ -32,16 +34,16 @@ export class EditorProvider<TDefinition extends Definition> {
 		private readonly activator: ModelActivator<TDefinition>,
 		private readonly validator: ModelValidator,
 		private readonly definitionModel: DefinitionModel,
-		private readonly definitionWalker: DefinitionWalker
+		private readonly definitionWalker: DefinitionWalker,
+		private readonly configuration: EditorProviderConfiguration
 	) {}
 
 	public createRootEditorProvider(): RootEditorProvider {
 		return (definition: Definition, context: GlobalEditorContext): HTMLElement => {
 			const rootContext = DefinitionContext.createForRoot(definition, this.definitionModel, this.definitionWalker);
 			const typeClassName = 'root';
-			const editor = Editor.create(this.definitionModel.root.properties, rootContext, this.services, typeClassName);
-			editor.onValueChanged.subscribe((path: Path) => {
-				console.log('valueChanged', path.toString());
+			const editor = Editor.create(null, this.definitionModel.root.properties, rootContext, this.services, typeClassName);
+			editor.onValueChanged.subscribe(() => {
 				context.notifyPropertiesChanged();
 			});
 			return editor.root;
@@ -58,7 +60,16 @@ export class EditorProvider<TDefinition extends Definition> {
 			);
 			const stepModel = this.definitionModel.steps[step.type];
 			const typeClassName = stepModel.type;
-			const editor = Editor.create([stepModel.name, ...stepModel.properties], definitionContext, this.services, typeClassName);
+			const propertyModels = [stepModel.name, ...stepModel.properties];
+
+			const headerData: EditorHeaderData | null = this.configuration.isHeaderHidden
+				? null
+				: {
+						title: stepModel.name.value.getDefaultValue(this.activator),
+						description: stepModel.description
+				  };
+
+			const editor = Editor.create(headerData, propertyModels, definitionContext, this.services, typeClassName);
 
 			editor.onValueChanged.subscribe((path: Path) => {
 				if (path.equals(stepModel.name.value.path)) {
@@ -89,5 +100,23 @@ export class EditorProvider<TDefinition extends Definition> {
 
 	public activateStep(type: string): Step {
 		return this.activator.activateStep(type);
+	}
+
+	public getToolboxGroups(): ToolboxGroup[] {
+		const stepModels = Object.values(this.definitionModel.steps);
+		const groups: ToolboxGroup[] = [];
+		const categories = new Set<string | undefined>(stepModels.map(step => step.category));
+		categories.forEach((category: string | undefined) => {
+			const name = category ?? 'Others';
+			const groupStepModels = stepModels.filter(step => step.category === category);
+			const groupSteps = groupStepModels.map(step => this.activateStep(step.type));
+			groupSteps.sort((a, b) => a.name.localeCompare(b.name));
+			groups.push({
+				name,
+				steps: groupSteps
+			});
+		});
+		groups.sort((a, b) => a.name.localeCompare(b.name));
+		return groups;
 	}
 }

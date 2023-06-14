@@ -11,6 +11,9 @@ export interface ConvertValueStep extends Step {
 }
 
 export const convertValueStepModel = createStepModel<ConvertValueStep>('convertValue', 'task', step => {
+	step.category('Values');
+	step.description('Convert value from one variable to another.');
+
 	step.property('source')
 		.value(
 			nullableAnyVariableValueModel({

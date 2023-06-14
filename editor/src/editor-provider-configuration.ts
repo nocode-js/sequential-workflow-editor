@@ -4,4 +4,5 @@ import { DefinitionWalker } from 'sequential-workflow-model';
 export interface EditorProviderConfiguration {
 	uidGenerator: UidGenerator;
 	definitionWalker?: DefinitionWalker;
+	isHeaderHidden?: boolean;
 }

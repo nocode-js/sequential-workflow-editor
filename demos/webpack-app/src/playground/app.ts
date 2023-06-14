@@ -3,7 +3,7 @@ import { editorProvider } from './editor-provider';
 import { AppState, AppStorage } from './storage';
 import { Playground } from './playground';
 import { executeMachine } from './machine/machine-executor';
-import { MyDefinition, definitionModel } from './model/definition-model';
+import { MyDefinition } from './model/definition-model';
 import { defaultAppState } from './default-state';
 
 import 'sequential-workflow-designer/css/designer.css';
@@ -33,12 +33,7 @@ export class App {
 				}
 			},
 			toolbox: {
-				groups: [
-					{
-						name: 'Steps',
-						steps: Object.keys(definitionModel.steps).map(stepType => editorProvider.activateStep(stepType))
-					}
-				]
+				groups: editorProvider.getToolboxGroups()
 			},
 			undoStackSize: 10,
 			definitionWalker
