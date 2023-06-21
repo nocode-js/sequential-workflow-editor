@@ -1,6 +1,6 @@
-import { ValueModel, ValueModelFactory, ValidationResult, createValidationSingleError } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel, ValidationResult, createValidationSingleError } from '../../model';
 import { Path } from '../../core/path';
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 
 export interface NumberValueModelConfiguration {
 	defaultValue?: number;
@@ -12,8 +12,8 @@ export type NumberValueModel = ValueModel<number, NumberValueModelConfiguration>
 
 export const numberValueModelId = 'number';
 
-export function numberValueModel(configuration: NumberValueModelConfiguration): ValueModelFactory<NumberValueModel> {
-	return (path: Path) => ({
+export const numberValueModel = (configuration: NumberValueModelConfiguration): ValueModelFactoryFromModel<NumberValueModel> => ({
+	create: (path: Path) => ({
 		id: numberValueModelId,
 		label: 'Number',
 		path,
@@ -28,7 +28,7 @@ export function numberValueModel(configuration: NumberValueModelConfiguration): 
 			return 0;
 		},
 		getVariableDefinitions: () => null,
-		validate(context: ValueModelContext<NumberValueModel>): ValidationResult {
+		validate(context: ValueContext<NumberValueModel>): ValidationResult {
 			const value = context.getValue();
 			if (isNaN(value)) {
 				return createValidationSingleError('The value must be a number.');
@@ -41,5 +41,5 @@ export function numberValueModel(configuration: NumberValueModelConfiguration): 
 			}
 			return null;
 		}
-	});
-}
+	})
+});

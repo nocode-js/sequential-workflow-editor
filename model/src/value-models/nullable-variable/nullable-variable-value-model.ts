@@ -1,8 +1,8 @@
-import { ValueModel, ValueModelFactory, ValidationResult, createValidationSingleError } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel, ValidationResult, createValidationSingleError } from '../../model';
 import { Path } from '../../core/path';
 import { NullableVariable } from '../../types';
 import { ValueType } from '../../types';
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 
 export interface NullableVariableValueModelConfiguration {
 	valueType: ValueType;
@@ -13,10 +13,10 @@ export type NullableVariableValueModel = ValueModel<NullableVariable, NullableVa
 
 export const nullableVariableValueModelId = 'nullableVariable';
 
-export function nullableVariableValueModel(
+export const nullableVariableValueModel = (
 	configuration: NullableVariableValueModelConfiguration
-): ValueModelFactory<NullableVariableValueModel> {
-	return (path: Path) => ({
+): ValueModelFactoryFromModel<NullableVariableValueModel> => ({
+	create: (path: Path) => ({
 		id: nullableVariableValueModelId,
 		label: 'Variable',
 		path,
@@ -25,7 +25,7 @@ export function nullableVariableValueModel(
 			return null;
 		},
 		getVariableDefinitions: () => null,
-		validate(context: ValueModelContext<NullableVariableValueModel>): ValidationResult {
+		validate(context: ValueContext<NullableVariableValueModel>): ValidationResult {
 			const value = context.getValue();
 			if (configuration.isRequired && !value) {
 				return createValidationSingleError(`The variable is required.`);
@@ -37,5 +37,5 @@ export function nullableVariableValueModel(
 			}
 			return null;
 		}
-	});
-}
+	})
+});

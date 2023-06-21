@@ -1,4 +1,4 @@
-import { ValueModel, ValueModelFactory } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel } from '../../model';
 import { Path } from '../../core/path';
 import { StringValueModelConfiguration } from './string-value-model-configuration';
 import { stringValueModelValidator } from './string-value-model-validator';
@@ -7,8 +7,8 @@ export type StringValueModel = ValueModel<string, StringValueModelConfiguration>
 
 export const stringValueModelId = 'string';
 
-export function stringValueModel(configuration: StringValueModelConfiguration): ValueModelFactory<StringValueModel> {
-	return (path: Path) => ({
+export const stringValueModel = (configuration: StringValueModelConfiguration): ValueModelFactoryFromModel<StringValueModel> => ({
+	create: (path: Path) => ({
 		id: stringValueModelId,
 		label: 'String',
 		path,
@@ -18,5 +18,5 @@ export function stringValueModel(configuration: StringValueModelConfiguration): 
 		},
 		getVariableDefinitions: () => null,
 		validate: stringValueModelValidator
-	});
-}
+	})
+});

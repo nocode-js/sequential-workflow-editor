@@ -16,6 +16,6 @@ describe('StepModelBuilder', () => {
 				builder.property('pink').dependentProperty('red');
 				builder.property('red').dependentProperty('pink');
 			});
-		}).toThrowError('Circular dependency detected: properties/red <-> properties/pink');
+		}).toThrowError('It is not allowed to depend on dependency with dependency: properties/red <-> properties/pink');
 	});
 });

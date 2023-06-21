@@ -1,7 +1,7 @@
 import { MyDefinition } from './model/definition-model';
 import { RawInputData } from './playground';
 
-const version = 2;
+const version = 3;
 const definitionKey = `definition_${version}`;
 const inputDataKey = `inputData_${version}`;
 

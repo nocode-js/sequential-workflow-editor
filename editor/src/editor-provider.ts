@@ -8,6 +8,7 @@ import {
 	RootValidator,
 	StepEditorContext,
 	StepEditorProvider,
+	StepLabelProvider,
 	StepValidator,
 	ToolboxGroup
 } from './external-types';
@@ -43,7 +44,7 @@ export class EditorProvider<TDefinition extends Definition> {
 			const rootContext = DefinitionContext.createForRoot(definition, this.definitionModel, this.definitionWalker);
 			const typeClassName = 'root';
 			const editor = Editor.create(null, this.definitionModel.root.properties, rootContext, this.services, typeClassName);
-			editor.onValueChanged.subscribe(() => {
+			editor.onValuesChanged.subscribe(() => {
 				context.notifyPropertiesChanged();
 			});
 			return editor.root;
@@ -65,14 +66,14 @@ export class EditorProvider<TDefinition extends Definition> {
 			const headerData: EditorHeaderData | null = this.configuration.isHeaderHidden
 				? null
 				: {
-						title: stepModel.name.value.getDefaultValue(this.activator),
+						label: stepModel.label,
 						description: stepModel.description
 				  };
 
 			const editor = Editor.create(headerData, propertyModels, definitionContext, this.services, typeClassName);
 
-			editor.onValueChanged.subscribe((path: Path) => {
-				if (path.equals(stepModel.name.value.path)) {
+			editor.onValuesChanged.subscribe((paths: Path[]) => {
+				if (paths.some(path => path.equals(stepModel.name.value.path))) {
 					context.notifyNameChanged();
 				} else {
 					context.notifyPropertiesChanged();
@@ -118,5 +119,12 @@ export class EditorProvider<TDefinition extends Definition> {
 		});
 		groups.sort((a, b) => a.name.localeCompare(b.name));
 		return groups;
+	}
+
+	public createStepLabelProvider(): StepLabelProvider {
+		return (step: { type: string }): string => {
+			const stepModel = this.definitionModel.steps[step.type];
+			return stepModel.label;
+		};
 	}
 }

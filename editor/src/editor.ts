@@ -1,7 +1,8 @@
-import { DefinitionContext, Path, PropertyModel, PropertyModels, SimpleEvent } from 'sequential-workflow-editor-model';
+import { DefinitionContext, Path, PropertyModel, PropertyModels } from 'sequential-workflow-editor-model';
 import { PropertyEditor } from './property-editor/property-editor';
 import { EditorServices, ValueEditorEditorFactoryResolver } from './value-editors';
 import { EditorHeader, EditorHeaderData } from './editor-header';
+import { StackedSimpleEvent } from './core/stacked-simple-event';
 
 export class Editor {
 	public static create(
@@ -35,21 +36,21 @@ export class Editor {
 		return editor;
 	}
 
-	public readonly onValueChanged = new SimpleEvent<Path>();
+	public readonly onValuesChanged = new StackedSimpleEvent<Path>();
 
 	private constructor(public readonly root: HTMLElement, private readonly editors: Map<PropertyModel, PropertyEditor>) {}
 
 	private readonly onValueChangedHandler = (path: Path) => {
-		this.onValueChanged.forward(path);
+		this.onValuesChanged.push(path);
+		// console.log('onValueChangedHandler', path.toString());
 
 		this.editors.forEach((editor, propertyModel) => {
-			if (propertyModel.value.path.equals(path)) {
+			if (path.startsWith(propertyModel.path)) {
 				// Skip self
 				return;
 			}
-
-			if (propertyModel.dependencies.some(dep => dep.startsWith(path))) {
-				editor.validate();
+			if (propertyModel.dependencies.some(dependency => path.startsWith(dependency))) {
+				editor.reloadDependencies();
 			}
 		});
 	};

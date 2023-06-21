@@ -1,4 +1,4 @@
-import { ChoiceValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { ChoiceValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
@@ -7,7 +7,7 @@ import { selectComponent } from '../../components/select-component';
 
 export const choiceValueEditorId = 'choice';
 
-export function choiceValueEditor(context: ValueModelContext<ChoiceValueModel>): ValueEditor<ChoiceValueModel> {
+export function choiceValueEditor(context: ValueContext<ChoiceValueModel>): ValueEditor<ChoiceValueModel> {
 	function validate() {
 		validation.setDefaultError(context.validate());
 	}
@@ -34,7 +34,6 @@ export function choiceValueEditor(context: ValueModelContext<ChoiceValueModel>):
 	validate();
 
 	return {
-		view: container.view,
-		validate
+		view: container.view
 	};
 }

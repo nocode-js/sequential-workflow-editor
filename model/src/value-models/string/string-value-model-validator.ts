@@ -1,8 +1,8 @@
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 import { ValidationResult, createValidationSingleError } from '../../model';
 import { StringValueModel } from './string-value-model';
 
-export function stringValueModelValidator(context: ValueModelContext<StringValueModel>): ValidationResult {
+export function stringValueModelValidator(context: ValueContext<StringValueModel>): ValidationResult {
 	const value = context.getValue();
 	const configuration = context.model.configuration;
 

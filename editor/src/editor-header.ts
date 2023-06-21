@@ -3,7 +3,7 @@ import { Html } from './core';
 import { appendMultilineText } from './core/append-multiline-text';
 
 export interface EditorHeaderData {
-	title: string;
+	label: string;
 	description?: string;
 }
 
@@ -12,7 +12,7 @@ export class EditorHeader implements Component {
 		const view = Html.element('div', { class: 'swe-editor-header' });
 
 		const title = Html.element('h3', { class: 'swe-editor-header-title' });
-		title.textContent = data.title;
+		title.textContent = data.label;
 		view.appendChild(title);
 
 		if (data.description) {

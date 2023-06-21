@@ -1,4 +1,4 @@
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 import { ValidationSingleError } from '../../model';
 import { StringValueModel } from './string-value-model';
 import { StringValueModelConfiguration } from './string-value-model-configuration';
@@ -11,7 +11,7 @@ describe('stringValueModelValidator', () => {
 			model: {
 				configuration
 			}
-		} as unknown as ValueModelContext<StringValueModel>;
+		} as unknown as ValueContext<StringValueModel>;
 	}
 
 	it('returns correct response when minLength is set', () => {

@@ -1,23 +1,20 @@
 import { EditorServices, ValueEditor } from '../value-editor';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
-import { DynamicValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { DefaultValueContext, DynamicValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { selectComponent } from '../../components/select-component';
 import { Html } from '../../core/html';
 
 export const dynamicValueEditorId = 'dynamic';
 
-export function dynamicValueEditor(
-	context: ValueModelContext<DynamicValueModel>,
-	services: EditorServices
-): ValueEditor<DynamicValueModel> {
+export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, services: EditorServices): ValueEditor<DynamicValueModel> {
 	if (!context.model.subModels) {
 		throw new Error('subModels is required');
 	}
 	const subModels = context.model.subModels;
 
-	function validate() {
-		if (editor) {
-			editor.validate();
+	function reloadDependencies() {
+		if (editor && editor.reloadDependencies) {
+			editor.reloadDependencies();
 		}
 	}
 
@@ -35,15 +32,14 @@ export function dynamicValueEditor(
 		const childContext = context.createChildContext(model);
 		editor = services.valueEditorFactoryResolver(model.id)(childContext, services);
 		placeholder.appendChild(editor.view);
-
-		validate();
 	}
 
 	function onTypeChanged() {
 		const newModel = subModels[subModelSelect.getSelectedIndex()];
+		const defaultValueContext = DefaultValueContext.createFromValueContext(services.activator, context);
 		const defaultValue = {
 			modelId: newModel.id,
-			value: newModel.getDefaultValue(services.activator)
+			value: newModel.getDefaultValue(defaultValueContext)
 		};
 		context.setValue(defaultValue);
 		reloadEditor();
@@ -68,6 +64,6 @@ export function dynamicValueEditor(
 	return {
 		view: container.view,
 		controlView: subModelSelect.view,
-		validate
+		reloadDependencies
 	};
 }

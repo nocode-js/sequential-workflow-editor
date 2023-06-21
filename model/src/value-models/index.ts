@@ -3,6 +3,7 @@ export * from './boolean';
 export * from './branches';
 export * from './choice';
 export * from './dynamic';
+export * from './generated-string';
 export * from './nullable-any-variable';
 export * from './nullable-variable';
 export * from './nullable-variable-definition';

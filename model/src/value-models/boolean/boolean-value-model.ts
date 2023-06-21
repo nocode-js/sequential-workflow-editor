@@ -1,4 +1,4 @@
-import { ValueModel, ValueModelFactory } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel } from '../../model';
 import { Path } from '../../core/path';
 import { BooleanValueModelConfiguration } from './boolean-value-model-configuration';
 
@@ -6,8 +6,8 @@ export type BooleanValueModel = ValueModel<boolean, BooleanValueModelConfigurati
 
 export const booleanValueModelId = 'boolean';
 
-export function booleanValueModel(configuration: BooleanValueModelConfiguration): ValueModelFactory<BooleanValueModel> {
-	return (path: Path) => ({
+export const booleanValueModel = (configuration: BooleanValueModelConfiguration): ValueModelFactoryFromModel<BooleanValueModel> => ({
+	create: (path: Path) => ({
 		id: booleanValueModelId,
 		label: 'Boolean',
 		path,
@@ -20,5 +20,5 @@ export function booleanValueModel(configuration: BooleanValueModelConfiguration)
 		},
 		getVariableDefinitions: () => null,
 		validate: () => null
-	});
-}
+	})
+});

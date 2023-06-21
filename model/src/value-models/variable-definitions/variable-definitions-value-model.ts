@@ -1,7 +1,7 @@
-import { ValueModel, ValueModelFactory, ValidationResult } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel, ValidationResult } from '../../model';
 import { Path } from '../../core/path';
 import { ValueType, VariableDefinition, VariableDefinitions } from '../../types';
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 import { variableNameValidator } from '../variable-name-validator';
 
 export interface VariableDefinitionsValueModelConfiguration {
@@ -12,10 +12,10 @@ export type VariableDefinitionsValueModel = ValueModel<VariableDefinitions, Vari
 
 export const variableDefinitionsValueModelId = 'variableDefinitions';
 
-export function variableDefinitionsValueModel(
+export const variableDefinitionsValueModel = (
 	configuration: VariableDefinitionsValueModelConfiguration
-): ValueModelFactory<VariableDefinitionsValueModel> {
-	return (path: Path) => ({
+): ValueModelFactoryFromModel<VariableDefinitionsValueModel> => ({
+	create: (path: Path) => ({
 		id: variableDefinitionsValueModelId,
 		label: 'Variable definitions',
 		path,
@@ -25,10 +25,10 @@ export function variableDefinitionsValueModel(
 				variables: []
 			};
 		},
-		getVariableDefinitions(context: ValueModelContext<VariableDefinitionsValueModel>): VariableDefinition[] {
+		getVariableDefinitions(context: ValueContext<VariableDefinitionsValueModel>): VariableDefinition[] {
 			return context.getValue().variables.filter(variable => !!variable.name);
 		},
-		validate: (context: ValueModelContext<VariableDefinitionsValueModel>): ValidationResult => {
+		validate: (context: ValueContext<VariableDefinitionsValueModel>): ValidationResult => {
 			const errors: Record<string, string> = {};
 			const value = context.getValue();
 
@@ -54,5 +54,5 @@ export function variableDefinitionsValueModel(
 
 			return Object.keys(errors).length > 0 ? errors : null;
 		}
-	});
-}
+	})
+});

@@ -1,7 +1,7 @@
 import { Branches, Sequence } from 'sequential-workflow-model';
-import { ValueModel, ValueModelFactory } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel } from '../../model';
 import { Path } from '../../core/path';
-import { ModelActivator } from '../../activator';
+import { DefaultValueContext } from '../../context/default-value-context';
 
 export interface BranchesValueModelConfiguration {
 	/**
@@ -16,22 +16,22 @@ type BranchesOf<TConfiguration extends BranchesValueModelConfiguration> = Record
 
 export const branchesValueModelId = 'branches';
 
-export function branchesValueModel<TConfiguration extends BranchesValueModelConfiguration>(
+export const branchesValueModel = <TConfiguration extends BranchesValueModelConfiguration>(
 	configuration: TConfiguration
-): ValueModelFactory<BranchesValueModel<BranchesOf<TConfiguration>>> {
-	return (path: Path) => ({
+): ValueModelFactoryFromModel<BranchesValueModel<BranchesOf<TConfiguration>>> => ({
+	create: (path: Path) => ({
 		id: branchesValueModelId,
 		label: 'Branches',
 		path,
 		configuration,
-		getDefaultValue(activator: ModelActivator): BranchesOf<TConfiguration> {
+		getDefaultValue(context: DefaultValueContext): BranchesOf<TConfiguration> {
 			const branches = Object.keys(configuration.branches).reduce<Branches>((result, branchName) => {
-				result[branchName] = configuration.branches[branchName].map(type => activator.activateStep(type));
+				result[branchName] = configuration.branches[branchName].map(type => context.activateStep(type));
 				return result;
 			}, {});
 			return branches as BranchesOf<TConfiguration>;
 		},
 		getVariableDefinitions: () => null,
 		validate: () => null
-	});
-}
+	})
+});

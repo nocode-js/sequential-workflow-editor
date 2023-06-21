@@ -1,3 +1,14 @@
+## 0.4.0
+
+* Added new value model: `generatedString` (`generatedStringValueEditor({ ... })`). The new value model allows you to generate a string value for some property, depending on the values of other properties. Mainly this feature is designed to generate a step name automatically.
+* The `StepModel` interface has one new property: `label`. The label is used to display a step name in the editor and the toolbox.
+
+**Breaking changes:**
+
+* The `ValueModelFactory` type is changed to the interface.
+* The `ValueModelContext` class is renamed to `ValueContext`.
+* The `VariablesProvider` class skips variables from own step.
+
 ## 0.3.2
 
 * The `StepModel` interface has two new properties: `category` and `description`. The category is used to group steps in the toolbox. The description is used to display an additional information about a step in the editor.

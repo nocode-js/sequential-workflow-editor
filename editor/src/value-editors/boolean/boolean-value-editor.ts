@@ -1,4 +1,4 @@
-import { BooleanValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { BooleanValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
@@ -7,7 +7,7 @@ import { selectComponent } from '../../components/select-component';
 
 export const booleanValueEditorId = 'boolean';
 
-export function booleanValueEditor(context: ValueModelContext<BooleanValueModel>): ValueEditor<BooleanValueModel> {
+export function booleanValueEditor(context: ValueContext<BooleanValueModel>): ValueEditor<BooleanValueModel> {
 	function validate() {
 		validation.setDefaultError(context.validate());
 	}
@@ -32,7 +32,6 @@ export function booleanValueEditor(context: ValueModelContext<BooleanValueModel>
 	validate();
 
 	return {
-		view: container.view,
-		validate
+		view: container.view
 	};
 }

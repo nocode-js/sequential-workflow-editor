@@ -1,7 +1,7 @@
-import { ValueModel, ValueModelFactory, ValidationResult, createValidationSingleError } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel, ValidationResult, createValidationSingleError } from '../../model';
 import { Path } from '../../core/path';
 import { NullableVariableDefinition, ValueType, VariableDefinition } from '../../types';
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 import { variableNameValidator } from '../variable-name-validator';
 
 export interface NullableVariableDefinitionValueModelConfiguration {
@@ -17,10 +17,10 @@ export type NullableVariableDefinitionValueModel = ValueModel<
 
 export const nullableVariableDefinitionValueModelId = 'nullableVariableDefinition';
 
-export function nullableVariableDefinitionValueModel(
+export const nullableVariableDefinitionValueModel = (
 	configuration: NullableVariableDefinitionValueModelConfiguration
-): ValueModelFactory<NullableVariableDefinitionValueModel> {
-	return (path: Path) => ({
+): ValueModelFactoryFromModel<NullableVariableDefinitionValueModel> => ({
+	create: (path: Path) => ({
 		id: nullableVariableDefinitionValueModelId,
 		label: 'Variable definition',
 		path,
@@ -28,14 +28,14 @@ export function nullableVariableDefinitionValueModel(
 		getDefaultValue() {
 			return configuration.defaultValue || null;
 		},
-		getVariableDefinitions(context: ValueModelContext<NullableVariableDefinitionValueModel>): VariableDefinition[] | null {
+		getVariableDefinitions(context: ValueContext<NullableVariableDefinitionValueModel>): VariableDefinition[] | null {
 			const value = context.getValue();
 			if (value) {
 				return [value];
 			}
 			return null;
 		},
-		validate(context: ValueModelContext<NullableVariableDefinitionValueModel>): ValidationResult {
+		validate(context: ValueContext<NullableVariableDefinitionValueModel>): ValidationResult {
 			const value = context.getValue();
 			if (configuration.isRequired && !value) {
 				return createValidationSingleError('Variable name is required.');
@@ -54,5 +54,5 @@ export function nullableVariableDefinitionValueModel(
 			}
 			return null;
 		}
-	});
-}
+	})
+});

@@ -1,4 +1,4 @@
-import { NullableVariableValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { NullableVariableValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { validationErrorComponent } from '../../components/validation-error-component';
@@ -9,9 +9,7 @@ import { filterVariablesByType } from '../../core/filter-variables-by-type';
 
 export const nullableVariableValueEditorId = 'nullableVariable';
 
-export function nullableVariableValueEditor(
-	context: ValueModelContext<NullableVariableValueModel>
-): ValueEditor<NullableVariableValueModel> {
+export function nullableVariableValueEditor(context: ValueContext<NullableVariableValueModel>): ValueEditor<NullableVariableValueModel> {
 	function validate() {
 		validation.setDefaultError(context.validate());
 	}
@@ -49,7 +47,6 @@ export function nullableVariableValueEditor(
 	validate();
 
 	return {
-		view: container.view,
-		validate
+		view: container.view
 	};
 }

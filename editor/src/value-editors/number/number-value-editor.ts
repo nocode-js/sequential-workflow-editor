@@ -1,4 +1,4 @@
-import { NumberValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { NumberValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { validationErrorComponent } from '../../components/validation-error-component';
@@ -7,7 +7,7 @@ import { inputComponent } from '../../components/input-component';
 
 export const numberValueEditorId = 'number';
 
-export function numberValueEditor(context: ValueModelContext<NumberValueModel>): ValueEditor<NumberValueModel> {
+export function numberValueEditor(context: ValueContext<NumberValueModel>): ValueEditor<NumberValueModel> {
 	function validate() {
 		validation.setDefaultError(context.validate());
 	}
@@ -30,7 +30,6 @@ export function numberValueEditor(context: ValueModelContext<NumberValueModel>):
 	validate();
 
 	return {
-		view: container.view,
-		validate
+		view: container.view
 	};
 }

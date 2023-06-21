@@ -1,4 +1,4 @@
-import { ValueModelContext, VariableDefinition, VariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+import { ValueContext, VariableDefinition, VariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { VariableDefinitionItemComponent, variableDefinitionItemComponent } from './variable-definition-item-component';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
@@ -8,7 +8,7 @@ import { dynamicListComponent } from '../../components/dynamic-list-component';
 export const variableDefinitionsValueEditorId = 'variableDefinitions';
 
 export function variableDefinitionsValueEditor(
-	context: ValueModelContext<VariableDefinitionsValueModel>
+	context: ValueContext<VariableDefinitionsValueModel>
 ): ValueEditor<VariableDefinitionsValueModel> {
 	function updateVariables(callback: (variables: VariableDefinition[]) => void) {
 		const value = Object.assign({}, context.getValue());
@@ -85,7 +85,6 @@ export function variableDefinitionsValueEditor(
 
 	return {
 		view: container.view,
-		controlView: addButton.view,
-		validate
+		controlView: addButton.view
 	};
 }
