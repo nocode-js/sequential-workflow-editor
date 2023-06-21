@@ -1,4 +1,4 @@
-import { StringValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { StringValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
@@ -7,7 +7,7 @@ import { inputComponent } from '../../components/input-component';
 
 export const stringValueEditorId = 'string';
 
-export function stringValueEditor(context: ValueModelContext<StringValueModel>): ValueEditor<StringValueModel> {
+export function stringValueEditor(context: ValueContext<StringValueModel>): ValueEditor<StringValueModel> {
 	function validate() {
 		validation.setDefaultError(context.validate());
 	}
@@ -27,7 +27,6 @@ export function stringValueEditor(context: ValueModelContext<StringValueModel>):
 	validate();
 
 	return {
-		view: container.view,
-		validate
+		view: container.view
 	};
 }

@@ -2,17 +2,18 @@ import { Path } from '../core';
 import { DefinitionModel } from '../model';
 
 export function createDefinitionModelStub(): DefinitionModel {
+	const path = Path.create(['sequence']);
 	return {
 		root: {
 			properties: [],
 			sequence: {
+				path,
 				dependencies: [],
-				name: 'stub',
 				label: 'Stub sequence',
 				value: {
 					id: 'stub',
 					label: 'Stub',
-					path: Path.create(['sequence']),
+					path,
 					configuration: {},
 					getDefaultValue: () => [],
 					getVariableDefinitions: () => null,

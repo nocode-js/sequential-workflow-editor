@@ -1,7 +1,7 @@
 import { Sequence } from 'sequential-workflow-model';
-import { ValueModel, ValueModelFactory } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel } from '../../model';
 import { Path } from '../../core/path';
-import { ModelActivator } from '../../activator';
+import { DefaultValueContext } from '../../context/default-value-context';
 
 export interface SequenceValueModelConfiguration {
 	sequence: string[];
@@ -11,17 +11,17 @@ export type SequenceValueModel = ValueModel<Sequence, SequenceValueModelConfigur
 
 export const sequenceValueModelId = 'sequence';
 
-export function sequenceValueModel(configuration: SequenceValueModelConfiguration): ValueModelFactory<SequenceValueModel> {
-	return (path: Path) => ({
+export const sequenceValueModel = (configuration: SequenceValueModelConfiguration): ValueModelFactoryFromModel<SequenceValueModel> => ({
+	create: (path: Path) => ({
 		id: sequenceValueModelId,
 		label: 'Sequence',
 		path,
 		configuration,
 		editorId: null,
-		getDefaultValue(activator: ModelActivator): Sequence {
-			return configuration.sequence.map(type => activator.activateStep(type));
+		getDefaultValue(context: DefaultValueContext): Sequence {
+			return configuration.sequence.map(type => context.activateStep(type));
 		},
 		getVariableDefinitions: () => null,
 		validate: () => null
-	});
-}
+	})
+});

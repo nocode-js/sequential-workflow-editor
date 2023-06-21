@@ -3,7 +3,7 @@ import {
 	AnyVariablesValueModel,
 	ContextVariable,
 	SimpleEvent,
-	ValueModelContext,
+	ValueContext,
 	ValueType
 } from 'sequential-workflow-editor-model';
 import { selectComponent } from '../../components/select-component';
@@ -17,7 +17,7 @@ export interface AnyVariableSelectorComponent extends Component {
 	onAdded: SimpleEvent<AnyVariable>;
 }
 
-export function anyVariableSelectorComponent(context: ValueModelContext<AnyVariablesValueModel>): AnyVariableSelectorComponent {
+export function anyVariableSelectorComponent(context: ValueContext<AnyVariablesValueModel>): AnyVariableSelectorComponent {
 	function getSelectedValueType(): ValueType {
 		return valueTypes[typeSelect.getSelectedIndex()];
 	}

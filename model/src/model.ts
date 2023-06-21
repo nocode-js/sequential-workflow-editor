@@ -1,9 +1,9 @@
 import { Definition, Properties, PropertyValue, Sequence } from 'sequential-workflow-model';
 import { ValueModelId, ValueType, VariableDefinition } from './types';
 import { Path } from './core/path';
-import { ValueModelContext } from './context';
-import { ModelActivator } from './activator';
+import { ValueContext } from './context';
 import { CustomValidatorContext } from './validator';
+import { DefaultValueContext } from './context/default-value-context';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface DefinitionModel<TDefinition extends Definition = Definition> {
@@ -23,6 +23,7 @@ export interface StepModel {
 	type: string;
 	componentType: string;
 	category?: string;
+	label: string;
 	description?: string;
 	name: PropertyModel<string>;
 	properties: PropertyModels;
@@ -31,27 +32,40 @@ export interface StepModel {
 export type PropertyModels = PropertyModel[];
 
 export interface PropertyModel<TValue extends PropertyValue = PropertyValue, TConfiguration extends object = object> {
-	name: string;
+	path: Path;
 	label: string;
 	hint?: string;
 	dependencies: Path[];
 	customValidator?: CustomValidator<TValue>;
-	value: ValueModel<TValue, TConfiguration>;
+	value: ValueModel<TValue, TConfiguration, Properties>;
 }
 
-export type ValueModelFactory<TValueModel extends ValueModel = ValueModel> = (path: Path) => TValueModel;
+export interface ValueModelFactory<
+	TValue extends PropertyValue = PropertyValue,
+	TConfiguration extends object = object,
+	TProperties extends Properties = Properties
+> {
+	create(path: Path): ValueModel<TValue, TConfiguration, TProperties>;
+}
 
-export type ValueModelFactoryOfValue<TValue extends PropertyValue = PropertyValue> = (path: Path) => ValueModel<TValue, object>;
+export type ValueModelFactoryFromModel<TValueModel extends ValueModel = ValueModel> = ValueModelFactory<
+	ReturnType<TValueModel['getDefaultValue']>,
+	TValueModel['configuration']
+>;
 
-export interface ValueModel<TValue extends PropertyValue = PropertyValue, TConfiguration extends object = object> {
+export interface ValueModel<
+	TValue extends PropertyValue = PropertyValue,
+	TConfiguration extends object = object,
+	TProperties extends Properties = Properties
+> {
 	id: ValueModelId;
-	label: string;
 	path: Path;
+	label: string;
 	configuration: TConfiguration;
 	subModels?: ValueModel[];
-	getDefaultValue(activator: ModelActivator): TValue;
-	getVariableDefinitions(context: ValueModelContext<ValueModel<TValue, TConfiguration>>): VariableDefinition[] | null;
-	validate(context: ValueModelContext<ValueModel<TValue, TConfiguration>>): ValidationResult;
+	getDefaultValue(context: DefaultValueContext): TValue;
+	getVariableDefinitions(context: ValueContext<ValueModel<TValue, TConfiguration, TProperties>>): VariableDefinition[] | null;
+	validate(context: ValueContext<ValueModel<TValue, TConfiguration, TProperties>>): ValidationResult;
 }
 
 export interface CustomValidator<TValue extends PropertyValue = PropertyValue, TProperties extends Properties = Properties> {

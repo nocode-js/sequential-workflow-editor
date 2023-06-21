@@ -2,7 +2,7 @@ import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
 import { ContextVariable, DefinitionModel } from '../model';
 import { DefinitionContext } from './definition-context';
 import { PropertyModels } from '../model';
-import { ValueModelContext } from './value-model-context';
+import { ValueContext } from './value-context';
 
 export class VariablesProvider {
 	public static createForStep(
@@ -37,7 +37,8 @@ export class VariablesProvider {
 
 		if (this.step) {
 			const parents = this.definitionWalker.getParents(this.definition, this.step);
-			for (let index = 0; index < parents.length; index++) {
+			const count = parents.length - 1; // skips variable definitions from itself
+			for (let index = 0; index < count; index++) {
 				const parent = parents[index];
 				if (typeof parent === 'string') {
 					continue;
@@ -59,11 +60,11 @@ export class VariablesProvider {
 		result: ContextVariable[],
 		stepId: string | null,
 		propertyModels: PropertyModels,
-		editorContext: DefinitionContext
+		definitionContext: DefinitionContext
 	) {
 		for (const propertyModel of propertyModels) {
-			const context = ValueModelContext.create(propertyModel.value, editorContext);
-			const definitions = propertyModel.value.getVariableDefinitions(context);
+			const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
+			const definitions = propertyModel.value.getVariableDefinitions(valueContext);
 
 			if (!definitions) {
 				continue;

@@ -14,11 +14,11 @@ export class SimpleEvent<T> {
 		}
 	}
 
-	public forward(value: T) {
+	public readonly forward = (value: T) => {
 		if (this.listeners.length > 0) {
 			this.listeners.forEach(listener => listener(value));
 		}
-	}
+	};
 
 	public count(): number {
 		return this.listeners.length;

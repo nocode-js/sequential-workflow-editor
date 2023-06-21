@@ -10,6 +10,7 @@ const namePath = Path.create(['name']);
 
 export class StepModelBuilder<TStep extends Step> {
 	protected readonly circularDependencyDetector = new CircularDependencyDetector();
+	private _label?: string;
 	private _description?: string;
 	private _category?: string;
 	private readonly nameBuilder = new PropertyModelBuilder<string>(namePath, this.circularDependencyDetector);
@@ -22,6 +23,14 @@ export class StepModelBuilder<TStep extends Step> {
 		if (!componentType) {
 			throw new Error('Component type is empty');
 		}
+	}
+
+	/**
+	 * Sets the label of the step. This field is used in the toolbox and the editor to display the step.
+	 */
+	public label(label: string): this {
+		this._label = label;
+		return this;
 	}
 
 	/**
@@ -78,6 +87,7 @@ export class StepModelBuilder<TStep extends Step> {
 		return {
 			type: this.type,
 			componentType: this.componentType,
+			label: this._label ?? buildLabel(this.type),
 			category: this._category,
 			description: this._description,
 			name: this.nameBuilder.build(),

@@ -1,6 +1,6 @@
 import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
 import { DefinitionModel, PropertyModels } from '../model';
-import { DefinitionContext, ValueModelContext } from '../context';
+import { DefinitionContext, ValueContext } from '../context';
 import { CustomValidatorContext } from './custom-validator-context';
 
 export class ModelValidator {
@@ -27,7 +27,7 @@ export class ModelValidator {
 
 	private validateProperties(properties: PropertyModels, definitionContext: DefinitionContext): boolean {
 		for (const propertyModel of properties) {
-			const valueContext = ValueModelContext.create(propertyModel.value, definitionContext);
+			const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
 			if (propertyModel.value.validate(valueContext)) {
 				return false;
 			}

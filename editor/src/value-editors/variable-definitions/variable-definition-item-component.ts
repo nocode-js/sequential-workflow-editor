@@ -1,4 +1,4 @@
-import { SimpleEvent, ValueModelContext, VariableDefinition, VariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+import { SimpleEvent, ValueContext, VariableDefinition, VariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { Html } from '../../core/html';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { Component } from '../../components/component';
@@ -17,7 +17,7 @@ export interface VariableDefinitionItemComponent extends Component {
 
 export function variableDefinitionItemComponent(
 	variable: VariableDefinition,
-	context: ValueModelContext<VariableDefinitionsValueModel>
+	context: ValueContext<VariableDefinitionsValueModel>
 ): VariableDefinitionItemComponent {
 	function validate(error: string | null) {
 		validation.setError(error);

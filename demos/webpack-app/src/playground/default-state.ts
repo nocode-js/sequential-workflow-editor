@@ -54,7 +54,8 @@ const definition: MyDefinition = {
 								componentType: 'task',
 								properties: {
 									message: { modelId: 'string', value: '🌺 TRUE 🌺' },
-									variables: { variables: [{ name: 'index', type: 'number' }] }
+									variables: { variables: [{ name: 'index', type: 'number' }] },
+									note: { modelId: 'string', value: '0!' }
 								}
 							}
 						],
@@ -66,7 +67,8 @@ const definition: MyDefinition = {
 								componentType: 'task',
 								properties: {
 									message: { modelId: 'string', value: '🌼 FALSE 🌼' },
-									variables: { variables: [{ name: 'index', type: 'number' }] }
+									variables: { variables: [{ name: 'index', type: 'number' }] },
+									note: { modelId: 'generatedString', value: 'Dumped 1 variables' }
 								}
 							}
 						]

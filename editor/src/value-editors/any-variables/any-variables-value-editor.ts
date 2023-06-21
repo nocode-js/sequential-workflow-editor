@@ -1,4 +1,4 @@
-import { AnyVariable, AnyVariablesValueModel, ValueModelContext } from 'sequential-workflow-editor-model';
+import { AnyVariable, AnyVariablesValueModel, ValueContext } from 'sequential-workflow-editor-model';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { ValueEditor } from '../value-editor';
 import { AnyVariableItemComponent, anyVariableItemComponent } from './any-variable-item-component';
@@ -7,7 +7,7 @@ import { dynamicListComponent } from '../../components/dynamic-list-component';
 
 export const anyVariablesValueEditorId = 'anyVariables';
 
-export function anyVariablesValueEditor(context: ValueModelContext<AnyVariablesValueModel>): ValueEditor<AnyVariablesValueModel> {
+export function anyVariablesValueEditor(context: ValueContext<AnyVariablesValueModel>): ValueEditor<AnyVariablesValueModel> {
 	function updateVariables(callback: (variables: AnyVariable[]) => void) {
 		const value = Object.assign({}, context.getValue());
 		callback(value.variables);
@@ -62,7 +62,6 @@ export function anyVariablesValueEditor(context: ValueModelContext<AnyVariablesV
 	reloadList();
 
 	return {
-		view: container.view,
-		validate
+		view: container.view
 	};
 }

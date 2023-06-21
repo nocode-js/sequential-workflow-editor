@@ -1,7 +1,7 @@
-import { ValueModel, ValueModelFactory, ValidationResult } from '../../model';
+import { ValueModel, ValueModelFactoryFromModel, ValidationResult } from '../../model';
 import { Path } from '../../core/path';
 import { AnyVariables, ValueType } from '../../types';
-import { ValueModelContext } from '../../context';
+import { ValueContext } from '../../context';
 
 export interface AnyVariablesValueModelConfiguration {
 	valueTypes?: ValueType[];
@@ -11,8 +11,10 @@ export type AnyVariablesValueModel = ValueModel<AnyVariables, AnyVariablesValueM
 
 export const anyVariablesValueModelId = 'anyVariables';
 
-export function anyVariablesValueModel(configuration: AnyVariablesValueModelConfiguration): ValueModelFactory<AnyVariablesValueModel> {
-	return (path: Path) => ({
+export const anyVariablesValueModel = (
+	configuration: AnyVariablesValueModelConfiguration
+): ValueModelFactoryFromModel<AnyVariablesValueModel> => ({
+	create: (path: Path) => ({
 		id: anyVariablesValueModelId,
 		label: 'Variables',
 		path,
@@ -23,7 +25,7 @@ export function anyVariablesValueModel(configuration: AnyVariablesValueModelConf
 			};
 		},
 		getVariableDefinitions: () => null,
-		validate(context: ValueModelContext<AnyVariablesValueModel>): ValidationResult {
+		validate(context: ValueContext<AnyVariablesValueModel>): ValidationResult {
 			const errors: Record<string, string> = {};
 			const value = context.getValue();
 
@@ -40,5 +42,5 @@ export function anyVariablesValueModel(configuration: AnyVariablesValueModelConf
 
 			return Object.keys(errors).length > 0 ? errors : null;
 		}
-	});
-}
+	})
+});

@@ -1,12 +1,11 @@
 import { Properties, PropertyValue } from 'sequential-workflow-model';
 import { Path } from '../core/path';
-import { CustomValidator, PropertyModel } from '../model';
-import { ValueModelFactoryOfValue } from '../model';
+import { CustomValidator, PropertyModel, ValueModelFactory } from '../model';
 import { CircularDependencyDetector } from './circular-dependency-detector';
 import { buildLabel } from '../core/label-builder';
 
 export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, TProperties extends Properties = Properties> {
-	private _value?: ValueModelFactoryOfValue<TValue>;
+	private _value?: ValueModelFactory<TValue, object, TProperties>;
 	private _label?: string;
 	private _hint?: string;
 	private _dependencies: Path[] = [];
@@ -26,7 +25,7 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 	 * @param valueModelFactory The factory function that creates the model of the value.
 	 * @example `builder.value(stringValueModel({ defaultValue: 'Some value' }));`
 	 */
-	public value(valueModelFactory: ValueModelFactoryOfValue<TValue>): this {
+	public value(valueModelFactory: ValueModelFactory<TValue, object, TProperties>): this {
 		if (this._value) {
 			throw new Error(`Model is already set for ${this.path.toString()}`);
 		}
@@ -88,12 +87,12 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 		}
 
 		return {
-			name: this.path.last(),
+			path: this.path,
 			label: this._label || this.getDefaultLabel(),
 			hint: this._hint,
 			dependencies: this._dependencies,
 			customValidator: this._customValidator,
-			value: this._value(this.path)
+			value: this._value.create(this.path)
 		};
 	}
 

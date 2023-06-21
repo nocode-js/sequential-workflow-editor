@@ -33,7 +33,8 @@ export class App {
 				}
 			},
 			toolbox: {
-				groups: editorProvider.getToolboxGroups()
+				groups: editorProvider.getToolboxGroups(),
+				labelProvider: editorProvider.createStepLabelProvider()
 			},
 			undoStackSize: 10,
 			definitionWalker

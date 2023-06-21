@@ -1,6 +1,7 @@
 import { Definition, Step } from 'sequential-workflow-model';
 import { DefinitionModel, PropertyModels } from '../model';
 import { UidGenerator } from '../external-types';
+import { DefaultValueContext } from '../context/default-value-context';
 
 export class ModelActivator<TDefinition extends Definition = Definition> {
 	public static create<TDef extends Definition>(
@@ -13,12 +14,17 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 	private constructor(private readonly definitionModel: DefinitionModel, private readonly uidGenerator: UidGenerator) {}
 
 	public activateDefinition(): TDefinition {
-		const definition: Definition = {
-			properties: {},
-			sequence: this.definitionModel.root.sequence.value.getDefaultValue(this)
+		const definition: Omit<Definition, 'sequence'> = {
+			properties: {}
 		};
-		this.activateProperties(definition, this.definitionModel.root.properties);
-		return definition as TDefinition;
+		this.activatePropertiesInOrder(definition, this.definitionModel.root.properties);
+
+		const sequenceValueContext = DefaultValueContext.create(this, definition, this.definitionModel.root.sequence);
+		const sequence = this.definitionModel.root.sequence.value.getDefaultValue(sequenceValueContext);
+		return {
+			...definition,
+			sequence
+		} as TDefinition;
 	}
 
 	public activateStep<TStep extends Step>(stepType: string): TStep {
@@ -26,20 +32,37 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 		if (!model) {
 			throw new Error(`Unknown step type: ${stepType}`);
 		}
-		const step: Step = {
+		const step: Omit<Step, 'name'> = {
 			id: this.uidGenerator(),
-			name: model.name.value.getDefaultValue(this),
 			type: stepType,
 			componentType: model.componentType,
 			properties: {}
 		};
-		this.activateProperties(step, model.properties);
-		return step as TStep;
+		this.activatePropertiesInOrder(step, model.properties);
+
+		const nameValueContext = DefaultValueContext.create(this, step, model.name);
+		const name = model.name.value.getDefaultValue(nameValueContext);
+		return {
+			...step,
+			name
+		} as TStep;
+	}
+
+	private activatePropertiesInOrder(object: object, models: PropertyModels) {
+		this.activateProperties(
+			object,
+			models.filter(m => m.dependencies.length === 0)
+		);
+		this.activateProperties(
+			object,
+			models.filter(m => m.dependencies.length > 0)
+		);
 	}
 
 	private activateProperties(object: object, models: PropertyModels) {
 		for (const model of models) {
-			const defaultValue = model.value.getDefaultValue(this);
+			const defaultValueContext = DefaultValueContext.create(this, object, model);
+			const defaultValue = model.value.getDefaultValue(defaultValueContext);
 			model.value.path.write(object, defaultValue);
 		}
 	}
