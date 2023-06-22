@@ -1,3 +1,8 @@
+## 0.4.1
+
+* The model validator is improved. Now the validator validates the `name` field of the step as well.
+* Adjusted CSS styles.
+
 ## 0.4.0
 
 * Added new value model: `generatedString` (`generatedStringValueEditor({ ... })`). The new value model allows you to generate a string value for some property, depending on the values of other properties. Mainly this feature is designed to generate a step name automatically.
