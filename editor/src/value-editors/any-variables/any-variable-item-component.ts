@@ -23,7 +23,9 @@ export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItem
 	const name = Html.element('span');
 	name.innerText = formatVariableNameWithType(variable.name, variable.type);
 
-	const deleteButton = buttonComponent('Delete');
+	const deleteButton = buttonComponent('Delete', {
+		size: 'small'
+	});
 	deleteButton.onClick.subscribe(() => onDeleteClicked.forward());
 
 	const validation = validationErrorComponent();

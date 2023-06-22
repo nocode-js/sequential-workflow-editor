@@ -8,7 +8,7 @@
 .swe-editor {
 	margin: 10px 0 0;
 	font-size: 13px;
-	line-height: 1.3rem;
+	line-height: 1.3em;
 }
 .swe-editor-header {
 	padding: 0 10px 5px;
@@ -16,8 +16,8 @@
 .swe-editor-header-title {
 	margin: 0;
 	padding: 5px 0 10px;
-	font-size: 1.4rem;
-	line-height: 1.3rem;
+	font-size: 1.4em;
+	line-height: 1.3em;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -42,8 +42,8 @@
 	display: block;
 	padding: 0;
 	margin: 0;
-	font-size: 1.05rem;
-	line-height: 1.3rem;
+	font-size: 1.05em;
+	line-height: 1.3em;
 }
 .swe-property-header-hint-toggle {
 	display: block;
@@ -94,7 +94,7 @@
 	border: 1px solid #d9d9d9;
 	background: #fff;
 	outline: none;
-	padding: 6px 8px;
+	padding: 8px;
 	border-radius: 5px;
 }
 .swe-input:focus {
@@ -107,14 +107,14 @@
 	border-style: dashed;
 }
 .swe-select-small {
-	padding: 2px 5px;
+	padding: 3px 5px;
 }
 .swe-button {
 	box-sizing: border-box;
 	border: 1px solid #ccc;
 	background: #ddd;
 	outline: none;
-	padding: 6px;
+	padding: 8px;
 	border-radius: 5px;
 	cursor: pointer;
 }
@@ -125,7 +125,7 @@
 	background: #d5d5d5;
 }
 .swe-button-small {
-	padding: 2px 5px;
+	padding: 3px 5px;
 }
 
 .swe-stretched {

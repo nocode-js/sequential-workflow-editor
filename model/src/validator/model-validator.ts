@@ -1,5 +1,5 @@
 import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
-import { DefinitionModel, PropertyModels } from '../model';
+import { DefinitionModel, PropertyModel, PropertyModels } from '../model';
 import { DefinitionContext, ValueContext } from '../context';
 import { CustomValidatorContext } from './custom-validator-context';
 
@@ -17,7 +17,8 @@ export class ModelValidator {
 		if (!stepModel) {
 			throw new Error(`Cannot find model for step type: ${step.type}`);
 		}
-		return this.validateProperties(stepModel.properties, definitionContext);
+
+		return this.validateProperty(stepModel.name, definitionContext) && this.validateProperties(stepModel.properties, definitionContext);
 	}
 
 	public validateRoot(definition: Definition): boolean {
@@ -26,18 +27,20 @@ export class ModelValidator {
 	}
 
 	private validateProperties(properties: PropertyModels, definitionContext: DefinitionContext): boolean {
-		for (const propertyModel of properties) {
-			const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
-			if (propertyModel.value.validate(valueContext)) {
-				return false;
-			}
+		return properties.every(propertyModel => this.validateProperty(propertyModel, definitionContext));
+	}
 
-			if (propertyModel.customValidator) {
-				const validatorContext = CustomValidatorContext.create(propertyModel, definitionContext);
-				const error = propertyModel.customValidator.validate(validatorContext);
-				if (error) {
-					return false;
-				}
+	private validateProperty(propertyModel: PropertyModel, definitionContext: DefinitionContext): boolean {
+		const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
+		if (propertyModel.value.validate(valueContext)) {
+			return false;
+		}
+
+		if (propertyModel.customValidator) {
+			const validatorContext = CustomValidatorContext.create(propertyModel, definitionContext);
+			const error = propertyModel.customValidator.validate(validatorContext);
+			if (error) {
+				return false;
 			}
 		}
 		return true;
