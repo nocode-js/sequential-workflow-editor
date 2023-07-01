@@ -1,3 +1,18 @@
+## 0.5.0
+
+The `DefinitionValidator` class supports the validation of the whole definition. Use the `validate` method to validate a definition deeply. This method will validate all steps in the definition at once. Now you may easily validate a definition in the back-end before saving it to the storage.
+
+```ts
+const validator = DefinitionValidator.create(definitionModel, definitionWalker);
+if (validator.validate(definition)) {
+  throw new Error('Invalid definition');
+}
+```
+
+**Breaking changes:**
+
+* Renamed the `ModelValidator` class to `DefinitionValidator`.
+
 ## 0.4.1
 
 * The model validator is improved. Now the validator validates the `name` field of the step as well.

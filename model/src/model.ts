@@ -72,8 +72,8 @@ export interface CustomValidator<TValue extends PropertyValue = PropertyValue, T
 	validate(context: CustomValidatorContext<TValue, TProperties>): string | null;
 }
 
-export type ValidationResult = Record<string, string | null> | null;
-export type ValidationSingleError = Record<'$', string>;
+export type ValidationError = Record<string, string | null>;
+export type ValidationResult = ValidationError | null;
 
 export function createValidationSingleError(error: string): ValidationResult {
 	return {
