@@ -1,6 +1,6 @@
 import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
 import { Editor } from './editor';
-import { DefinitionContext, DefinitionModel, ModelActivator, ModelValidator, Path } from 'sequential-workflow-editor-model';
+import { DefinitionContext, DefinitionModel, ModelActivator, DefinitionValidator, Path } from 'sequential-workflow-editor-model';
 import { EditorServices, ValueEditorEditorFactoryResolver } from './value-editors';
 import {
 	GlobalEditorContext,
@@ -22,7 +22,7 @@ export class EditorProvider<TDefinition extends Definition> {
 	): EditorProvider<TDef> {
 		const definitionWalker = configuration.definitionWalker ?? new DefinitionWalker();
 		const activator = ModelActivator.create(definitionModel, configuration.uidGenerator);
-		const validator = ModelValidator.create(definitionModel, definitionWalker);
+		const validator = DefinitionValidator.create(definitionModel, definitionWalker);
 		return new EditorProvider(activator, validator, definitionModel, definitionWalker, configuration);
 	}
 
@@ -33,7 +33,7 @@ export class EditorProvider<TDefinition extends Definition> {
 
 	private constructor(
 		private readonly activator: ModelActivator<TDefinition>,
-		private readonly validator: ModelValidator,
+		private readonly validator: DefinitionValidator,
 		private readonly definitionModel: DefinitionModel,
 		private readonly definitionWalker: DefinitionWalker,
 		private readonly configuration: EditorProviderConfiguration
@@ -85,13 +85,13 @@ export class EditorProvider<TDefinition extends Definition> {
 
 	public createStepValidator(): StepValidator {
 		return (step: Step, _: unknown, definition: Definition): boolean => {
-			return this.validator.validateStep(step, definition);
+			return this.validator.validateStep(step, definition) === null;
 		};
 	}
 
 	public createRootValidator(): RootValidator {
 		return (definition: Definition): boolean => {
-			return this.validator.validateRoot(definition);
+			return this.validator.validateRoot(definition) === null;
 		};
 	}
 

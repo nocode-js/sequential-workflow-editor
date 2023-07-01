@@ -1,2 +1,2 @@
 export * from './custom-validator-context';
-export * from './model-validator';
+export * from './definition-validator';
