@@ -19,6 +19,8 @@ type StepEditorProvider = (step: Step, context: StepEditorContext, definition: D
 EditorProvider.createStepEditorProvider(): StepEditorProvider;
 ```
 
+The `ValueKnownType` enum is renamed to `WellKnownValueType`.
+
 ## 0.5.0
 
 The `DefinitionValidator` class supports the validation of the whole definition. Use the `validate` method to validate a definition deeply. This method will validate all steps in the definition at once. Now you may easily validate a definition in the back-end before saving it to the storage.
