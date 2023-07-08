@@ -1,12 +1,12 @@
 {
 	"name": "sequential-workflow-editor-model",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"homepage": "https://nocode-js.com/",
 	"author": {
 		"name": "NoCode JS",
 		"url": "https://nocode-js.com/"
 	},
-	"license": "SEE LICENSE IN LICENSE",
+	"license": "MIT",
 	"type": "module",
 	"main": "./lib/esm/index.js",
 	"types": "./lib/index.d.ts",

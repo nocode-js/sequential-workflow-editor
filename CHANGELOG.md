@@ -1,3 +1,7 @@
+## 0.7.0
+
+This version changes the license to the MIT license. 🎉
+
 ## 0.6.0
 
 * This version brings small visual improvements.
