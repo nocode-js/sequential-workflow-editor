@@ -13,7 +13,9 @@ function testItemComponentFactory(item: TestItem) {
 		}),
 		onItemChanged: new SimpleEvent<TestItem>(),
 		onDeleteClicked: new SimpleEvent<void>(),
-		validate: () => {}
+		validate: () => {
+			/* ... */
+		}
 	};
 }
 
