@@ -1,6 +1,6 @@
 {
 	"name": "sequential-workflow-editor",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"type": "module",
 	"main": "./lib/esm/index.js",
 	"types": "./lib/index.d.ts",
@@ -20,7 +20,7 @@
 		}
 	},
 	"homepage": "https://nocode-js.com/",
-	"license": "SEE LICENSE IN LICENSE",
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nocode-js/sequential-workflow-editor.git"
@@ -46,11 +46,11 @@
 		"prettier:fix": "prettier --write ./src ./css"
 	},
 	"dependencies": {
-		"sequential-workflow-editor-model": "^0.6.0",
+		"sequential-workflow-editor-model": "^0.7.0",
 		"sequential-workflow-model": "^0.1.4"
 	},
 	"peerDependencies": {
-		"sequential-workflow-editor-model": "^0.6.0",
+		"sequential-workflow-editor-model": "^0.7.0",
 		"sequential-workflow-model": "^0.1.4"
 	},
 	"devDependencies": {
