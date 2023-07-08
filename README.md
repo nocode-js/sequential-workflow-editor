@@ -2,7 +2,7 @@
 
 # Sequential Workflow Editor
 
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fnocode-js%2Fsequential-workflow-editor%2Fbadge%3Fref%3Dmain&style=flat-square)](https://github.com/nocode-js/sequential-workflow-editor/actions) [![License: GPLv3](https://img.shields.io/badge/license-GPL-blue?style=flat-square)](/LICENSE) [![View this project on NPM](https://img.shields.io/npm/v/sequential-workflow-editor.svg?style=flat-square)](https://npmjs.org/package/sequential-workflow-editor)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fnocode-js%2Fsequential-workflow-editor%2Fbadge%3Fref%3Dmain&style=flat-square)](https://github.com/nocode-js/sequential-workflow-editor/actions) [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](/LICENSE) [![View this project on NPM](https://img.shields.io/npm/v/sequential-workflow-editor.svg?style=flat-square)](https://npmjs.org/package/sequential-workflow-editor)
 
 Powerful workflow editor builder for sequential workflows. Written in TypeScript. Mainly designed to work with the [Sequential Workflow Designer](https://github.com/nocode-js/sequential-workflow-designer) component. To execute your model you may use the [Sequential Workflow Machine](https://github.com/nocode-js/sequential-workflow-machine) or any other workflow engine. It supports front-end and back-end strict validation of the model. 0 external dependencies.
 
