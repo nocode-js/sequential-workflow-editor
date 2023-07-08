@@ -11,6 +11,7 @@ Powerful workflow editor builder for sequential workflows. Written in TypeScript
 ## 👀 Examples
 
 * [🛠 Playground](https://nocode-js.github.io/sequential-workflow-editor/webpack-app/public/playground.html)
+* [📖 Editors](https://nocode-js.github.io/sequential-workflow-editor/webpack-app/public/editors.html)
 
 ## 🚀 Installation
 
@@ -105,10 +106,10 @@ We have everything to attach the editor provider to a designer. For the Sequenti
 ```ts
 import { Designer } from 'sequential-workflow-designer';
 
-const designer: Designer<MyDefinition> = Designer.create(placeholder, startDefinition, {
+const designer = Designer.create(placeholder, startDefinition, {
   editors: {
     globalEditorProvider: editorProvider.createRootEditorProvider(),
-    stepEditorProvider: editorProvider.createStepEditorProvider(() => designer.getDefinition())
+    stepEditorProvider: editorProvider.createStepEditorProvider()
   },
   validator: {
     step: editorProvider.createStepValidator(),

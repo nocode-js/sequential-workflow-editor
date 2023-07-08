@@ -10,4 +10,5 @@ export * from './nullable-variable-definition';
 export * from './number';
 export * from './sequence';
 export * from './string';
+export * from './string-dictionary';
 export * from './variable-definitions';

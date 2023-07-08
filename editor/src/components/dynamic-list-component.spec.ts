@@ -1,49 +1,76 @@
+import { SimpleEvent, ValueContext } from 'sequential-workflow-editor-model';
 import { Html } from '../core/html';
 import { dynamicListComponent } from './dynamic-list-component';
 
+interface TestItem {
+	id: number;
+}
+
+function testItemComponentFactory(item: TestItem) {
+	return {
+		view: Html.element('span', {
+			class: `test-item-${item.id}`
+		}),
+		onItemChanged: new SimpleEvent<TestItem>(),
+		onDeleteClicked: new SimpleEvent<void>(),
+		validate: () => {
+			/* ... */
+		}
+	};
+}
+
 describe('DynamicListComponent', () => {
-	it('replaces list', () => {
-		const component = dynamicListComponent();
+	const context = {
+		validate() {
+			return null;
+		}
+	} as ValueContext;
 
-		expect(component.view.children.length).toBe(0);
+	it('starts with initial items', () => {
+		const component = dynamicListComponent([{ id: 123 }, { id: 456 }], testItemComponentFactory, context);
+		const children = component.view.children;
 
-		const a = Html.element('div');
-		const b = Html.element('strong');
+		expect(children.length).toBe(3);
+		expect(children[0].className).toBe('test-item-123');
+		expect(children[1].className).toBe('test-item-456');
+		expect(children[2].className).toBe('swe-validation-error');
+	});
 
-		component.set([{ view: a }, { view: b }]);
+	it('adds new items', () => {
+		const component = dynamicListComponent([], testItemComponentFactory, context);
+		const children = component.view.children;
 
-		expect(component.view.children.length).toBe(2);
-		expect(component.view.children[0]).toBe(a);
-		expect(component.view.children[1]).toBe(b);
+		expect(children.length).toBe(1);
+		expect(children[0].className).toBe('swe-validation-error');
 
-		const c = Html.element('span');
+		component.add({ id: 135 });
 
-		component.set([{ view: c }]);
+		expect(children.length).toBe(2);
+		expect(children[0].className).toBe('test-item-135');
+		expect(children[1].className).toBe('swe-validation-error');
 
-		expect(component.view.children.length).toBe(1);
-		expect(component.view.children[0]).toBe(c);
+		component.add({ id: 246 });
 
-		component.set([]);
-
-		expect(component.view.children.length).toBe(0);
+		expect(children.length).toBe(3);
+		expect(children[0].className).toBe('test-item-135');
+		expect(children[1].className).toBe('test-item-246');
+		expect(children[2].className).toBe('swe-validation-error');
 	});
 
 	it('shows empty message, when items appear, then message disappears', () => {
-		const component = dynamicListComponent({
+		const component = dynamicListComponent([], testItemComponentFactory, context, {
 			emptyMessage: 'List is empty'
 		});
+		const children = component.view.children;
 
-		expect(component.view.children.length).toBe(0);
+		expect(children.length).toBe(2);
+		expect(children[0].textContent).toBe('List is empty');
+		expect(children[1].className).toBe('swe-validation-error');
 
-		component.set([]);
+		component.add({ id: 543 });
 
-		expect(component.view.children.length).toBe(1);
-		expect(component.view.children[0].textContent).toBe('List is empty');
-
-		const item = Html.element('div');
-		component.set([{ view: item }]);
-
-		expect(component.view.children.length).toBe(1);
-		expect(component.view.children[0]).toBe(item);
+		expect(children.length).toBe(2);
+		expect(children[0].className).toBe('test-item-543');
+		expect(children[1].className).toBe('swe-validation-error');
 	});
 });

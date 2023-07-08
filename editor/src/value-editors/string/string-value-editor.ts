@@ -3,9 +3,12 @@ import { ValueEditor } from '../value-editor';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { rowComponent } from '../../components/row-component';
-import { inputComponent } from '../../components/input-component';
+import { InputComponent, inputComponent } from '../../components/input-component';
+import { TextareaComponent, textareaComponent } from '../../components/textarea-component';
 
 export const stringValueEditorId = 'string';
+
+const defaultMultiline = 4;
 
 export function stringValueEditor(context: ValueContext<StringValueModel>): ValueEditor<StringValueModel> {
 	function validate() {
@@ -13,7 +16,14 @@ export function stringValueEditor(context: ValueContext<StringValueModel>): Valu
 	}
 
 	const startValue = context.getValue();
-	const input = inputComponent(startValue);
+	const multiline = context.model.configuration.multiline;
+
+	const input: InputComponent | TextareaComponent = multiline
+		? textareaComponent(startValue, {
+				rows: multiline === true ? defaultMultiline : multiline
+		  })
+		: inputComponent(startValue);
+
 	input.onChanged.subscribe(value => {
 		context.setValue(value);
 		validate();

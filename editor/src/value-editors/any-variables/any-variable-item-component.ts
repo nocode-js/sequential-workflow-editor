@@ -1,15 +1,14 @@
 import { AnyVariable, SimpleEvent } from 'sequential-workflow-editor-model';
 import { Html } from '../../core/html';
 import { validationErrorComponent } from '../../components/validation-error-component';
-import { Component } from '../../components/component';
 import { buttonComponent } from '../../components/button-component';
 import { rowComponent } from '../../components/row-component';
 import { formatVariableNameWithType } from '../../core/variable-name-formatter';
+import { DynamicListItemComponent } from '../../components/dynamic-list-component';
+import { Icons } from '../../core/icons';
 
-export interface AnyVariableItemComponent extends Component {
-	onDeleteClicked: SimpleEvent<void>;
-	validate(error: string | null): void;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AnyVariableItemComponent extends DynamicListItemComponent<AnyVariable> {}
 
 export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItemComponent {
 	function validate(error: string | null) {
@@ -24,7 +23,9 @@ export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItem
 	name.innerText = formatVariableNameWithType(variable.name, variable.type);
 
 	const deleteButton = buttonComponent('Delete', {
-		size: 'small'
+		size: 'small',
+		theme: 'secondary',
+		icon: Icons.close
 	});
 	deleteButton.onClick.subscribe(() => onDeleteClicked.forward());
 
@@ -40,6 +41,7 @@ export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItem
 	return {
 		view,
 		onDeleteClicked,
+		onItemChanged: new SimpleEvent(),
 		validate
 	};
 }

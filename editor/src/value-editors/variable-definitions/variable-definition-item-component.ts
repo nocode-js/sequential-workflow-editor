@@ -1,19 +1,17 @@
 import { SimpleEvent, ValueContext, VariableDefinition, VariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { Html } from '../../core/html';
 import { validationErrorComponent } from '../../components/validation-error-component';
-import { Component } from '../../components/component';
 import { rowComponent } from '../../components/row-component';
 import { buttonComponent } from '../../components/button-component';
 import { selectComponent } from '../../components/select-component';
 import { filterValueTypes } from '../../core/filter-value-types';
+import { DynamicListItemComponent } from '../../components/dynamic-list-component';
+import { Icons } from '../../core/icons';
+import { prependedInputComponent } from '../../components/prepended-input-component';
 import { inputComponent } from '../../components/input-component';
 
-export interface VariableDefinitionItemComponent extends Component {
-	onNameChanged: SimpleEvent<string>;
-	onTypeChanged: SimpleEvent<number>;
-	onDeleteClicked: SimpleEvent<void>;
-	validate(error: string | null): void;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface VariableDefinitionItemComponent extends DynamicListItemComponent<VariableDefinition> {}
 
 export function variableDefinitionItemComponent(
 	variable: VariableDefinition,
@@ -23,17 +21,31 @@ export function variableDefinitionItemComponent(
 		validation.setError(error);
 	}
 
-	const onNameChanged = new SimpleEvent<string>();
-	const onTypeChanged = new SimpleEvent<number>();
+	function onTypeChanged(index: number) {
+		const type = valueTypes[index];
+		variable.type = type;
+		onItemChanged.forward(variable);
+	}
+
+	function onNameChanged(value: string) {
+		variable.name = value;
+		onItemChanged.forward(variable);
+	}
+
+	const onItemChanged = new SimpleEvent<VariableDefinition>();
 	const onDeleteClicked = new SimpleEvent<void>();
 
 	const view = Html.element('div', {
 		class: 'swe-variable-definition-item'
 	});
 
-	const input = inputComponent(variable.name, {
-		placeholder: 'Variable name'
-	});
+	const input = prependedInputComponent(
+		'$',
+		inputComponent(variable.name, {
+			placeholder: 'Variable name'
+		})
+	);
+	input.onChanged.subscribe(onNameChanged);
 
 	const valueTypes = filterValueTypes(context.getValueTypes(), context.model.configuration.valueTypes);
 
@@ -42,14 +54,16 @@ export function variableDefinitionItemComponent(
 	});
 	typeSelect.setValues(valueTypes);
 	typeSelect.selectIndex(valueTypes.findIndex(type => type === variable.type));
-	typeSelect.onSelected.subscribe(index => onTypeChanged.forward(index));
+	typeSelect.onSelected.subscribe(onTypeChanged);
 
-	const deleteButton = buttonComponent('Delete');
+	const deleteButton = buttonComponent('Delete', {
+		size: 'small',
+		theme: 'secondary',
+		icon: Icons.close
+	});
 	deleteButton.onClick.subscribe(() => onDeleteClicked.forward());
 
 	const validation = validationErrorComponent();
-
-	input.onChanged.subscribe(value => onNameChanged.forward(value));
 
 	const row = rowComponent([input.view, typeSelect.view, deleteButton.view], {
 		cols: [2, 1, null]
@@ -59,8 +73,7 @@ export function variableDefinitionItemComponent(
 
 	return {
 		view,
-		onNameChanged,
-		onTypeChanged,
+		onItemChanged,
 		onDeleteClicked,
 		validate
 	};

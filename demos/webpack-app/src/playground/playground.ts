@@ -1,4 +1,4 @@
-import { SimpleEvent, ValueKnownType, ValueType, VariableDefinition, VariableDefinitions } from 'sequential-workflow-editor-model';
+import { SimpleEvent, WellKnownValueType, ValueType, VariableDefinition, VariableDefinitions } from 'sequential-workflow-editor-model';
 import { MyDefinition } from './model/definition-model';
 import { VariableState } from './machine/services/variables-service';
 
@@ -117,9 +117,9 @@ export class Playground {
 
 function convertInputValue(text: string, type: ValueType): unknown {
 	switch (type) {
-		case ValueKnownType.string:
+		case WellKnownValueType.string:
 			return text;
-		case ValueKnownType.number: {
+		case WellKnownValueType.number: {
 			const value = parseFloat(text);
 			if (isNaN(value)) {
 				throw new Error(`Invalid input number value: ${text || '<empty>'}`);

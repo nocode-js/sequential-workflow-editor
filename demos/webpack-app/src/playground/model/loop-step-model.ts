@@ -2,7 +2,7 @@ import {
 	Dynamic,
 	NullableVariable,
 	NullableVariableDefinition,
-	ValueKnownType,
+	WellKnownValueType,
 	VariableDefinitions,
 	choiceValueModel,
 	createSequentialStepModel,
@@ -39,7 +39,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 					numberValueModel({}),
 					nullableVariableValueModel({
 						isRequired: true,
-						valueType: ValueKnownType.number
+						valueType: WellKnownValueType.number
 					})
 				]
 			})
@@ -61,7 +61,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 					numberValueModel({}),
 					nullableVariableValueModel({
 						isRequired: true,
-						valueType: ValueKnownType.number
+						valueType: WellKnownValueType.number
 					})
 				]
 			})
@@ -77,7 +77,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 					}),
 					nullableVariableValueModel({
 						isRequired: true,
-						valueType: ValueKnownType.number
+						valueType: WellKnownValueType.number
 					})
 				]
 			})
@@ -87,11 +87,11 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 		.label('Index variable')
 		.value(
 			nullableVariableDefinitionValueModel({
-				valueType: ValueKnownType.number,
+				valueType: WellKnownValueType.number,
 				isRequired: true,
 				defaultValue: {
 					name: 'index',
-					type: ValueKnownType.number
+					type: WellKnownValueType.number
 				}
 			})
 		);

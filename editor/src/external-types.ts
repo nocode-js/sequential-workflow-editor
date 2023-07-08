@@ -10,7 +10,7 @@ export interface GlobalEditorContext {
 }
 
 export type RootEditorProvider = (definition: Definition, context: GlobalEditorContext) => HTMLElement;
-export type StepEditorProvider = (step: Step, context: StepEditorContext) => HTMLElement;
+export type StepEditorProvider = (step: Step, context: StepEditorContext, definition: Definition) => HTMLElement;
 
 export type StepLabelProvider = (step: { type: string }) => string;
 

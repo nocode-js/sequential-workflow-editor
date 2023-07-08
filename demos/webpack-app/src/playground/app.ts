@@ -21,7 +21,7 @@ export class App {
 			controlBar: true,
 			editors: {
 				globalEditorProvider: editorProvider.createRootEditorProvider(),
-				stepEditorProvider: editorProvider.createStepEditorProvider(() => designer.getDefinition())
+				stepEditorProvider: editorProvider.createStepEditorProvider()
 			},
 			validator: {
 				step: editorProvider.createStepValidator(),

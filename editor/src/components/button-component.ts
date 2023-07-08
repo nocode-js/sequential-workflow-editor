@@ -1,6 +1,7 @@
 import { SimpleEvent } from 'sequential-workflow-editor-model';
 import { Html } from '../core/html';
 import { Component } from './component';
+import { Icons } from '../core/icons';
 
 export interface ButtonComponent extends Component {
 	onClick: SimpleEvent<void>;
@@ -8,6 +9,8 @@ export interface ButtonComponent extends Component {
 
 export interface ButtonComponentConfiguration {
 	size?: 'small';
+	theme?: 'secondary';
+	icon?: string;
 }
 
 export function buttonComponent(label: string, configuration?: ButtonComponentConfiguration): ButtonComponent {
@@ -22,10 +25,20 @@ export function buttonComponent(label: string, configuration?: ButtonComponentCo
 	if (configuration?.size) {
 		className += ` swe-button-${configuration.size}`;
 	}
+	if (configuration?.theme) {
+		className += ` swe-button-${configuration.theme}`;
+	}
 	const view = Html.element('button', {
-		class: className
+		class: className,
+		title: label,
+		'aria-label': label
 	});
-	view.innerText = label;
+	if (configuration?.icon) {
+		const svg = Icons.createSvg(configuration.icon, 'swe-button-icon');
+		view.appendChild(svg);
+	} else {
+		view.innerText = label;
+	}
 	view.addEventListener('click', onClicked, false);
 
 	return {

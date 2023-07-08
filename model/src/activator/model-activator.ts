@@ -13,7 +13,7 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 
 	private constructor(private readonly definitionModel: DefinitionModel, private readonly uidGenerator: UidGenerator) {}
 
-	public activateDefinition(): TDefinition {
+	public readonly activateDefinition = (): TDefinition => {
 		const definition: Omit<Definition, 'sequence'> = {
 			properties: {}
 		};
@@ -25,9 +25,9 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 			...definition,
 			sequence
 		} as TDefinition;
-	}
+	};
 
-	public activateStep<TStep extends Step>(stepType: string): TStep {
+	public readonly activateStep = <TStep extends Step>(stepType: string): TStep => {
 		const model = this.definitionModel.steps[stepType];
 		if (!model) {
 			throw new Error(`Unknown step type: ${stepType}`);
@@ -46,7 +46,7 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 			...step,
 			name
 		} as TStep;
-	}
+	};
 
 	private activatePropertiesInOrder(object: object, models: PropertyModels) {
 		this.activateProperties(

@@ -12,6 +12,7 @@ import { rowComponent } from '../../components/row-component';
 import { buttonComponent } from '../../components/button-component';
 import { formatVariableName } from '../../core/variable-name-formatter';
 import { filterVariablesByType } from '../../core/filter-variables-by-type';
+import { Icons } from '../../core/icons';
 
 export interface AnyVariableSelectorComponent extends Component {
 	onAdded: SimpleEvent<AnyVariable>;
@@ -56,7 +57,9 @@ export function anyVariableSelectorComponent(context: ValueContext<AnyVariablesV
 	});
 	let variables: ContextVariable[] | null = null;
 
-	const addButton = buttonComponent('Add');
+	const addButton = buttonComponent('Add variable', {
+		icon: Icons.add
+	});
 	addButton.onClick.subscribe(onAddClicked);
 
 	const row = rowComponent([typeSelect.view, variableSelect.view, addButton.view], {

@@ -2,7 +2,7 @@ import { formatVariableName } from 'sequential-workflow-editor';
 import {
 	Dynamic,
 	NullableVariable,
-	ValueKnownType,
+	WellKnownValueType,
 	choiceValueModel,
 	createStepModel,
 	dynamicValueModel,
@@ -53,14 +53,14 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 			numberValueModel({}),
 			nullableVariableValueModel({
 				isRequired: true,
-				valueType: ValueKnownType.number
+				valueType: WellKnownValueType.number
 			})
 		]
 	});
 
 	step.property('result').value(
 		nullableVariableValueModel({
-			valueType: ValueKnownType.number,
+			valueType: WellKnownValueType.number,
 			isRequired: true
 		})
 	);
