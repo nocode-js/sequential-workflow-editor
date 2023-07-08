@@ -4,6 +4,7 @@ import { ValueEditor } from '../value-editor';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { rowComponent } from '../../components/row-component';
 import { inputComponent } from '../../components/input-component';
+import { prependedInputComponent } from '../../components/prepended-input-component';
 
 export const nullableVariableDefinitionValueEditorId = 'nullableVariableDefinition';
 
@@ -15,12 +16,16 @@ export function nullableVariableDefinitionValueEditor(
 	}
 
 	const startValue = context.getValue()?.name || '';
-	const input = inputComponent(startValue);
+	const input = prependedInputComponent('$', inputComponent(startValue));
 	input.onChanged.subscribe(value => {
-		context.setValue({
-			name: value,
-			type: context.model.configuration.valueType
-		});
+		context.setValue(
+			value
+				? {
+						name: value,
+						type: context.model.configuration.valueType
+				  }
+				: null
+		);
 		validate();
 	});
 

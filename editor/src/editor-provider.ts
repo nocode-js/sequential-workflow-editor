@@ -51,14 +51,9 @@ export class EditorProvider<TDefinition extends Definition> {
 		};
 	}
 
-	public createStepEditorProvider(definitionProvider: () => Definition): StepEditorProvider {
-		return (step: Step, context: StepEditorContext) => {
-			const definitionContext = DefinitionContext.createForStep(
-				step,
-				definitionProvider(),
-				this.definitionModel,
-				this.definitionWalker
-			);
+	public createStepEditorProvider(): StepEditorProvider {
+		return (step: Step, context: StepEditorContext, definition: Definition) => {
+			const definitionContext = DefinitionContext.createForStep(step, definition, this.definitionModel, this.definitionWalker);
 			const stepModel = this.definitionModel.steps[step.type];
 			const typeClassName = stepModel.type;
 			const propertyModels = [stepModel.name, ...stepModel.properties];

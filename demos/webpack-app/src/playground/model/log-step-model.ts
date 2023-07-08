@@ -3,7 +3,7 @@ import {
 	Dynamic,
 	GeneratedStringContext,
 	NullableVariable,
-	ValueKnownType,
+	WellKnownValueType,
 	anyVariablesValueModel,
 	createStepModel,
 	dynamicValueModel,
@@ -33,7 +33,7 @@ export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 					}),
 					nullableVariableValueModel({
 						isRequired: true,
-						valueType: ValueKnownType.string
+						valueType: WellKnownValueType.string
 					})
 				]
 			})

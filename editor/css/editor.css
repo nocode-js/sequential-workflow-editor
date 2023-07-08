@@ -60,9 +60,9 @@
 	background: #eee;
 }
 .swe-property-header-hint-toggle-icon {
-	width: 70%;
-	height: 70%;
-	margin: 15%;
+	width: 64%;
+	height: 64%;
+	margin: 18%;
 }
 .swe-property-header-hint-toggle-icon path {
 	fill: #777;
@@ -89,6 +89,7 @@
 /* common components */
 
 .swe-input,
+.swe-textarea,
 .swe-select {
 	box-sizing: border-box;
 	border: 1px solid #d9d9d9;
@@ -96,8 +97,13 @@
 	outline: none;
 	padding: 8px;
 	border-radius: 5px;
+	transition: border-color 150ms;
 }
-.swe-input:focus {
+.swe-textarea {
+	resize: vertical;
+}
+.swe-input:focus,
+.swe-textarea:focus {
 	border-color: #b7b7b7;
 }
 .swe-input[readonly] {
@@ -109,6 +115,19 @@
 .swe-select-small {
 	padding: 3px 5px;
 }
+.swe-prepended-input {
+	width: 100%;
+	display: flex;
+	background: #eee;
+	border-radius: 5px;
+	align-items: center;
+}
+.swe-prepended-input-prefix {
+	color: #777;
+	padding: 0 11px;
+	font-size: 14px;
+}
+
 .swe-button {
 	box-sizing: border-box;
 	border: 1px solid #ccc;
@@ -117,6 +136,7 @@
 	padding: 8px;
 	border-radius: 5px;
 	cursor: pointer;
+	transition: border-color 150ms, background 150ms;
 }
 .swe-button:hover {
 	background: #e5e5e5;
@@ -124,8 +144,27 @@
 .swe-button:active {
 	background: #d5d5d5;
 }
+.swe-button-secondary {
+	border-color: #fff;
+	background: #fff;
+}
+.swe-button-secondary:hover {
+	border-color: #ccc;
+	background: #fff;
+}
+.swe-button-secondary:active {
+	border-color: #ccc;
+	background: #e5e5e5;
+}
 .swe-button-small {
 	padding: 3px 5px;
+}
+.swe-button-icon {
+	vertical-align: middle;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin: 0 -2px;
 }
 
 .swe-stretched {
@@ -146,6 +185,9 @@
 }
 .swe-col.swe-col-2 {
 	flex: 2;
+}
+.swe-col.swe-col-3 {
+	flex: 3;
 }
 .swe-dynamic-list-empty-row {
 	margin-bottom: 10px;

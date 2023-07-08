@@ -1,87 +1,46 @@
 import { ValueContext, VariableDefinition, VariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { ValueEditor } from '../value-editor';
-import { VariableDefinitionItemComponent, variableDefinitionItemComponent } from './variable-definition-item-component';
+import { variableDefinitionItemComponent } from './variable-definition-item-component';
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { buttonComponent } from '../../components/button-component';
 import { dynamicListComponent } from '../../components/dynamic-list-component';
+import { Icons } from '../../core/icons';
 
 export const variableDefinitionsValueEditorId = 'variableDefinitions';
 
 export function variableDefinitionsValueEditor(
 	context: ValueContext<VariableDefinitionsValueModel>
 ): ValueEditor<VariableDefinitionsValueModel> {
-	function updateVariables(callback: (variables: VariableDefinition[]) => void) {
-		const value = Object.assign({}, context.getValue());
-		callback(value.variables);
-		context.setValue(value);
-	}
-
-	function updateVariable(index: number, callback: (variable: VariableDefinition) => void) {
-		const value = Object.assign({}, context.getValue());
-		callback(value.variables[index]);
-		context.setValue(value);
-	}
-
-	function onNameChanged(newName: string, index: number) {
-		updateVariable(index, variable => (variable.name = newName));
-		validate();
-	}
-
-	function onTypeChanged(typeIndex: number, index: number) {
-		updateVariable(index, variable => (variable.type = context.getValueTypes()[typeIndex]));
-		validate();
+	function onChanged(variables: VariableDefinition[]) {
+		context.setValue({
+			variables
+		});
 	}
 
 	function onAddClicked() {
-		updateVariables(variables =>
-			variables.push({
-				name: '',
-				type: context.getValueTypes()[0]
-			})
-		);
-		reloadList();
+		list.add({
+			name: '',
+			type: context.getValueTypes()[0]
+		});
 	}
 
-	function onDeleteClicked(index: number) {
-		updateVariables(variables => variables.splice(index, 1));
-		reloadList();
-	}
-
-	function reloadList() {
-		const variables = context.getValue().variables;
-
-		list.set(
-			variables.map((variable, index) => {
-				const item = variableDefinitionItemComponent(variable, context);
-				item.onNameChanged.subscribe(newName => onNameChanged(newName, index));
-				item.onTypeChanged.subscribe(newType => onTypeChanged(newType, index));
-				item.onDeleteClicked.subscribe(() => onDeleteClicked(index));
-				return item;
-			})
-		);
-
-		validate();
-	}
-
-	function validate() {
-		const result = context.validate();
-		for (let i = 0; i < list.components.length; i++) {
-			list.components[i].validate(result ? result[i] : null);
+	const list = dynamicListComponent<VariableDefinition>(
+		context.getValue().variables,
+		item => variableDefinitionItemComponent(item, context),
+		context,
+		{
+			emptyMessage: 'No variables defined'
 		}
-	}
+	);
+	list.onChanged.subscribe(onChanged);
 
-	const list = dynamicListComponent<VariableDefinitionItemComponent>({
-		emptyMessage: 'No variables defined'
-	});
-
-	const addButton = buttonComponent('New', {
-		size: 'small'
+	const addButton = buttonComponent('New variable', {
+		size: 'small',
+		icon: Icons.add
 	});
 	addButton.onClick.subscribe(onAddClicked);
 
 	const container = valueEditorContainerComponent([list.view]);
-
-	reloadList();
 
 	return {
 		view: container.view,

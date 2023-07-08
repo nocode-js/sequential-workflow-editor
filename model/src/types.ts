@@ -26,13 +26,13 @@ export interface AnyVariables {
 	variables: AnyVariable[];
 }
 
-export enum ValueKnownType {
+export enum WellKnownValueType {
 	string = 'string',
 	number = 'number',
 	boolean = 'boolean'
 }
 
-export type ValueType = ValueKnownType | string;
+export type ValueType = WellKnownValueType | string;
 
 export interface Dynamic<TValue> {
 	modelId: ValueModelId;
@@ -40,3 +40,11 @@ export interface Dynamic<TValue> {
 }
 
 export type ValueModelId = string;
+
+export interface StringDictionary {
+	items: StringDictionaryItem[];
+}
+export interface StringDictionaryItem {
+	key: string;
+	value: string;
+}

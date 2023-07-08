@@ -1,19 +1,55 @@
+import { SimpleEvent, ValueContext } from 'sequential-workflow-editor-model';
 import { Html } from '../core/html';
 import { Component } from './component';
+import { validationErrorComponent } from './validation-error-component';
 
-export interface DynamicListComponent<TComponent extends Component> extends Component {
-	components: TComponent[];
-	set(components: TComponent[]): void;
+export interface DynamicListComponent<TItem> extends Component {
+	onChanged: SimpleEvent<TItem[]>;
+	add(item: TItem): void;
 }
 
 export interface DynamicListComponentConfiguration {
 	emptyMessage?: string;
 }
 
-export function dynamicListComponent<TComponent extends Component>(
+export interface DynamicListItemComponent<TItem> extends Component {
+	onItemChanged: SimpleEvent<TItem>;
+	onDeleteClicked: SimpleEvent<void>;
+	validate(error: string | null): void;
+}
+
+export function dynamicListComponent<TItem>(
+	initialItems: TItem[],
+	itemComponentFactory: (item: TItem) => DynamicListItemComponent<TItem>,
+	context: ValueContext,
 	configuration?: DynamicListComponentConfiguration
-): DynamicListComponent<TComponent> {
-	function set(set: TComponent[]) {
+): DynamicListComponent<TItem> {
+	const onChanged = new SimpleEvent<TItem[]>();
+	const items = [...initialItems];
+
+	function forward() {
+		onChanged.forward([...items]);
+	}
+
+	function onItemChanged(newItem: TItem, index: number) {
+		items[index] = newItem;
+		forward();
+		validateList();
+	}
+
+	function onItemDeleted(index: number) {
+		items.splice(index, 1);
+		forward();
+		reloadList();
+	}
+
+	function add(item: TItem) {
+		items.push(item);
+		forward();
+		reloadList();
+	}
+
+	function reloadList() {
 		if (emptyRow) {
 			view.removeChild(emptyRow);
 			emptyRow = null;
@@ -21,29 +57,46 @@ export function dynamicListComponent<TComponent extends Component>(
 		components.forEach(component => view.removeChild(component.view));
 		components.length = 0;
 
-		if (set.length > 0) {
-			set.forEach(component => {
+		if (items.length > 0) {
+			items.forEach((item, index) => {
+				const component = itemComponentFactory(item);
+				component.onItemChanged.subscribe(item => onItemChanged(item, index));
+				component.onDeleteClicked.subscribe(() => onItemDeleted(index));
+				view.insertBefore(component.view, validation.view);
 				components.push(component);
-				view.appendChild(component.view);
 			});
 		} else if (configuration?.emptyMessage) {
 			emptyRow = Html.element('div', {
 				class: 'swe-dynamic-list-empty-row'
 			});
 			emptyRow.innerText = configuration.emptyMessage;
-			view.appendChild(emptyRow);
+			view.insertBefore(emptyRow, validation.view);
 		}
+		validateList();
+	}
+
+	function validateList() {
+		const result = context.validate();
+		for (let i = 0; i < components.length; i++) {
+			components[i].validate(result ? result[i] : null);
+		}
+		validation.setError(result && result.$ ? result.$ : null);
 	}
 
 	let emptyRow: HTMLElement | null = null;
-	const components: TComponent[] = [];
 	const view = Html.element('div', {
 		class: 'swe-dynamic-list'
 	});
+	const validation = validationErrorComponent();
+	view.appendChild(validation.view);
+
+	const components: DynamicListItemComponent<TItem>[] = [];
+
+	reloadList();
 
 	return {
-		components,
+		onChanged,
 		view,
-		set
+		add
 	};
 }

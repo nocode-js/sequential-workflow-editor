@@ -10,10 +10,11 @@ import {
 import { anyVariablesValueEditor, anyVariablesValueEditorId } from './any-variables/any-variables-value-editor';
 import { dynamicValueEditor, dynamicValueEditorId } from './dynamic/dynamic-value-editor';
 import { choiceValueEditor, choiceValueEditorId } from './choice/choice-value-editor';
-import { branchesValueModelId, sequenceValueModelId } from 'sequential-workflow-editor-model';
+import { branchesValueModelId, sequenceValueModelId, stringDictionaryValueModelId } from 'sequential-workflow-editor-model';
 import { nullableAnyVariableValueEditor, nullableAnyVariableValueEditorId } from './nullable-any-variable/nullable-any-variable-editor';
 import { booleanValueEditor, booleanValueEditorId } from './boolean/boolean-value-editor';
 import { generatedStringValueEditor, generatedStringValueEditorId } from './generated-string/generated-string-value-editor';
+import { stringDictionaryValueEditor } from './string-dictionary/string-dictionary-value-editor';
 
 const editors: { id: string; factory: ValueEditorFactory | null }[] = [
 	{ id: anyVariablesValueEditorId, factory: anyVariablesValueEditor as ValueEditorFactory },
@@ -25,6 +26,7 @@ const editors: { id: string; factory: ValueEditorFactory | null }[] = [
 	{ id: nullableVariableValueEditorId, factory: nullableVariableValueEditor as ValueEditorFactory },
 	{ id: nullableVariableDefinitionValueEditorId, factory: nullableVariableDefinitionValueEditor as ValueEditorFactory },
 	{ id: stringValueEditorId, factory: stringValueEditor as ValueEditorFactory },
+	{ id: stringDictionaryValueModelId, factory: stringDictionaryValueEditor as ValueEditorFactory },
 	{ id: numberValueEditorId, factory: numberValueEditor as ValueEditorFactory },
 	{ id: variableDefinitionsValueEditorId, factory: variableDefinitionsValueEditor as ValueEditorFactory },
 	{ id: sequenceValueModelId, factory: null },

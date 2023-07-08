@@ -1,7 +1,7 @@
 import {
 	Dynamic,
 	NullableVariable,
-	ValueKnownType,
+	WellKnownValueType,
 	createStepModel,
 	dynamicValueModel,
 	nullableVariableValueModel,
@@ -24,7 +24,7 @@ export const setStringValueStepModel = createStepModel<SetStringValueStep>('setS
 	step.property('variable')
 		.value(
 			nullableVariableValueModel({
-				valueType: ValueKnownType.string,
+				valueType: WellKnownValueType.string,
 				isRequired: true
 			})
 		)
@@ -37,7 +37,7 @@ export const setStringValueStepModel = createStepModel<SetStringValueStep>('setS
 						minLength: 1
 					}),
 					nullableVariableValueModel({
-						valueType: ValueKnownType.string,
+						valueType: WellKnownValueType.string,
 						isRequired: true
 					})
 				]
