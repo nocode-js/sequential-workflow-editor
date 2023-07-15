@@ -1,10 +1,10 @@
-import { createRootModel, sequenceValueModel, variableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+import { createRootModel, createSequenceValueModel, createVariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { MyDefinition } from './definition-model';
 
 export const rootModel = createRootModel<MyDefinition>(root => {
 	root.property('inputs')
 		.hint('Variables passed to the workflow from the outside.')
-		.value(variableDefinitionsValueModel({}))
+		.value(createVariableDefinitionsValueModel({}))
 		.dependentProperty('outputs')
 		.customValidator({
 			validate(context) {
@@ -13,10 +13,10 @@ export const rootModel = createRootModel<MyDefinition>(root => {
 			}
 		});
 
-	root.property('outputs').hint('Variables returned from the workflow.').value(variableDefinitionsValueModel({})).label('Outputs');
+	root.property('outputs').hint('Variables returned from the workflow.').value(createVariableDefinitionsValueModel({})).label('Outputs');
 
 	root.sequence().value(
-		sequenceValueModel({
+		createSequenceValueModel({
 			sequence: []
 		})
 	);

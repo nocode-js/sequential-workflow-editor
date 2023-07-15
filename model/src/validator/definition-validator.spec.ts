@@ -1,6 +1,6 @@
 import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
 import { createDefinitionModel, createRootModel, createStepModel } from '../builders';
-import { numberValueModel } from '../value-models';
+import { createNumberValueModel } from '../value-models';
 import { DefinitionValidator } from './definition-validator';
 
 interface FooDefinition extends Definition {
@@ -20,7 +20,7 @@ describe('DefinitionValidator', () => {
 		builder.root(
 			createRootModel(root => {
 				root.property('velocity').value(
-					numberValueModel({
+					createNumberValueModel({
 						min: 0
 					})
 				);
@@ -30,7 +30,7 @@ describe('DefinitionValidator', () => {
 		builder.steps([
 			createStepModel<FooStep>('move', 'task', step => {
 				step.property('delta').value(
-					numberValueModel({
+					createNumberValueModel({
 						max: 0
 					})
 				);

@@ -1,4 +1,4 @@
-import { choiceValueModel, createStepModel } from 'sequential-workflow-editor-model';
+import { createChoiceValueModel, createStepModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface ChoiceStepModel extends Step {
@@ -13,6 +13,6 @@ export interface ChoiceStepModel extends Step {
 export const choiceStepModel = createStepModel<ChoiceStepModel>('choice', 'task', step => {
 	const choices = ['red', 'blue', 'green'];
 
-	step.property('minimalConfig').value(choiceValueModel({ choices }));
-	step.property('defaultValueGreen').value(choiceValueModel({ choices, defaultValue: 'green' }));
+	step.property('minimalConfig').value(createChoiceValueModel({ choices }));
+	step.property('defaultValueGreen').value(createChoiceValueModel({ choices, defaultValue: 'green' }));
 });

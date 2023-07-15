@@ -6,8 +6,7 @@ interface LoopActivityState {
 	indexVariableName: string;
 }
 
-export const loopActivity = createLoopActivity<LoopStep, GlobalState, LoopActivityState>({
-	stepType: 'loop',
+export const loopActivity = createLoopActivity<LoopStep, GlobalState, LoopActivityState>('loop', {
 	loopName: step => `LOOP.${step.id}`,
 	init: (step: LoopStep) => {
 		if (!step.properties.indexVariable) {

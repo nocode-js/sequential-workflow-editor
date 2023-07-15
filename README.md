@@ -52,12 +52,12 @@ export interface LogStep extends Step {
 Now we can create a model for the step:
 
 ```ts
-import { createStepModel, stringValueModel } from 'sequential-workflow-editor-model';
+import { createStepModel, createStringValueModel } from 'sequential-workflow-editor-model';
 
 export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
   step.property('message')
     .value(
-      stringValueModel({
+      createStringValueModel({
         minLength: 1
       })
     )
@@ -68,12 +68,12 @@ export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 If your workflow contains global properties you can create a root model:
 
 ```ts
-import { createRootModel, variableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+import { createRootModel, createVariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 
 export const rootModel = createRootModel<MyDefinition>(root => {
   root.property('inputs')
     .value(
-      variableDefinitionsValueModel({})
+      createVariableDefinitionsValueModel({})
     );
 );
 ```

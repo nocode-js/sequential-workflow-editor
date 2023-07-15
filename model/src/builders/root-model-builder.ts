@@ -3,7 +3,7 @@ import { Path } from '../core/path';
 import { RootModel } from '../model';
 import { PropertyModelBuilder } from './property-model-builder';
 import { CircularDependencyDetector } from './circular-dependency-detector';
-import { sequenceValueModel } from '../value-models';
+import { createSequenceValueModel } from '../value-models';
 
 const sequencePath = Path.create(['sequence']);
 
@@ -26,7 +26,7 @@ export class RootModelBuilder<TProperties extends Properties> {
 	public build(): RootModel {
 		if (!this.sequenceBuilder.hasValue()) {
 			this.sequenceBuilder.value(
-				sequenceValueModel({
+				createSequenceValueModel({
 					sequence: []
 				})
 			);

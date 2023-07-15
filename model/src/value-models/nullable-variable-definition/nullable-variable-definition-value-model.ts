@@ -17,7 +17,7 @@ export type NullableVariableDefinitionValueModel = ValueModel<
 
 export const nullableVariableDefinitionValueModelId = 'nullableVariableDefinition';
 
-export const nullableVariableDefinitionValueModel = (
+export const createNullableVariableDefinitionValueModel = (
 	configuration: NullableVariableDefinitionValueModelConfiguration
 ): ValueModelFactoryFromModel<NullableVariableDefinitionValueModel> => ({
 	create: (path: Path) => ({

@@ -11,7 +11,7 @@ export type ChoiceValueModel = ValueModel<string, ChoiceValueModelConfiguration>
 
 export const choiceValueModelId = 'choice';
 
-export function choiceValueModel(configuration: ChoiceValueModelConfiguration): ValueModelFactoryFromModel<ChoiceValueModel> {
+export function createChoiceValueModel(configuration: ChoiceValueModelConfiguration): ValueModelFactoryFromModel<ChoiceValueModel> {
 	if (configuration.choices.length < 1) {
 		throw new Error('At least one choice must be provided.');
 	}

@@ -1,6 +1,7 @@
 import { Definition } from 'sequential-workflow-model';
 import { DefinitionModel, RootModel, StepModel, StepModels } from '../model';
 import { ValueType } from '../types';
+import { RootModelBuilder, createRootModel } from './root-model-builder';
 
 export class DefinitionModelBuilder<TDefinition extends Definition> {
 	private rootModel?: RootModel;
@@ -11,20 +12,31 @@ export class DefinitionModelBuilder<TDefinition extends Definition> {
 		// Nothing...
 	}
 
-	public root(model: RootModel) {
+	public root(modelOrCallback: RootModel | ((builder: RootModelBuilder<TDefinition['properties']>) => void)): this {
 		if (this.rootModel) {
 			throw new Error('Root model is already defined');
 		}
-		this.rootModel = model;
+		if (typeof modelOrCallback === 'function') {
+			this.rootModel = createRootModel(modelOrCallback);
+		} else {
+			this.rootModel = modelOrCallback;
+		}
+		return this;
 	}
 
-	public steps(models: StepModel[]) {
+	public steps(models: StepModel[]): this {
 		for (const model of models) {
-			if (this.stepModels[model.type]) {
-				throw new Error(`Step model with type ${model.type} is already defined`);
-			}
-			this.stepModels[model.type] = model;
+			this.step(model);
 		}
+		return this;
+	}
+
+	public step(model: StepModel): this {
+		if (this.stepModels[model.type]) {
+			throw new Error(`Step model with type ${model.type} is already defined`);
+		}
+		this.stepModels[model.type] = model;
+		return this;
 	}
 
 	public valueTypes(valueTypes: ValueType[]): this {

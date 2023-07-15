@@ -16,7 +16,7 @@ export type GeneratedStringVariableValueModel<TProperties extends Properties = P
 
 export const generatedStringValueModelId = 'generatedString';
 
-export function generatedStringValueModel<TProperties extends Properties = Properties>(
+export function createGeneratedStringValueModel<TProperties extends Properties = Properties>(
 	configuration: GeneratedStringValueModelConfiguration<TProperties>
 ): ValueModelFactory<string, GeneratedStringValueModelConfiguration<TProperties>, TProperties> {
 	return {

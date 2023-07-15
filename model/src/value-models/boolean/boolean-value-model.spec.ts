@@ -2,7 +2,7 @@ import { DefaultValueContext } from '../../context/default-value-context';
 import { Path } from '../../core';
 import { createDefinitionModelStub } from '../../test-tools/definition-model-stub';
 import { createModelActivatorStub } from '../../test-tools/model-activator-stub';
-import { booleanValueModel } from './boolean-value-model';
+import { createBooleanValueModel } from './boolean-value-model';
 import { BooleanValueModelConfiguration } from './boolean-value-model-configuration';
 
 describe('booleanValueModel', () => {
@@ -11,7 +11,7 @@ describe('booleanValueModel', () => {
 	const context = DefaultValueContext.create(modelActivator, {}, definitionModel.root.sequence);
 
 	function getModel(configuration: BooleanValueModelConfiguration) {
-		return booleanValueModel(configuration).create(Path.create('test'));
+		return createBooleanValueModel(configuration).create(Path.create('test'));
 	}
 
 	describe('getDefaultValue()', () => {

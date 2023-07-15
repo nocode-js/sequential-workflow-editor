@@ -4,13 +4,13 @@ import {
 	NullableVariableDefinition,
 	WellKnownValueType,
 	VariableDefinitions,
-	choiceValueModel,
+	createVariableDefinitionsValueModel,
 	createSequentialStepModel,
-	dynamicValueModel,
-	nullableVariableDefinitionValueModel,
-	nullableVariableValueModel,
-	numberValueModel,
-	variableDefinitionsValueModel
+	createDynamicValueModel,
+	createNumberValueModel,
+	createNullableVariableValueModel,
+	createChoiceValueModel,
+	createNullableVariableDefinitionValueModel
 } from 'sequential-workflow-editor-model';
 import { SequentialStep } from 'sequential-workflow-model';
 
@@ -34,10 +34,10 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 	step.property('from')
 		.label('From')
 		.value(
-			dynamicValueModel({
+			createDynamicValueModel({
 				models: [
-					numberValueModel({}),
-					nullableVariableValueModel({
+					createNumberValueModel({}),
+					createNullableVariableValueModel({
 						isRequired: true,
 						valueType: WellKnownValueType.number
 					})
@@ -48,7 +48,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 	step.property('operator')
 		.label('Operator')
 		.value(
-			choiceValueModel({
+			createChoiceValueModel({
 				choices: ['<', '<=']
 			})
 		);
@@ -56,10 +56,10 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 	step.property('to')
 		.label('To')
 		.value(
-			dynamicValueModel({
+			createDynamicValueModel({
 				models: [
-					numberValueModel({}),
-					nullableVariableValueModel({
+					createNumberValueModel({}),
+					createNullableVariableValueModel({
 						isRequired: true,
 						valueType: WellKnownValueType.number
 					})
@@ -70,12 +70,12 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 	step.property('increment')
 		.label('Increment')
 		.value(
-			dynamicValueModel({
+			createDynamicValueModel({
 				models: [
-					numberValueModel({
+					createNumberValueModel({
 						defaultValue: 1
 					}),
-					nullableVariableValueModel({
+					createNullableVariableValueModel({
 						isRequired: true,
 						valueType: WellKnownValueType.number
 					})
@@ -86,7 +86,7 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 	step.property('indexVariable')
 		.label('Index variable')
 		.value(
-			nullableVariableDefinitionValueModel({
+			createNullableVariableDefinitionValueModel({
 				valueType: WellKnownValueType.number,
 				isRequired: true,
 				defaultValue: {
@@ -96,5 +96,5 @@ export const loopStepModel = createSequentialStepModel('loop', 'container', step
 			})
 		);
 
-	step.property('variables').label('Extra variables').value(variableDefinitionsValueModel({}));
+	step.property('variables').label('Extra variables').value(createVariableDefinitionsValueModel({}));
 });

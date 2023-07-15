@@ -1,4 +1,4 @@
-import { StringDictionary, createStepModel, stringDictionaryValueModel } from 'sequential-workflow-editor-model';
+import { StringDictionary, createStepModel, createStringDictionaryValueModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface StringDictionaryStepModel extends Step {
@@ -12,14 +12,14 @@ export interface StringDictionaryStepModel extends Step {
 }
 
 export const stringDictionaryStepModel = createStepModel<StringDictionaryStepModel>('stringDictionary', 'task', step => {
-	step.property('zeroConfig').value(stringDictionaryValueModel({}));
+	step.property('zeroConfig').value(createStringDictionaryValueModel({}));
 	step.property('uniqueKeys').value(
-		stringDictionaryValueModel({
+		createStringDictionaryValueModel({
 			uniqueKeys: true
 		})
 	);
 	step.property('valueMinLength3').value(
-		stringDictionaryValueModel({
+		createStringDictionaryValueModel({
 			valueMinLength: 3
 		})
 	);

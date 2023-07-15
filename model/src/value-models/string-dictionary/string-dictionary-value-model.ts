@@ -8,7 +8,7 @@ export type StringDictionaryValueModel = ValueModel<StringDictionary, StringDict
 
 export const stringDictionaryValueModelId = 'stringDictionary';
 
-export const stringDictionaryValueModel = (
+export const createStringDictionaryValueModel = (
 	configuration: StringDictionaryValueModelConfiguration
 ): ValueModelFactoryFromModel<StringDictionaryValueModel> => ({
 	create: (path: Path) => ({

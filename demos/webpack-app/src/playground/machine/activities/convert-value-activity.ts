@@ -2,9 +2,8 @@ import { createAtomActivity } from 'sequential-workflow-machine';
 import { GlobalState } from '../global-state';
 import { ConvertValueStep } from '../../model/convert-value-step-model';
 
-export const convertValueActivity = createAtomActivity<ConvertValueStep, GlobalState>({
+export const convertValueActivity = createAtomActivity<ConvertValueStep, GlobalState>('convertValue', {
 	init: () => ({}),
-	stepType: 'convertValue',
 	handler: async (step: ConvertValueStep, { $variables }: GlobalState) => {
 		if (!step.properties.source) {
 			throw new Error('Source variable is required');

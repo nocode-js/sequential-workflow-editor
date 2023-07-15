@@ -4,12 +4,12 @@ import {
 	GeneratedStringContext,
 	NullableVariable,
 	WellKnownValueType,
-	anyVariablesValueModel,
+	createAnyVariablesValueModel,
+	createDynamicValueModel,
+	createGeneratedStringValueModel,
+	createNullableVariableValueModel,
 	createStepModel,
-	dynamicValueModel,
-	generatedStringValueModel,
-	nullableVariableValueModel,
-	stringValueModel
+	createStringValueModel
 } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
@@ -26,12 +26,12 @@ export interface LogStep extends Step {
 export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 	step.property('message')
 		.value(
-			dynamicValueModel({
+			createDynamicValueModel({
 				models: [
-					stringValueModel({
+					createStringValueModel({
 						minLength: 1
 					}),
-					nullableVariableValueModel({
+					createNullableVariableValueModel({
 						isRequired: true,
 						valueType: WellKnownValueType.string
 					})
@@ -40,21 +40,21 @@ export const logStepModel = createStepModel<LogStep>('log', 'task', step => {
 		)
 		.label('Text');
 
-	step.property('variables').value(anyVariablesValueModel({})).label('Log variables');
+	step.property('variables').value(createAnyVariablesValueModel({})).label('Log variables');
 
 	step.property('note')
 		.dependentProperty('variables')
 		.value(
-			dynamicValueModel({
+			createDynamicValueModel({
 				models: [
-					generatedStringValueModel({
+					createGeneratedStringValueModel({
 						generator: (context: GeneratedStringContext<LogStep['properties']>) => {
 							// TODO: if the type would be deleted from arguments, then the auto type is wrong.
 							const variables = context.getPropertyValue('variables');
 							return `Dumped ${variables.variables.length} variables`;
 						}
 					}),
-					stringValueModel({})
+					createStringValueModel({})
 				]
 			})
 		);

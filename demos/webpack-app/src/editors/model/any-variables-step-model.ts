@@ -1,4 +1,4 @@
-import { AnyVariables, anyVariablesValueModel, createStepModel } from 'sequential-workflow-editor-model';
+import { AnyVariables, createAnyVariablesValueModel, createStepModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface AnyVariablesStepModel extends Step {
@@ -11,9 +11,9 @@ export interface AnyVariablesStepModel extends Step {
 }
 
 export const anyVariablesStepModel = createStepModel<AnyVariablesStepModel>('anyVariables', 'task', step => {
-	step.property('zeroConfig').value(anyVariablesValueModel({}));
+	step.property('zeroConfig').value(createAnyVariablesValueModel({}));
 	step.property('onlyBoolean').value(
-		anyVariablesValueModel({
+		createAnyVariablesValueModel({
 			valueTypes: ['boolean']
 		})
 	);

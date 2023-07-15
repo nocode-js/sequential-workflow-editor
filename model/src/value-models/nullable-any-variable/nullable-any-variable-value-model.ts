@@ -12,7 +12,7 @@ export type NullableAnyVariableValueModel = ValueModel<NullableAnyVariable, Null
 
 export const nullableAnyVariableValueModelId = 'nullableAnyVariable';
 
-export const nullableAnyVariableValueModel = (
+export const createNullableAnyVariableValueModel = (
 	configuration: NullableAnyVariableValueModelConfiguration
 ): ValueModelFactoryFromModel<NullableAnyVariableValueModel> => ({
 	create: (path: Path) => ({

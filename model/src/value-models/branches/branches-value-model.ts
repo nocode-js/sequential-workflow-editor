@@ -16,7 +16,7 @@ type BranchesOf<TConfiguration extends BranchesValueModelConfiguration> = Record
 
 export const branchesValueModelId = 'branches';
 
-export const branchesValueModel = <TConfiguration extends BranchesValueModelConfiguration>(
+export const createBranchesValueModel = <TConfiguration extends BranchesValueModelConfiguration>(
 	configuration: TConfiguration
 ): ValueModelFactoryFromModel<BranchesValueModel<BranchesOf<TConfiguration>>> => ({
 	create: (path: Path) => ({

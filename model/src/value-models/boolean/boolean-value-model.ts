@@ -6,7 +6,7 @@ export type BooleanValueModel = ValueModel<boolean, BooleanValueModelConfigurati
 
 export const booleanValueModelId = 'boolean';
 
-export const booleanValueModel = (configuration: BooleanValueModelConfiguration): ValueModelFactoryFromModel<BooleanValueModel> => ({
+export const createBooleanValueModel = (configuration: BooleanValueModelConfiguration): ValueModelFactoryFromModel<BooleanValueModel> => ({
 	create: (path: Path) => ({
 		id: booleanValueModelId,
 		label: 'Boolean',

@@ -1,5 +1,5 @@
 import { Definition, Step } from 'sequential-workflow-model';
-import { DefinitionModel, PropertyModels } from '../model';
+import { DefinitionModel, PropertyModel, PropertyModels } from '../model';
 import { UidGenerator } from '../external-types';
 import { DefaultValueContext } from '../context/default-value-context';
 
@@ -49,21 +49,24 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 	};
 
 	private activatePropertiesInOrder(object: object, models: PropertyModels) {
-		this.activateProperties(
-			object,
-			models.filter(m => m.dependencies.length === 0)
-		);
-		this.activateProperties(
-			object,
-			models.filter(m => m.dependencies.length > 0)
-		);
+		let i: number;
+		for (i = 0; i < models.length; i++) {
+			const model = models[i];
+			if (model.dependencies.length === 0) {
+				this.activateProperty(object, model);
+			}
+		}
+		for (i = 0; i < models.length; i++) {
+			const model = models[i];
+			if (model.dependencies.length > 0) {
+				this.activateProperty(object, model);
+			}
+		}
 	}
 
-	private activateProperties(object: object, models: PropertyModels) {
-		for (const model of models) {
-			const defaultValueContext = DefaultValueContext.create(this, object, model);
-			const defaultValue = model.value.getDefaultValue(defaultValueContext);
-			model.value.path.write(object, defaultValue);
-		}
+	private activateProperty(object: object, model: PropertyModel) {
+		const defaultValueContext = DefaultValueContext.create(this, object, model);
+		const defaultValue = model.value.getDefaultValue(defaultValueContext);
+		model.value.path.write(object, defaultValue);
 	}
 }

@@ -1,14 +1,14 @@
-import { createRootModel, sequenceValueModel, variableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+import { createRootModel, createSequenceValueModel, createVariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { stepModels } from './step-models';
 
 export const rootModel = createRootModel(root => {
 	root.sequence().value(
-		sequenceValueModel({
+		createSequenceValueModel({
 			sequence: stepModels.map(s => s.type)
 		})
 	);
 	root.property('x').value(
-		variableDefinitionsValueModel({
+		createVariableDefinitionsValueModel({
 			defaultValue: {
 				variables: [
 					{

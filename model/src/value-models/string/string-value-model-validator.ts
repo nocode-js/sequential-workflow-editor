@@ -6,6 +6,9 @@ export function stringValueModelValidator(context: ValueContext<StringValueModel
 	const value = context.getValue();
 	const configuration = context.model.configuration;
 
+	if (typeof value !== 'string') {
+		return createValidationSingleError('The value must be a string.');
+	}
 	if (configuration.minLength !== undefined && value.length < configuration.minLength) {
 		return createValidationSingleError(`The value must be at least ${configuration.minLength} characters long.`);
 	}
