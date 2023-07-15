@@ -1,7 +1,7 @@
 import { ComponentType, Step } from 'sequential-workflow-model';
 import { Path } from '../core/path';
 import { StepModel } from '../model';
-import { stringValueModel } from '../value-models';
+import { createStringValueModel } from '../value-models';
 import { PropertyModelBuilder } from './property-model-builder';
 import { CircularDependencyDetector } from './circular-dependency-detector';
 import { buildLabel } from '../core/label-builder';
@@ -78,7 +78,7 @@ export class StepModelBuilder<TStep extends Step> {
 	public build(): StepModel {
 		if (!this.nameBuilder.hasValue()) {
 			this.nameBuilder.value(
-				stringValueModel({
+				createStringValueModel({
 					defaultValue: buildLabel(this.type),
 					minLength: 1
 				})

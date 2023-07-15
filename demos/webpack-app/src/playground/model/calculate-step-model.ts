@@ -3,12 +3,12 @@ import {
 	Dynamic,
 	NullableVariable,
 	WellKnownValueType,
-	choiceValueModel,
+	createChoiceValueModel,
 	createStepModel,
-	dynamicValueModel,
-	generatedStringValueModel,
-	nullableVariableValueModel,
-	numberValueModel
+	createDynamicValueModel,
+	createGeneratedStringValueModel,
+	createNullableVariableValueModel,
+	createNumberValueModel
 } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
@@ -29,7 +29,7 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 
 	step.name()
 		.value(
-			generatedStringValueModel({
+			createGeneratedStringValueModel({
 				generator: context => {
 					const result = context.formatPropertyValue('result', value => formatVariableName(value.name));
 					const a = context.formatPropertyValue('a', ({ value }) => {
@@ -48,10 +48,10 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 		.dependentProperty('b')
 		.dependentProperty('operator');
 
-	const val = dynamicValueModel({
+	const val = createDynamicValueModel({
 		models: [
-			numberValueModel({}),
-			nullableVariableValueModel({
+			createNumberValueModel({}),
+			createNullableVariableValueModel({
 				isRequired: true,
 				valueType: WellKnownValueType.number
 			})
@@ -59,7 +59,7 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 	});
 
 	step.property('result').value(
-		nullableVariableValueModel({
+		createNullableVariableValueModel({
 			valueType: WellKnownValueType.number,
 			isRequired: true
 		})
@@ -68,7 +68,7 @@ export const calculateStepModel = createStepModel<CalculateStep>('calculate', 't
 	step.property('a').value(val).label('A');
 
 	step.property('operator').value(
-		choiceValueModel({
+		createChoiceValueModel({
 			choices: ['+', '-', '*', '/', '%']
 		})
 	);

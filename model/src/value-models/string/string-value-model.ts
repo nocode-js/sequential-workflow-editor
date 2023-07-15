@@ -7,7 +7,7 @@ export type StringValueModel = ValueModel<string, StringValueModelConfiguration>
 
 export const stringValueModelId = 'string';
 
-export const stringValueModel = (configuration: StringValueModelConfiguration): ValueModelFactoryFromModel<StringValueModel> => ({
+export const createStringValueModel = (configuration: StringValueModelConfiguration): ValueModelFactoryFromModel<StringValueModel> => ({
 	create: (path: Path) => ({
 		id: stringValueModelId,
 		label: 'String',

@@ -1,4 +1,4 @@
-import { createStepModel, generatedStringValueModel, numberValueModel } from 'sequential-workflow-editor-model';
+import { createStepModel, createGeneratedStringValueModel, createNumberValueModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface GeneratedStringStepModel extends Step {
@@ -11,12 +11,12 @@ export interface GeneratedStringStepModel extends Step {
 }
 
 export const generatedStringStepModel = createStepModel<GeneratedStringStepModel>('generatedString', 'task', step => {
-	step.property('x').value(numberValueModel({}));
+	step.property('x').value(createNumberValueModel({}));
 
 	step.property('example')
 		.dependentProperty('x')
 		.value(
-			generatedStringValueModel({
+			createGeneratedStringValueModel({
 				generator(context) {
 					const x = context.getPropertyValue('x');
 					switch (x) {

@@ -1,14 +1,14 @@
 import {
 	Dynamic,
 	NullableVariable,
-	booleanValueModel,
-	branchesValueModel,
-	choiceValueModel,
+	createBooleanValueModel,
+	createBranchesValueModel,
+	createChoiceValueModel,
 	createBranchedStepModel,
-	dynamicValueModel,
-	nullableAnyVariableValueModel,
-	numberValueModel,
-	stringValueModel
+	createDynamicValueModel,
+	createNullableAnyVariableValueModel,
+	createNumberValueModel,
+	createStringValueModel
 } from 'sequential-workflow-editor-model';
 import { BranchedStep } from 'sequential-workflow-model';
 
@@ -26,12 +26,12 @@ export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step 
 	step.category('Logic');
 	step.description('Check condition and execute different branches.');
 
-	const ab = dynamicValueModel({
+	const ab = createDynamicValueModel({
 		models: [
-			numberValueModel({}),
-			stringValueModel({}),
-			booleanValueModel({}),
-			nullableAnyVariableValueModel({
+			createNumberValueModel({}),
+			createStringValueModel({}),
+			createBooleanValueModel({}),
+			createNullableAnyVariableValueModel({
 				isRequired: true
 			})
 		]
@@ -42,7 +42,7 @@ export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step 
 	step.property('operator')
 		.label('Operator')
 		.value(
-			choiceValueModel({
+			createChoiceValueModel({
 				choices: ['==', '===', '!=', '!==', '>', '>=', '<', '<=']
 			})
 		)
@@ -51,7 +51,7 @@ export const ifStepModel = createBranchedStepModel<IfStep>('if', 'switch', step 
 	step.property('b').value(ab).label('B').hint('Right side of comparison.');
 
 	step.branches().value(
-		branchesValueModel({
+		createBranchesValueModel({
 			branches: {
 				true: [],
 				false: []

@@ -13,7 +13,7 @@ export type VariableDefinitionsValueModel = ValueModel<VariableDefinitions, Vari
 
 export const variableDefinitionsValueModelId = 'variableDefinitions';
 
-export const variableDefinitionsValueModel = (
+export const createVariableDefinitionsValueModel = (
 	configuration: VariableDefinitionsValueModelConfiguration
 ): ValueModelFactoryFromModel<VariableDefinitionsValueModel> => ({
 	create: (path: Path) => ({

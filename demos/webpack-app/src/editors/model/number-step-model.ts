@@ -1,4 +1,4 @@
-import { createStepModel, numberValueModel } from 'sequential-workflow-editor-model';
+import { createStepModel, createNumberValueModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface NumberStepModel extends Step {
@@ -13,19 +13,19 @@ export interface NumberStepModel extends Step {
 }
 
 export const numberStepModel = createStepModel<NumberStepModel>('number', 'task', step => {
-	step.property('zeroConfig').value(numberValueModel({}));
+	step.property('zeroConfig').value(createNumberValueModel({}));
 	step.property('defaultValue10').value(
-		numberValueModel({
+		createNumberValueModel({
 			defaultValue: 10
 		})
 	);
 	step.property('min10').value(
-		numberValueModel({
+		createNumberValueModel({
 			min: 10
 		})
 	);
 	step.property('max20').value(
-		numberValueModel({
+		createNumberValueModel({
 			max: 20
 		})
 	);

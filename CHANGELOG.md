@@ -1,3 +1,17 @@
+## 0.7.1
+
+This version renames all `*ValueModel` functions to `create*ValueModel`, adding the `create` prefix.
+
+```ts
+// Old
+stringValueModel({ ... });
+
+// New
+createStringValueModel({ ... });
+```
+
+This version doesn't introduce breaking changes. The old functions are still available, but they are deprecated.
+
 ## 0.7.0
 
 This version changes the license to the MIT license. 🎉

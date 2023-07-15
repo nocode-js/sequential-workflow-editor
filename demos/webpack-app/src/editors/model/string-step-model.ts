@@ -1,4 +1,4 @@
-import { createStepModel, stringValueModel } from 'sequential-workflow-editor-model';
+import { createStepModel, createStringValueModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface StringStepModel extends Step {
@@ -14,24 +14,24 @@ export interface StringStepModel extends Step {
 }
 
 export const stringStepModel = createStepModel<StringStepModel>('string', 'task', step => {
-	step.property('zeroConfig').value(stringValueModel({}));
+	step.property('zeroConfig').value(createStringValueModel({}));
 	step.property('defaultValue').value(
-		stringValueModel({
+		createStringValueModel({
 			defaultValue: 'Some default value'
 		})
 	);
 	step.property('minLength3').value(
-		stringValueModel({
+		createStringValueModel({
 			minLength: 3
 		})
 	);
 	step.property('patternYear').value(
-		stringValueModel({
+		createStringValueModel({
 			pattern: /^\d{4}$/
 		})
 	);
 	step.property('multiLine').value(
-		stringValueModel({
+		createStringValueModel({
 			multiline: true
 		})
 	);

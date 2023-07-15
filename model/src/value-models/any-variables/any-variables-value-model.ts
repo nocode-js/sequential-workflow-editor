@@ -11,7 +11,7 @@ export type AnyVariablesValueModel = ValueModel<AnyVariables, AnyVariablesValueM
 
 export const anyVariablesValueModelId = 'anyVariables';
 
-export const anyVariablesValueModel = (
+export const createAnyVariablesValueModel = (
 	configuration: AnyVariablesValueModelConfiguration
 ): ValueModelFactoryFromModel<AnyVariablesValueModel> => ({
 	create: (path: Path) => ({

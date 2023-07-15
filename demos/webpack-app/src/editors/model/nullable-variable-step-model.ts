@@ -1,4 +1,4 @@
-import { NullableVariable, createStepModel, nullableVariableValueModel } from 'sequential-workflow-editor-model';
+import { NullableVariable, createStepModel, createNullableVariableValueModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface NullableVariableStepModel extends Step {
@@ -12,12 +12,12 @@ export interface NullableVariableStepModel extends Step {
 
 export const nullableVariableStepModel = createStepModel<NullableVariableStepModel>('nullableVariable', 'task', step => {
 	step.property('minimalConfig').value(
-		nullableVariableValueModel({
+		createNullableVariableValueModel({
 			valueType: 'number'
 		})
 	);
 	step.property('required').value(
-		nullableVariableValueModel({
+		createNullableVariableValueModel({
 			valueType: 'number',
 			isRequired: true
 		})

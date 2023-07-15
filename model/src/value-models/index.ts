@@ -12,3 +12,4 @@ export * from './sequence';
 export * from './string';
 export * from './string-dictionary';
 export * from './variable-definitions';
+export * from './depreciated';

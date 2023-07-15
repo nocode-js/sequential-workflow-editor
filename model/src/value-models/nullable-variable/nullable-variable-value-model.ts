@@ -13,7 +13,7 @@ export type NullableVariableValueModel = ValueModel<NullableVariable, NullableVa
 
 export const nullableVariableValueModelId = 'nullableVariable';
 
-export const nullableVariableValueModel = (
+export const createNullableVariableValueModel = (
 	configuration: NullableVariableValueModelConfiguration
 ): ValueModelFactoryFromModel<NullableVariableValueModel> => ({
 	create: (path: Path) => ({

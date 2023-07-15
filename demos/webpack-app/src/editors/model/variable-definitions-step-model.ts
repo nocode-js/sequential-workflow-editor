@@ -1,4 +1,4 @@
-import { VariableDefinitions, createStepModel, variableDefinitionsValueModel } from 'sequential-workflow-editor-model';
+import { VariableDefinitions, createStepModel, createVariableDefinitionsValueModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface VariableDefinitionsStepModel extends Step {
@@ -12,14 +12,14 @@ export interface VariableDefinitionsStepModel extends Step {
 }
 
 export const variableDefinitionsStepModel = createStepModel<VariableDefinitionsStepModel>('variableDefinitions', 'task', step => {
-	step.property('zeroConfig').value(variableDefinitionsValueModel({}));
+	step.property('zeroConfig').value(createVariableDefinitionsValueModel({}));
 	step.property('numberAndBooleanOnly').value(
-		variableDefinitionsValueModel({
+		createVariableDefinitionsValueModel({
 			valueTypes: ['number', 'boolean']
 		})
 	);
 	step.property('defaultValue').value(
-		variableDefinitionsValueModel({
+		createVariableDefinitionsValueModel({
 			defaultValue: {
 				variables: [
 					{ name: 'x', type: 'number' },

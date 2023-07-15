@@ -1,5 +1,5 @@
 import { createDefinitionModel, createRootModel, createStepModel } from '../builders';
-import { numberValueModel, stringValueModel } from '../value-models';
+import { createNumberValueModel, createStringValueModel } from '../value-models';
 import { ModelActivator } from './model-activator';
 import { Definition, Step } from 'sequential-workflow-model';
 
@@ -22,7 +22,7 @@ describe('ModelActivator', () => {
 		model.root(
 			createRootModel<TestDefinition>(root => {
 				root.property('size').value(
-					numberValueModel({
+					createNumberValueModel({
 						defaultValue: 20
 					})
 				);
@@ -32,7 +32,7 @@ describe('ModelActivator', () => {
 		model.steps([
 			createStepModel<TestStep>('test', 'task', step => {
 				step.property('password').value(
-					stringValueModel({
+					createStringValueModel({
 						defaultValue: 'lorem ipsum'
 					})
 				);

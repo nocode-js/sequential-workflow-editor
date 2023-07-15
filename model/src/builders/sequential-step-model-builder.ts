@@ -1,6 +1,6 @@
 import { Sequence, SequentialStep } from 'sequential-workflow-model';
 import { StepModelBuilder } from './step-model-builder';
-import { sequenceValueModel } from '../value-models';
+import { createSequenceValueModel } from '../value-models';
 import { Path } from '../core/path';
 import { StepModel } from '../model';
 import { PropertyModelBuilder } from './property-model-builder';
@@ -20,7 +20,7 @@ export class SequentialStepModelBuilder<TStep extends SequentialStep> extends St
 	public build(): StepModel {
 		if (!this.sequenceBuilder.hasValue()) {
 			this.sequenceBuilder.value(
-				sequenceValueModel({
+				createSequenceValueModel({
 					sequence: []
 				})
 			);

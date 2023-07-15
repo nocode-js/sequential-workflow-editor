@@ -1,4 +1,4 @@
-import { booleanValueModel, createStepModel } from 'sequential-workflow-editor-model';
+import { createBooleanValueModel, createStepModel } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface BooleanStepModel extends Step {
@@ -12,14 +12,14 @@ export interface BooleanStepModel extends Step {
 }
 
 export const booleanStepModel = createStepModel<BooleanStepModel>('boolean', 'task', step => {
-	step.property('zeroConfig').value(booleanValueModel({}));
+	step.property('zeroConfig').value(createBooleanValueModel({}));
 	step.property('defaultValueTrue').value(
-		booleanValueModel({
+		createBooleanValueModel({
 			defaultValue: true
 		})
 	);
 	step.property('defaultValueFalse').value(
-		booleanValueModel({
+		createBooleanValueModel({
 			defaultValue: false
 		})
 	);

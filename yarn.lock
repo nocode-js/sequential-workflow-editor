@@ -5170,18 +5170,13 @@ sequential-workflow-designer@^0.13.5:
   dependencies:
     sequential-workflow-model "^0.1.4"
 
-sequential-workflow-machine@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/sequential-workflow-machine/-/sequential-workflow-machine-0.2.0.tgz#df395a77007e1a9c41cdcccd3a9e6b2f8353f95b"
-  integrity sha512-1HPTYl3eMgoYSKylLFsWMmtxsZ1AgY1PUKv7fds6JTy6l8VhBaar6WgQfTtY+IjFcTE0ACOBzK1sKrRY06V96w==
+sequential-workflow-machine@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/sequential-workflow-machine/-/sequential-workflow-machine-0.3.0.tgz#7ceee49b9348cb14a9686aa61b5fa675947682f7"
+  integrity sha512-1Fut5YCLUMeAS7sM8Rmpxjys37ainCqy8F/XVQD8Zzwtnll375LVJfoimlZw/o92DrOWA/RLcWnML0FQ6mSeJw==
   dependencies:
-    sequential-workflow-model "^0.1.1"
-    xstate "^4.37.2"
-
-sequential-workflow-model@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/sequential-workflow-model/-/sequential-workflow-model-0.1.1.tgz#3dc79bbcfaf45f09db1313302a504be843b44847"
-  integrity sha512-1IfXr3ze7uVlXC54xeCtIrG+rP026gjawuBy7MEDmg597MduOw9yKnBpXwAmM9GSN56Zp7gsoMxZGv5kwXIleg==
+    sequential-workflow-model "^0.1.4"
+    xstate "^4.38.1"
 
 sequential-workflow-model@^0.1.4:
   version "0.1.4"
@@ -5888,6 +5883,11 @@ xstate@^4.37.2:
   version "4.37.2"
   resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.37.2.tgz#c5f4c1d8062784238b91e2dfddca05f821cb4eac"
   integrity sha512-Qm337O49CRTZ3PRyRuK6b+kvI+D3JGxXIZCTul+xEsyFCVkTFDt5jixaL1nBWcUBcaTQ9um/5CRGVItPi7fveg==
+
+xstate@^4.38.1:
+  version "4.38.1"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.38.1.tgz#9be54c2dfc44d1d566c697393921edaf6d3c9998"
+  integrity sha512-1gBUcFWBj/rv/pRcP2Bedl5sNRGX2d36CaOx9z7fE9uSiHaOEHIWzLg1B853q2xdUHUA9pEiWKjLZ3can4SJaQ==
 
 xtend@^4.0.2:
   version "4.0.2"

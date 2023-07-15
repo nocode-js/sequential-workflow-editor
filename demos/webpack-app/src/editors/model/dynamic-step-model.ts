@@ -1,4 +1,10 @@
-import { Dynamic, booleanValueModel, createStepModel, dynamicValueModel, stringValueModel } from 'sequential-workflow-editor-model';
+import {
+	Dynamic,
+	createBooleanValueModel,
+	createStepModel,
+	createDynamicValueModel,
+	createStringValueModel
+} from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
 export interface DynamicStepModel extends Step {
@@ -11,8 +17,8 @@ export interface DynamicStepModel extends Step {
 
 export const dynamicStepModel = createStepModel<DynamicStepModel>('dynamic', 'task', step => {
 	step.property('example').value(
-		dynamicValueModel({
-			models: [stringValueModel({}), booleanValueModel({})]
+		createDynamicValueModel({
+			models: [createStringValueModel({}), createBooleanValueModel({})]
 		})
 	);
 });

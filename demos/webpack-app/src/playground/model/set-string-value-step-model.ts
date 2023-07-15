@@ -3,9 +3,9 @@ import {
 	NullableVariable,
 	WellKnownValueType,
 	createStepModel,
-	dynamicValueModel,
-	nullableVariableValueModel,
-	stringValueModel
+	createDynamicValueModel,
+	createNullableVariableValueModel,
+	createStringValueModel
 } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
@@ -23,7 +23,7 @@ export const setStringValueStepModel = createStepModel<SetStringValueStep>('setS
 
 	step.property('variable')
 		.value(
-			nullableVariableValueModel({
+			createNullableVariableValueModel({
 				valueType: WellKnownValueType.string,
 				isRequired: true
 			})
@@ -31,12 +31,12 @@ export const setStringValueStepModel = createStepModel<SetStringValueStep>('setS
 		.label('Target variable');
 	step.property('value')
 		.value(
-			dynamicValueModel({
+			createDynamicValueModel({
 				models: [
-					stringValueModel({
+					createStringValueModel({
 						minLength: 1
 					}),
-					nullableVariableValueModel({
+					createNullableVariableValueModel({
 						valueType: WellKnownValueType.string,
 						isRequired: true
 					})

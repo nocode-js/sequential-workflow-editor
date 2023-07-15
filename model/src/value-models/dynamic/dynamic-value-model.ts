@@ -20,7 +20,7 @@ type TValueOf<TValueModelFactory extends ValueModelFactoryFromModel[]> = ReturnT
 
 export const dynamicValueModelId = 'dynamic';
 
-export function dynamicValueModel<TValueModelFactory extends ValueModelFactoryFromModel[]>(
+export function createDynamicValueModel<TValueModelFactory extends ValueModelFactoryFromModel[]>(
 	configuration: DynamicValueModelConfiguration<TValueModelFactory>
 ): ValueModelFactoryFromModel<DynamicValueModel<TValueModelFactory>> {
 	if (configuration.models.length < 1) {

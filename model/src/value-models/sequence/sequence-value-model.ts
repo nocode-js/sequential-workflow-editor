@@ -11,7 +11,9 @@ export type SequenceValueModel = ValueModel<Sequence, SequenceValueModelConfigur
 
 export const sequenceValueModelId = 'sequence';
 
-export const sequenceValueModel = (configuration: SequenceValueModelConfiguration): ValueModelFactoryFromModel<SequenceValueModel> => ({
+export const createSequenceValueModel = (
+	configuration: SequenceValueModelConfiguration
+): ValueModelFactoryFromModel<SequenceValueModel> => ({
 	create: (path: Path) => ({
 		id: sequenceValueModelId,
 		label: 'Sequence',
