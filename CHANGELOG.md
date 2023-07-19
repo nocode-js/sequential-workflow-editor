@@ -6,7 +6,7 @@ We added a new type of a validator: step validator. It allows to restrict a plac
 createStepModel<WriteSocketStep>('writeSocket', 'task', step => {
   step.validator({
     validate(context: StepValidatorContext) {
-      const parentTypes = context.getParentStepTypes()
+      const parentTypes = context.getParentStepTypes();
       return parentTypes.includes('socket');
         ? null // No errors
         : 'The write socket step must be inside a socket.';
