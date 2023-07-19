@@ -1,3 +1,25 @@
+## 0.7.2
+
+We added a new type of a validator: step validator. It allows to restrict a placement of a step in a definition. For example, you can enforce that a step can be placed only inside a specific step.
+
+```ts
+createStepModel<WriteSocketStep>('writeSocket', 'task', step => {
+  step.validator({
+    validate(context: StepValidatorContext) {
+      const parentTypes = context.getParentStepTypes()
+      return parentTypes.includes('socket');
+        ? null // No errors
+        : 'The write socket step must be inside a socket.';
+    }
+  });
+});
+```
+
+Additionally we've renamed:
+
+* the `CustomValidatorContext` class to `PropertyValidatorContext`,
+* the `customValidator` method of the `PropertyModelBuilder` class to `validator`.
+
 ## 0.7.1
 
 This version renames all `*ValueModel` functions to `create*ValueModel`, adding the `create` prefix.

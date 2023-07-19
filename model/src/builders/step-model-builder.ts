@@ -1,6 +1,6 @@
 import { ComponentType, Step } from 'sequential-workflow-model';
 import { Path } from '../core/path';
-import { StepModel } from '../model';
+import { StepModel, StepValidator } from '../model';
 import { createStringValueModel } from '../value-models';
 import { PropertyModelBuilder } from './property-model-builder';
 import { CircularDependencyDetector } from './circular-dependency-detector';
@@ -13,6 +13,7 @@ export class StepModelBuilder<TStep extends Step> {
 	private _label?: string;
 	private _description?: string;
 	private _category?: string;
+	private _validator?: StepValidator;
 	private readonly nameBuilder = new PropertyModelBuilder<string>(namePath, this.circularDependencyDetector);
 	private readonly propertyBuilder: PropertyModelBuilder[] = [];
 
@@ -34,6 +35,16 @@ export class StepModelBuilder<TStep extends Step> {
 	}
 
 	/**
+	 * Sets the description of the step.
+	 * @param description The description of the step.
+	 * @example `builder.description('This step does something useful.');`
+	 */
+	public description(description: string): this {
+		this._description = description;
+		return this;
+	}
+
+	/**
 	 * Sets the category of the step. This field is used in the toolbox to group steps.
 	 * @param category The category of the step.
 	 * @example `builder.category('Utilities');`
@@ -44,12 +55,11 @@ export class StepModelBuilder<TStep extends Step> {
 	}
 
 	/**
-	 * Sets the description of the step.
-	 * @param description The description of the step.
-	 * @example `builder.description('This step does something useful.');`
+	 * Sets the validator of the step.
+	 * @param validator The validator.
 	 */
-	public description(description: string): this {
-		this._description = description;
+	public validator(validator: StepValidator): this {
+		this._validator = validator;
 		return this;
 	}
 
@@ -90,6 +100,7 @@ export class StepModelBuilder<TStep extends Step> {
 			label: this._label ?? buildLabel(this.type),
 			category: this._category,
 			description: this._description,
+			validator: this._validator,
 			name: this.nameBuilder.build(),
 			properties: this.propertyBuilder.map(builder => builder.build())
 		};

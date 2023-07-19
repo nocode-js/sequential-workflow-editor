@@ -6,7 +6,7 @@ export const rootModel = createRootModel<MyDefinition>(root => {
 		.hint('Variables passed to the workflow from the outside.')
 		.value(createVariableDefinitionsValueModel({}))
 		.dependentProperty('outputs')
-		.customValidator({
+		.validator({
 			validate(context) {
 				const inputs = context.getPropertyValue('outputs');
 				return inputs.variables.length > 0 ? null : 'At least one input is required';

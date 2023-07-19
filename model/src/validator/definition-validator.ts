@@ -1,8 +1,9 @@
 import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
 import { DefinitionModel, PropertyModel, PropertyModels, ValidationError, ValidationResult, createValidationSingleError } from '../model';
 import { DefinitionContext, ValueContext } from '../context';
-import { CustomValidatorContext } from './custom-validator-context';
+import { PropertyValidatorContext } from './property-validator-context';
 import { Path } from '../core';
+import { StepValidatorContext } from './step-validator-context';
 
 export class DefinitionValidator {
 	public static create(definitionModel: DefinitionModel, definitionWalker: DefinitionWalker): DefinitionValidator {
@@ -33,7 +34,7 @@ export class DefinitionValidator {
 					...stepError,
 					stepId: step.id
 				};
-				return false; // stop walking
+				return false; // stops walking
 			}
 		});
 		return result;
@@ -45,6 +46,17 @@ export class DefinitionValidator {
 		const stepModel = this.model.steps[step.type];
 		if (!stepModel) {
 			throw new Error(`Cannot find model for step type: ${step.type}`);
+		}
+
+		if (stepModel.validator) {
+			const stepContext = StepValidatorContext.create(definitionContext);
+			const stepError = stepModel.validator.validate(stepContext);
+			if (stepError) {
+				return {
+					propertyPath: Path.root(),
+					error: createValidationSingleError(stepError)
+				};
+			}
 		}
 
 		const nameError = this.validateProperty(stepModel.name, definitionContext);
@@ -82,11 +94,11 @@ export class DefinitionValidator {
 			return valueError;
 		}
 
-		if (propertyModel.customValidator) {
-			const customContext = CustomValidatorContext.create(propertyModel, definitionContext);
-			const customError = propertyModel.customValidator.validate(customContext);
-			if (customError) {
-				return createValidationSingleError(customError);
+		if (propertyModel.validator) {
+			const propertyContext = PropertyValidatorContext.create(propertyModel, definitionContext);
+			const propertyError = propertyModel.validator.validate(propertyContext);
+			if (propertyError) {
+				return createValidationSingleError(propertyError);
 			}
 		}
 		return null;

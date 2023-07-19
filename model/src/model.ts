@@ -2,7 +2,7 @@ import { Definition, Properties, PropertyValue, Sequence } from 'sequential-work
 import { ValueModelId, ValueType, VariableDefinition } from './types';
 import { Path } from './core/path';
 import { ValueContext } from './context';
-import { CustomValidatorContext } from './validator';
+import { PropertyValidatorContext, StepValidatorContext } from './validator';
 import { DefaultValueContext } from './context/default-value-context';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,6 +27,7 @@ export interface StepModel {
 	description?: string;
 	name: PropertyModel<string>;
 	properties: PropertyModels;
+	validator?: StepValidator;
 }
 
 export type PropertyModels = PropertyModel[];
@@ -36,7 +37,7 @@ export interface PropertyModel<TValue extends PropertyValue = PropertyValue, TCo
 	label: string;
 	hint?: string;
 	dependencies: Path[];
-	customValidator?: CustomValidator<TValue>;
+	validator?: PropertyValidator<TValue>;
 	value: ValueModel<TValue, TConfiguration, Properties>;
 }
 
@@ -53,6 +54,10 @@ export type ValueModelFactoryFromModel<TValueModel extends ValueModel = ValueMod
 	TValueModel['configuration']
 >;
 
+export interface StepValidator {
+	validate(context: StepValidatorContext): string | null;
+}
+
 export interface ValueModel<
 	TValue extends PropertyValue = PropertyValue,
 	TConfiguration extends object = object,
@@ -68,14 +73,14 @@ export interface ValueModel<
 	validate(context: ValueContext<ValueModel<TValue, TConfiguration, TProperties>>): ValidationResult;
 }
 
-export interface CustomValidator<TValue extends PropertyValue = PropertyValue, TProperties extends Properties = Properties> {
-	validate(context: CustomValidatorContext<TValue, TProperties>): string | null;
+export interface PropertyValidator<TValue extends PropertyValue = PropertyValue, TProperties extends Properties = Properties> {
+	validate(context: PropertyValidatorContext<TValue, TProperties>): string | null;
 }
 
 export type ValidationError = Record<string, string | null>;
 export type ValidationResult = ValidationError | null;
 
-export function createValidationSingleError(error: string): ValidationResult {
+export function createValidationSingleError(error: string): ValidationError {
 	return {
 		$: error
 	};

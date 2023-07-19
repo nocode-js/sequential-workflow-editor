@@ -1,0 +1,26 @@
+html,
+body,
+#designer {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+body,
+input,
+textarea {
+	font: 14px/1.3em Arial, Verdana, sans-serif;
+}
+.sqd-global-editor {
+	padding: 10px;
+	line-height: 1.3em;
+	box-sizing: border-box;
+}
+a {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}

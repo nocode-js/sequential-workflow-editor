@@ -1,4 +1,4 @@
-import { CustomValidator, CustomValidatorContext } from 'sequential-workflow-editor-model';
+import { PropertyValidator, PropertyValidatorContext } from 'sequential-workflow-editor-model';
 import { Component } from './component';
 import { validationErrorComponent } from './validation-error-component';
 
@@ -7,8 +7,8 @@ export interface PropertyValidationErrorComponent extends Component {
 }
 
 export function propertyValidationErrorComponent(
-	validator: CustomValidator,
-	context: CustomValidatorContext
+	validator: PropertyValidator,
+	context: PropertyValidatorContext
 ): PropertyValidationErrorComponent {
 	const validation = validationErrorComponent();
 
