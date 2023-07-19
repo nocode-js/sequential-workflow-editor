@@ -52,7 +52,7 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 	}
 
 	public getVariables(): ContextVariable[] {
-		return this.definitionContext.variablesProvider.getVariables();
+		return this.definitionContext.parentsProvider.getVariables();
 	}
 
 	public createChildContext<TChildModel extends ValueModel<PropertyValue, object, TProperties>>(

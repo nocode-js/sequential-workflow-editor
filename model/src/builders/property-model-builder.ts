@@ -1,6 +1,6 @@
 import { Properties, PropertyValue } from 'sequential-workflow-model';
 import { Path } from '../core/path';
-import { CustomValidator, PropertyModel, ValueModelFactory } from '../model';
+import { PropertyValidator, PropertyModel, ValueModelFactory } from '../model';
 import { CircularDependencyDetector } from './circular-dependency-detector';
 import { buildLabel } from '../core/label-builder';
 
@@ -9,7 +9,7 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 	private _label?: string;
 	private _hint?: string;
 	private _dependencies: Path[] = [];
-	private _customValidator?: CustomValidator;
+	private _validator?: PropertyValidator;
 
 	public constructor(private readonly path: Path, private readonly circularDependencyDetector: CircularDependencyDetector) {}
 
@@ -70,16 +70,21 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 
 	/**
 	 * Sets the custom validator of the property.
-	 * @param customValidator The custom validator of the property.
+	 * @param validator The custom validator of the property.
 	 * @example `builder.customValidator({ validate(context) { return 'error'; } });`
 	 */
-	public customValidator(customValidator: CustomValidator<TValue, TProperties>): this {
-		if (this._customValidator) {
+	public validator(validator: PropertyValidator<TValue, TProperties>): this {
+		if (this._validator) {
 			throw new Error('Custom validator is already set');
 		}
-		this._customValidator = customValidator;
+		this._validator = validator;
 		return this;
 	}
+
+	/**
+	 * @deprecated Use `validator` instead.
+	 */
+	public readonly customValidator = this.validator.bind(this);
 
 	public build(): PropertyModel<TValue> {
 		if (!this._value) {
@@ -91,7 +96,7 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 			label: this._label || this.getDefaultLabel(),
 			hint: this._hint,
 			dependencies: this._dependencies,
-			customValidator: this._customValidator,
+			validator: this._validator,
 			value: this._value.create(this.path)
 		};
 	}

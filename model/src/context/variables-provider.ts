@@ -4,22 +4,22 @@ import { DefinitionContext } from './definition-context';
 import { PropertyModels } from '../model';
 import { ValueContext } from './value-context';
 
-export class VariablesProvider {
+export class ParentsProvider {
 	public static createForStep(
 		step: Step,
 		definition: Definition,
 		definitionModel: DefinitionModel,
 		definitionWalker: DefinitionWalker
-	): VariablesProvider {
-		return new VariablesProvider(step, definition, definitionModel, definitionWalker);
+	): ParentsProvider {
+		return new ParentsProvider(step, definition, definitionModel, definitionWalker);
 	}
 
 	public static createForRoot(
 		definition: Definition,
 		definitionModel: DefinitionModel,
 		definitionWalker: DefinitionWalker
-	): VariablesProvider {
-		return new VariablesProvider(null, definition, definitionModel, definitionWalker);
+	): ParentsProvider {
+		return new ParentsProvider(null, definition, definitionModel, definitionWalker);
 	}
 
 	private constructor(
@@ -80,4 +80,12 @@ export class VariablesProvider {
 			}
 		}
 	}
+
+	public readonly getStepTypes = (): string[] => {
+		if (this.step) {
+			const parents = this.definitionWalker.getParents(this.definition, this.step);
+			return (parents.filter(p => typeof p === 'object') as Step[]).map(p => p.type);
+		}
+		return [];
+	};
 }

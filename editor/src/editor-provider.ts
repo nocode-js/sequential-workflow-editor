@@ -1,6 +1,13 @@
 import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
-import { Editor } from './editor';
-import { DefinitionContext, DefinitionModel, ModelActivator, DefinitionValidator, Path } from 'sequential-workflow-editor-model';
+import { Editor, EditorValidator } from './editor';
+import {
+	DefinitionContext,
+	DefinitionModel,
+	ModelActivator,
+	DefinitionValidator,
+	Path,
+	StepValidatorContext
+} from 'sequential-workflow-editor-model';
 import { EditorServices, ValueEditorEditorFactoryResolver } from './value-editors';
 import {
 	GlobalEditorContext,
@@ -43,7 +50,7 @@ export class EditorProvider<TDefinition extends Definition> {
 		return (definition: Definition, context: GlobalEditorContext): HTMLElement => {
 			const rootContext = DefinitionContext.createForRoot(definition, this.definitionModel, this.definitionWalker);
 			const typeClassName = 'root';
-			const editor = Editor.create(null, this.definitionModel.root.properties, rootContext, this.services, typeClassName);
+			const editor = Editor.create(null, null, this.definitionModel.root.properties, rootContext, this.services, typeClassName);
 			editor.onValuesChanged.subscribe(() => {
 				context.notifyPropertiesChanged();
 			});
@@ -65,7 +72,14 @@ export class EditorProvider<TDefinition extends Definition> {
 						description: stepModel.description
 				  };
 
-			const editor = Editor.create(headerData, propertyModels, definitionContext, this.services, typeClassName);
+			let validator: EditorValidator | null = null;
+			if (stepModel.validator) {
+				const stepValidator = stepModel.validator;
+				const stepValidatorContext = StepValidatorContext.create(definitionContext);
+				validator = () => stepValidator.validate(stepValidatorContext);
+			}
+
+			const editor = Editor.create(headerData, validator, propertyModels, definitionContext, this.services, typeClassName);
 
 			editor.onValuesChanged.subscribe((paths: Path[]) => {
 				if (paths.some(path => path.equals(stepModel.name.value.path))) {

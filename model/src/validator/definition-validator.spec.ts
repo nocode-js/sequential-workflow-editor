@@ -27,7 +27,7 @@ describe('DefinitionValidator', () => {
 			})
 		);
 
-		builder.steps([
+		builder.step(
 			createStepModel<FooStep>('move', 'task', step => {
 				step.property('delta').value(
 					createNumberValueModel({
@@ -35,7 +35,7 @@ describe('DefinitionValidator', () => {
 					})
 				);
 			})
-		]);
+		);
 	});
 	const walker = new DefinitionWalker();
 	const validator = DefinitionValidator.create(model, walker);

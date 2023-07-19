@@ -1,5 +1,5 @@
 import {
-	CustomValidatorContext,
+	PropertyValidatorContext,
 	DefinitionContext,
 	Path,
 	PropertyModel,
@@ -63,9 +63,9 @@ export class PropertyEditor implements Component {
 		}
 
 		let validationError: PropertyValidationErrorComponent | null = null;
-		if (propertyModel.customValidator) {
-			const customValidationContext = CustomValidatorContext.create(propertyModel, definitionContext);
-			validationError = propertyValidationErrorComponent(propertyModel.customValidator, customValidationContext);
+		if (propertyModel.validator) {
+			const validatorContext = PropertyValidatorContext.create(propertyModel, definitionContext);
+			validationError = propertyValidationErrorComponent(propertyModel.validator, validatorContext);
 			view.appendChild(validationError.view);
 		}
 
