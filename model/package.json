@@ -1,6 +1,6 @@
 {
 	"name": "sequential-workflow-editor-model",
-	"version": "0.7.2",
+	"version": "0.8.0",
 	"homepage": "https://nocode-js.com/",
 	"author": {
 		"name": "NoCode JS",
@@ -45,10 +45,10 @@
 		"test": "jest --clearCache && jest --watchAll"
 	},
 	"dependencies": {
-		"sequential-workflow-model": "^0.1.4"
+		"sequential-workflow-model": "^0.2.0"
 	},
 	"peerDependencies": {
-		"sequential-workflow-model": "^0.1.4"
+		"sequential-workflow-model": "^0.2.0"
 	},
 	"devDependencies": {
 		"typescript": "^4.9.5",

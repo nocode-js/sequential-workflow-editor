@@ -5163,25 +5163,25 @@ semver@^7.3.4, semver@^7.3.7, semver@^7.3.8:
   dependencies:
     lru-cache "^6.0.0"
 
-sequential-workflow-designer@^0.13.5:
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/sequential-workflow-designer/-/sequential-workflow-designer-0.13.5.tgz#9e0485d233d890c03675e0a59057eba8abd4e09d"
-  integrity sha512-MyG/p7EF+AskWsEHRXt3hSYfJNr5SEmQfUDHqT1Oqt7jBJb4RH6E+nD7XwiPwZ0HMJRIlMX6jiC6eV/Ieq/AXQ==
+sequential-workflow-designer@^0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/sequential-workflow-designer/-/sequential-workflow-designer-0.14.1.tgz#1f7f5b2a1c4a337044e77eaef36fe1333ba22c4b"
+  integrity sha512-wPgNKnl/4q4QMbYqn19O9On6eYf/MXzityXAFmzo/WQBAl6RJhclY4LmL8HxotdkcGSQznW80E3gOpNERZCdLw==
   dependencies:
-    sequential-workflow-model "^0.1.4"
+    sequential-workflow-model "^0.2.0"
 
-sequential-workflow-machine@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/sequential-workflow-machine/-/sequential-workflow-machine-0.3.0.tgz#7ceee49b9348cb14a9686aa61b5fa675947682f7"
-  integrity sha512-1Fut5YCLUMeAS7sM8Rmpxjys37ainCqy8F/XVQD8Zzwtnll375LVJfoimlZw/o92DrOWA/RLcWnML0FQ6mSeJw==
+sequential-workflow-machine@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/sequential-workflow-machine/-/sequential-workflow-machine-0.4.0.tgz#d29647f9e17f2f8f5cb7b0755c7a0641bf321d98"
+  integrity sha512-+Uj4lzniTWNPtYaRSpqMuDfakpBCJW3hI948rB7eiS4fboVmyBfAYPb0+6XSocDYhwhGu9JJSxexH5NTboZjQQ==
   dependencies:
-    sequential-workflow-model "^0.1.4"
-    xstate "^4.38.1"
+    sequential-workflow-model "^0.2.0"
+    xstate "^4.38.2"
 
-sequential-workflow-model@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/sequential-workflow-model/-/sequential-workflow-model-0.1.4.tgz#fcda9b0d802c00668ff1cd4860bf5c9141cfe788"
-  integrity sha512-z44I8CQqP51sO7gHqH0/7GjmBOt2yczmmEGdRdJaczogDtZ1E6kucLkcvA4LugXFFuxTilYldY7NKFFTK+XWDA==
+sequential-workflow-model@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/sequential-workflow-model/-/sequential-workflow-model-0.2.0.tgz#7266378b67eeef3973a98fd07a32bb753c8666ec"
+  integrity sha512-oK+He1N/0Ogg4Z/7KbAzhBRTJEqpPewQAIV7G9WvxhLcpTHvrR9rTMykDwWDVdroNFiLQYa00nYvjqrCIzYfqg==
 
 serialize-javascript@^6.0.1:
   version "6.0.1"
@@ -5879,15 +5879,10 @@ ws@~8.11.0:
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.11.0.tgz#6a0d36b8edfd9f96d8b25683db2f8d7de6e8e143"
   integrity sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==
 
-xstate@^4.37.2:
-  version "4.37.2"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.37.2.tgz#c5f4c1d8062784238b91e2dfddca05f821cb4eac"
-  integrity sha512-Qm337O49CRTZ3PRyRuK6b+kvI+D3JGxXIZCTul+xEsyFCVkTFDt5jixaL1nBWcUBcaTQ9um/5CRGVItPi7fveg==
-
-xstate@^4.38.1:
-  version "4.38.1"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.38.1.tgz#9be54c2dfc44d1d566c697393921edaf6d3c9998"
-  integrity sha512-1gBUcFWBj/rv/pRcP2Bedl5sNRGX2d36CaOx9z7fE9uSiHaOEHIWzLg1B853q2xdUHUA9pEiWKjLZ3can4SJaQ==
+xstate@^4.38.2:
+  version "4.38.2"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.38.2.tgz#1b74544fc9c8c6c713ba77f81c6017e65aa89804"
+  integrity sha512-Fba/DwEPDLneHT3tbJ9F3zafbQXszOlyCJyQqqdzmtlY/cwE2th462KK48yaANf98jHlP6lJvxfNtN0LFKXPQg==
 
 xtend@^4.0.2:
   version "4.0.2"
