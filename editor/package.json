@@ -1,6 +1,6 @@
 {
 	"name": "sequential-workflow-editor",
-	"version": "0.7.2",
+	"version": "0.8.0",
 	"type": "module",
 	"main": "./lib/esm/index.js",
 	"types": "./lib/index.d.ts",
@@ -46,12 +46,12 @@
 		"prettier:fix": "prettier --write ./src ./css"
 	},
 	"dependencies": {
-		"sequential-workflow-editor-model": "^0.7.2",
-		"sequential-workflow-model": "^0.1.4"
+		"sequential-workflow-editor-model": "^0.8.0",
+		"sequential-workflow-model": "^0.2.0"
 	},
 	"peerDependencies": {
-		"sequential-workflow-editor-model": "^0.7.2",
-		"sequential-workflow-model": "^0.1.4"
+		"sequential-workflow-editor-model": "^0.8.0",
+		"sequential-workflow-model": "^0.2.0"
 	},
 	"devDependencies": {
 		"rollup": "^3.20.2",

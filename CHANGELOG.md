@@ -1,3 +1,7 @@
+## 0.8.0
+
+Updated the `sequential-workflow-model` dependency to the version `0.2.0`.
+
 ## 0.7.2
 
 We added a new type of a validator: step validator. It allows to restrict a placement of a step in a definition. For example, you can enforce that a step can be placed only inside a specific step.
