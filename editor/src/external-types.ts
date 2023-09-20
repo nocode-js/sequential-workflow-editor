@@ -3,6 +3,7 @@ import { Definition, Step } from 'sequential-workflow-model';
 export interface StepEditorContext {
 	notifyNameChanged(): void;
 	notifyPropertiesChanged(): void;
+	notifyChildrenChanged(): void;
 }
 
 export interface GlobalEditorContext {

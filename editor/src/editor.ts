@@ -1,6 +1,6 @@
 import { DefinitionContext, Path, PropertyModel, PropertyModels } from 'sequential-workflow-editor-model';
 import { PropertyEditor } from './property-editor/property-editor';
-import { EditorServices, ValueEditorEditorFactoryResolver } from './value-editors';
+import { EditorServices } from './value-editors';
 import { EditorHeader, EditorHeaderData } from './editor-header';
 import { StackedSimpleEvent } from './core/stacked-simple-event';
 import { ValidationErrorComponent, validationErrorComponent } from './components/validation-error-component';
@@ -32,7 +32,7 @@ export class Editor {
 
 		const editors = new Map<PropertyModel, PropertyEditor>();
 		for (const propertyModel of propertyModels) {
-			if (ValueEditorEditorFactoryResolver.isHidden(propertyModel.value.id)) {
+			if (editorServices.valueEditorFactoryResolver.isHidden(propertyModel.value.id, propertyModel.value.editorId)) {
 				continue;
 			}
 

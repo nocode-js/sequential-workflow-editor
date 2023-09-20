@@ -20,7 +20,7 @@ export class PropertyEditor implements Component {
 		editorServices: EditorServices
 	): PropertyEditor {
 		const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
-		const valueEditorFactory = editorServices.valueEditorFactoryResolver(propertyModel.value.id);
+		const valueEditorFactory = editorServices.valueEditorFactoryResolver.resolve(propertyModel.value.id, propertyModel.value.editorId);
 		const valueEditor = valueEditorFactory(valueContext, editorServices);
 		let hint: PropertyHintComponent | null = null;
 

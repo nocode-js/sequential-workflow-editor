@@ -8,8 +8,9 @@ export interface DynamicListComponent<TItem> extends Component {
 	add(item: TItem): void;
 }
 
-export interface DynamicListComponentConfiguration {
+export interface DynamicListComponentConfiguration<TItem> {
 	emptyMessage?: string;
+	canDelete?: (item: TItem) => string | null;
 }
 
 export interface DynamicListItemComponent<TItem> extends Component {
@@ -22,7 +23,7 @@ export function dynamicListComponent<TItem>(
 	initialItems: TItem[],
 	itemComponentFactory: (item: TItem) => DynamicListItemComponent<TItem>,
 	context: ValueContext,
-	configuration?: DynamicListComponentConfiguration
+	configuration?: DynamicListComponentConfiguration<TItem>
 ): DynamicListComponent<TItem> {
 	const onChanged = new SimpleEvent<TItem[]>();
 	const items = [...initialItems];
@@ -38,6 +39,14 @@ export function dynamicListComponent<TItem>(
 	}
 
 	function onItemDeleted(index: number) {
+		if (configuration && configuration.canDelete) {
+			const error = configuration.canDelete(items[index]);
+			if (error) {
+				window.alert(error);
+				return;
+			}
+		}
+
 		items.splice(index, 1);
 		forward();
 		reloadList();

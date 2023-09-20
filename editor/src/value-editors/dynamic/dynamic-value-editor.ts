@@ -30,7 +30,7 @@ export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, ser
 		}
 
 		const childContext = context.createChildContext(model);
-		editor = services.valueEditorFactoryResolver(model.id)(childContext, services);
+		editor = services.valueEditorFactoryResolver.resolve(model.id, model.editorId)(childContext, services);
 		placeholder.appendChild(editor.view);
 	}
 

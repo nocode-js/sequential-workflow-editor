@@ -37,7 +37,7 @@ export class ParentsProvider {
 
 		if (this.step) {
 			const parents = this.definitionWalker.getParents(this.definition, this.step);
-			const count = parents.length - 1; // skips variable definitions from itself
+			const count = parents.length;
 			for (let index = 0; index < count; index++) {
 				const parent = parents[index];
 				if (typeof parent === 'string') {
@@ -81,10 +81,10 @@ export class ParentsProvider {
 		}
 	}
 
-	public readonly getStepTypes = (): string[] => {
+	public readonly getParentStepTypes = (): string[] => {
 		if (this.step) {
 			const parents = this.definitionWalker.getParents(this.definition, this.step);
-			return (parents.filter(p => typeof p === 'object') as Step[]).map(p => p.type);
+			return (parents.slice(0, parents.length - 1).filter(p => typeof p === 'object') as Step[]).map(p => p.type);
 		}
 		return [];
 	};

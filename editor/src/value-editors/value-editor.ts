@@ -1,4 +1,5 @@
 import { ModelActivator, ValueModel, ValueContext } from 'sequential-workflow-editor-model';
+import { ValueEditorFactoryResolver } from './value-editor-factory-resolver';
 import { Component } from '../components/component';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -11,8 +12,6 @@ export type ValueEditorFactory<TValueModel extends ValueModel = ValueModel> = (
 	context: ValueContext<TValueModel>,
 	services: EditorServices
 ) => ValueEditor<TValueModel>;
-
-export type ValueEditorFactoryResolver = (valueModelId: string) => ValueEditorFactory;
 
 export interface EditorServices {
 	valueEditorFactoryResolver: ValueEditorFactoryResolver;

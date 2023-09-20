@@ -64,6 +64,7 @@ export interface ValueModel<
 	TProperties extends Properties = Properties
 > {
 	id: ValueModelId;
+	editorId?: string;
 	path: Path;
 	label: string;
 	configuration: TConfiguration;
