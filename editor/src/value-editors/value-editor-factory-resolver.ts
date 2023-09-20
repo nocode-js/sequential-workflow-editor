@@ -15,35 +15,55 @@ import { nullableAnyVariableValueEditor, nullableAnyVariableValueEditorId } from
 import { booleanValueEditor, booleanValueEditorId } from './boolean/boolean-value-editor';
 import { generatedStringValueEditor, generatedStringValueEditorId } from './generated-string/generated-string-value-editor';
 import { stringDictionaryValueEditor } from './string-dictionary/string-dictionary-value-editor';
+import { EditorExtension } from '../editor-extension';
 
-const editors: { id: string; factory: ValueEditorFactory | null }[] = [
-	{ id: anyVariablesValueEditorId, factory: anyVariablesValueEditor as ValueEditorFactory },
-	{ id: booleanValueEditorId, factory: booleanValueEditor as ValueEditorFactory },
-	{ id: choiceValueEditorId, factory: choiceValueEditor as ValueEditorFactory },
-	{ id: nullableAnyVariableValueEditorId, factory: nullableAnyVariableValueEditor as ValueEditorFactory },
-	{ id: dynamicValueEditorId, factory: dynamicValueEditor as ValueEditorFactory },
-	{ id: generatedStringValueEditorId, factory: generatedStringValueEditor as ValueEditorFactory },
-	{ id: nullableVariableValueEditorId, factory: nullableVariableValueEditor as ValueEditorFactory },
-	{ id: nullableVariableDefinitionValueEditorId, factory: nullableVariableDefinitionValueEditor as ValueEditorFactory },
-	{ id: stringValueEditorId, factory: stringValueEditor as ValueEditorFactory },
-	{ id: stringDictionaryValueModelId, factory: stringDictionaryValueEditor as ValueEditorFactory },
-	{ id: numberValueEditorId, factory: numberValueEditor as ValueEditorFactory },
-	{ id: variableDefinitionsValueEditorId, factory: variableDefinitionsValueEditor as ValueEditorFactory },
-	{ id: sequenceValueModelId, factory: null },
-	{ id: branchesValueModelId, factory: null }
-];
+const defaultMap: ValueEditorMap = {
+	[anyVariablesValueEditorId]: anyVariablesValueEditor as ValueEditorFactory,
+	[booleanValueEditorId]: booleanValueEditor as ValueEditorFactory,
+	[choiceValueEditorId]: choiceValueEditor as ValueEditorFactory,
+	[nullableAnyVariableValueEditorId]: nullableAnyVariableValueEditor as ValueEditorFactory,
+	[dynamicValueEditorId]: dynamicValueEditor as ValueEditorFactory,
+	[generatedStringValueEditorId]: generatedStringValueEditor as ValueEditorFactory,
+	[nullableVariableValueEditorId]: nullableVariableValueEditor as ValueEditorFactory,
+	[nullableVariableDefinitionValueEditorId]: nullableVariableDefinitionValueEditor as ValueEditorFactory,
+	[stringValueEditorId]: stringValueEditor as ValueEditorFactory,
+	[stringDictionaryValueModelId]: stringDictionaryValueEditor as ValueEditorFactory,
+	[numberValueEditorId]: numberValueEditor as ValueEditorFactory,
+	[variableDefinitionsValueEditorId]: variableDefinitionsValueEditor as ValueEditorFactory,
+	[sequenceValueModelId]: null,
+	[branchesValueModelId]: null
+};
 
-export class ValueEditorEditorFactoryResolver {
-	public static resolve(valueModelId: string): ValueEditorFactory {
-		const editor = editors.find(editor => editor.id === valueModelId);
-		if (!editor || !editor.factory) {
-			throw new Error(`Value model id: ${valueModelId} is not supported`);
+type ValueEditorMap = Record<string, ValueEditorFactory | null>;
+
+export class ValueEditorFactoryResolver {
+	public static create(extensions?: EditorExtension[]): ValueEditorFactoryResolver {
+		let map: ValueEditorMap;
+		if (extensions) {
+			map = { ...defaultMap };
+			extensions.forEach(extension => {
+				if (extension.valueEditors) {
+					extension.valueEditors.forEach(e => (map[e.editorId] = e.factory));
+				}
+			});
+		} else {
+			map = defaultMap;
 		}
-		return editor.factory;
+		return new ValueEditorFactoryResolver(map);
 	}
 
-	public static isHidden(valueModelId: string): boolean {
-		const editor = editors.find(editor => editor.id === valueModelId);
-		return editor ? editor.factory === null : false;
+	private constructor(private readonly map: ValueEditorMap) {}
+
+	public resolve(valueModelId: string, editorId: string | undefined): ValueEditorFactory {
+		const id = editorId ?? valueModelId;
+		const editor = this.map[id];
+		if (!editor) {
+			throw new Error(`Editor id ${id} is not supported`);
+		}
+		return editor;
+	}
+
+	public isHidden(valueModelId: string, editorId: string | undefined): boolean {
+		return !this.map[editorId ?? valueModelId];
 	}
 }

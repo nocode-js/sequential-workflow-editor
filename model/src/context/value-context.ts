@@ -31,9 +31,9 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 		this.onValueChanged.forward(this.model.path);
 	}
 
-	public validate(): ValidationResult {
+	public readonly validate = (): ValidationResult => {
 		return this.model.validate(this);
-	}
+	};
 
 	public readonly getPropertyValue = <Key extends keyof TProperties>(name: Key): TProperties[Key] => {
 		return readPropertyValue(name, this.propertyModel, this.definitionContext.object);

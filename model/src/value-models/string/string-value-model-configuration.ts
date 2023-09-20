@@ -3,4 +3,5 @@ export interface StringValueModelConfiguration {
 	defaultValue?: string;
 	pattern?: RegExp;
 	multiline?: boolean | number;
+	editorId?: string;
 }

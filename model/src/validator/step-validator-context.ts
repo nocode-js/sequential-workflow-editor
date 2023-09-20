@@ -12,5 +12,5 @@ export class StepValidatorContext {
 	 * @returns The parent step types.
 	 * @example `['loop', 'if']`
 	 */
-	public readonly getParentStepTypes = this.parentsProvider.getStepTypes;
+	public readonly getParentStepTypes = this.parentsProvider.getParentStepTypes;
 }

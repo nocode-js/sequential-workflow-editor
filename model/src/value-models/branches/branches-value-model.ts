@@ -2,13 +2,8 @@ import { Branches, Sequence } from 'sequential-workflow-model';
 import { ValueModel, ValueModelFactoryFromModel } from '../../model';
 import { Path } from '../../core/path';
 import { DefaultValueContext } from '../../context/default-value-context';
-
-export interface BranchesValueModelConfiguration {
-	/**
-	 * @description Branches of the branched step. Each branch is a list of step types.
-	 */
-	branches: Record<string, string[]>;
-}
+import { BranchesValueModelConfiguration } from './branches-value-model-configuration';
+import { branchesValueModelValidator } from './branches-value-model-validator';
 
 export type BranchesValueModel<TBranches extends Branches> = ValueModel<TBranches, BranchesValueModelConfiguration>;
 
@@ -21,6 +16,7 @@ export const createBranchesValueModel = <TConfiguration extends BranchesValueMod
 ): ValueModelFactoryFromModel<BranchesValueModel<BranchesOf<TConfiguration>>> => ({
 	create: (path: Path) => ({
 		id: branchesValueModelId,
+		editorId: configuration.editorId,
 		label: 'Branches',
 		path,
 		configuration,
@@ -32,6 +28,6 @@ export const createBranchesValueModel = <TConfiguration extends BranchesValueMod
 			return branches as BranchesOf<TConfiguration>;
 		},
 		getVariableDefinitions: () => null,
-		validate: () => null
+		validate: branchesValueModelValidator
 	})
 });

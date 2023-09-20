@@ -1,7 +1,10 @@
 import { ValueContext } from '../context';
 import { ValueModel } from '../model';
 
-export function createValueContextStub<TValueModel extends ValueModel>(value: unknown, configuration: object): ValueContext<TValueModel> {
+export function createValueContextStub<TValueModel extends ValueModel>(
+	value: unknown,
+	configuration: TValueModel['configuration']
+): ValueContext<TValueModel> {
 	return {
 		getValue: () => value,
 		model: {

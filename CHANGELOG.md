@@ -1,3 +1,9 @@
+## 0.9.0
+
+* Improved validation for the `boolean` value model.
+* Improved validation for the `branches` value model.
+* Internal changes preparing for the upcoming pro version.
+
 ## 0.8.0
 
 Updated the `sequential-workflow-model` dependency to the version `0.2.0`.

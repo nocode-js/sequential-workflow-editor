@@ -8,7 +8,7 @@ import {
 	Path,
 	StepValidatorContext
 } from 'sequential-workflow-editor-model';
-import { EditorServices, ValueEditorEditorFactoryResolver } from './value-editors';
+import { EditorServices, ValueEditorFactoryResolver } from './value-editors';
 import {
 	GlobalEditorContext,
 	RootEditorProvider,
@@ -30,12 +30,13 @@ export class EditorProvider<TDefinition extends Definition> {
 		const definitionWalker = configuration.definitionWalker ?? new DefinitionWalker();
 		const activator = ModelActivator.create(definitionModel, configuration.uidGenerator);
 		const validator = DefinitionValidator.create(definitionModel, definitionWalker);
-		return new EditorProvider(activator, validator, definitionModel, definitionWalker, configuration);
+		const valueEditorFactoryResolver = ValueEditorFactoryResolver.create(configuration.extensions);
+		return new EditorProvider(activator, validator, definitionModel, definitionWalker, valueEditorFactoryResolver, configuration);
 	}
 
 	private readonly services: EditorServices = {
 		activator: this.activator,
-		valueEditorFactoryResolver: ValueEditorEditorFactoryResolver.resolve
+		valueEditorFactoryResolver: this.valueEditorFactoryResolver
 	};
 
 	private constructor(
@@ -43,6 +44,7 @@ export class EditorProvider<TDefinition extends Definition> {
 		private readonly validator: DefinitionValidator,
 		private readonly definitionModel: DefinitionModel,
 		private readonly definitionWalker: DefinitionWalker,
+		private readonly valueEditorFactoryResolver: ValueEditorFactoryResolver,
 		private readonly configuration: EditorProviderConfiguration
 	) {}
 
@@ -82,11 +84,17 @@ export class EditorProvider<TDefinition extends Definition> {
 			const editor = Editor.create(headerData, validator, propertyModels, definitionContext, this.services, typeClassName);
 
 			editor.onValuesChanged.subscribe((paths: Path[]) => {
-				if (paths.some(path => path.equals(stepModel.name.value.path))) {
+				const isNameChanged = paths.some(path => path.equals(stepModel.name.value.path));
+				if (isNameChanged) {
 					context.notifyNameChanged();
-				} else {
-					context.notifyPropertiesChanged();
+					return;
 				}
+				const areBranchesChanged = paths.some(path => path.equals('branches'));
+				if (areBranchesChanged) {
+					context.notifyChildrenChanged();
+					return;
+				}
+				context.notifyPropertiesChanged();
 			});
 			return editor.root;
 		};

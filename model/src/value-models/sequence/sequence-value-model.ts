@@ -19,7 +19,6 @@ export const createSequenceValueModel = (
 		label: 'Sequence',
 		path,
 		configuration,
-		editorId: null,
 		getDefaultValue(context: DefaultValueContext): Sequence {
 			return configuration.sequence.map(type => context.activateStep(type));
 		},
