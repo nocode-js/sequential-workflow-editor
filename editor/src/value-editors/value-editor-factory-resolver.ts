@@ -64,6 +64,6 @@ export class ValueEditorFactoryResolver {
 	}
 
 	public isHidden(valueModelId: string, editorId: string | undefined): boolean {
-		return !this.map[editorId ?? valueModelId]
+		return !this.map[editorId ?? valueModelId];
 	}
 }
