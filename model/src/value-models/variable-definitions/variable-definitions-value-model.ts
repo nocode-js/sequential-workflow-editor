@@ -2,7 +2,7 @@ import { ValueModel, ValueModelFactoryFromModel, ValidationResult, ValidationErr
 import { Path } from '../../core/path';
 import { ValueType, VariableDefinition, VariableDefinitions } from '../../types';
 import { ValueContext } from '../../context';
-import { variableNameValidator } from '../variable-name-validator';
+import { variableNameValidator } from '../../validator/variable-name-validator';
 
 export interface VariableDefinitionsValueModelConfiguration {
 	valueTypes?: ValueType[];
