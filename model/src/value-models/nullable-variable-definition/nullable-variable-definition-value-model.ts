@@ -2,7 +2,7 @@ import { ValueModel, ValueModelFactoryFromModel, ValidationResult, createValidat
 import { Path } from '../../core/path';
 import { NullableVariableDefinition, ValueType, VariableDefinition } from '../../types';
 import { ValueContext } from '../../context';
-import { variableNameValidator } from '../variable-name-validator';
+import { variableNameValidator } from '../../validator/variable-name-validator';
 
 export interface NullableVariableDefinitionValueModelConfiguration {
 	valueType: ValueType;

@@ -1,3 +1,7 @@
+## 0.9.1
+
+This version exports the `variableNameValidator` function in the `sequential-workflow-editor-model` package.
+
 ## 0.9.0
 
 * Improved validation for the `boolean` value model.
