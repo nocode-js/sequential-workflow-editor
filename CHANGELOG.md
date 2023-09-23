@@ -1,3 +1,7 @@
+## 0.9.2
+
+This version fixes a bug in the `ValueEditorFactoryResolver` class. Now, when an editor is not found, the resolver throws an error.
+
 ## 0.9.1
 
 This version exports the `variableNameValidator` function in the `sequential-workflow-editor-model` package.
