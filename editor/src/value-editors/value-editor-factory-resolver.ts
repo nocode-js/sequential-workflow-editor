@@ -64,6 +64,14 @@ export class ValueEditorFactoryResolver {
 	}
 
 	public isHidden(valueModelId: string, editorId: string | undefined): boolean {
-		return !this.map[editorId ?? valueModelId];
+		const id = editorId ?? valueModelId;
+		const editor = this.map[editorId ?? valueModelId];
+		if (editor === null) {
+			return true;
+		}
+		if (editor !== undefined) {
+			return false;
+		}
+		throw new Error(`Editor id ${id} is not supported`);
 	}
 }
