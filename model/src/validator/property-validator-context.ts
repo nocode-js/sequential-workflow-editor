@@ -20,6 +20,16 @@ export class PropertyValidatorContext<TValue extends PropertyValue = PropertyVal
 	public getPropertyValue<Key extends keyof TProperties>(name: Key): TProperties[Key] {
 		return readPropertyValue(name, this.model, this.definitionContext.object);
 	}
+
+	public hasVariable(name: string): boolean {
+		return this.hasVariables([name])[0];
+	}
+
+	public hasVariables(names: string[]): boolean[] {
+		const variables = this.definitionContext.parentsProvider.getVariables();
+		const variableNames = new Set(variables.map(v => v.name));
+		return names.map(name => variableNames.has(name));
+	}
 }
 
 /**

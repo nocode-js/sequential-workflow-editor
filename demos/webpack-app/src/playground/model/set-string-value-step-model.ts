@@ -8,6 +8,7 @@ import {
 	createStringValueModel
 } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
+import { TextVariableParser } from '../utilities/text-variable-parser';
 
 export interface SetStringValueStep extends Step {
 	type: 'setStringValue';
@@ -43,5 +44,18 @@ export const setStringValueStepModel = createStepModel<SetStringValueStep>('setS
 				]
 			})
 		)
-		.label('Value');
+		.label('Value')
+		.validator({
+			validate(context) {
+				const value = context.getValue();
+				if (value.modelId === 'string') {
+					const variables = TextVariableParser.parse(value.value as string);
+					const notFoundIndex = context.hasVariables(variables).findIndex(v => !v);
+					if (notFoundIndex >= 0) {
+						return `Variable $${variables[notFoundIndex]} is not defined`;
+					}
+				}
+				return null;
+			}
+		});
 });

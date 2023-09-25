@@ -1,3 +1,7 @@
+## 0.9.3
+
+Added `hasVariable` and `hasVariables` methods to the `PropertyValidatorContext` class.
+
 ## 0.9.2
 
 This version fixes a bug in the `ValueEditorFactoryResolver` class. Now, when an editor is not found, the resolver throws an error.
