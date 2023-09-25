@@ -69,7 +69,11 @@ export class PropertyEditor implements Component {
 			view.appendChild(validationError.view);
 		}
 
-		return new PropertyEditor(view, valueContext.onValueChanged, valueEditor, validationError);
+		const editor = new PropertyEditor(view, valueContext.onValueChanged, valueEditor, validationError);
+		if (propertyModel.validator) {
+			valueContext.onValueChanged.subscribe(editor.onValueChangedHandler);
+		}
+		return editor;
 	}
 
 	public constructor(
@@ -83,8 +87,16 @@ export class PropertyEditor implements Component {
 		if (this.valueEditor.reloadDependencies) {
 			this.valueEditor.reloadDependencies();
 		}
+		this.revalidate();
+	}
+
+	private revalidate() {
 		if (this.validationError) {
 			this.validationError.validate();
 		}
 	}
+
+	private readonly onValueChangedHandler = () => {
+		this.revalidate();
+	};
 }
