@@ -5,6 +5,8 @@ import { Icons } from '../core/icons';
 
 export interface ButtonComponent extends Component {
 	onClick: SimpleEvent<void>;
+	setIcon(d: string): void;
+	setLabel(label: string): void;
 }
 
 export interface ButtonComponentConfiguration {
@@ -17,6 +19,22 @@ export function buttonComponent(label: string, configuration?: ButtonComponentCo
 	function onClicked(e: Event) {
 		e.preventDefault();
 		onClick.forward();
+	}
+
+	function setIcon(d: string) {
+		if (icon) {
+			icon.getElementsByTagName('path')[0].setAttribute('d', d);
+		} else {
+			throw new Error('This button does not have icon');
+		}
+	}
+
+	function setLabel(label: string) {
+		if (configuration?.icon) {
+			throw new Error('Cannot change label on button with icon');
+		} else {
+			view.innerText = label;
+		}
 	}
 
 	const onClick = new SimpleEvent<void>();
@@ -33,9 +51,10 @@ export function buttonComponent(label: string, configuration?: ButtonComponentCo
 		title: label,
 		'aria-label': label
 	});
+	let icon: SVGElement | undefined;
 	if (configuration?.icon) {
-		const svg = Icons.createSvg(configuration.icon, 'swe-button-icon');
-		view.appendChild(svg);
+		icon = Icons.createSvg(configuration.icon, 'swe-button-icon');
+		view.appendChild(icon);
 	} else {
 		view.innerText = label;
 	}
@@ -43,6 +62,8 @@ export function buttonComponent(label: string, configuration?: ButtonComponentCo
 
 	return {
 		view,
-		onClick
+		onClick,
+		setIcon,
+		setLabel
 	};
 }

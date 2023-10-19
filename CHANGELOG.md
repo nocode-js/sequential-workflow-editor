@@ -1,3 +1,7 @@
+## 0.10.0
+
+This version deletes all deprecated `*ValueModel` functions. From now, use only `create*ValueModel` functions.
+
 ## 0.9.3
 
 Added `hasVariable` and `hasVariables` methods to the `PropertyValidatorContext` class.

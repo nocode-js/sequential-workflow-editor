@@ -12,4 +12,15 @@ describe('ButtonComponent', () => {
 		expect(button.view.innerText).toBe('Some button');
 		expect(clicked).toBe(true);
 	});
+
+	it('replaces icon', () => {
+		const button = buttonComponent('Icon button', { icon: 'm200' });
+		const getD = () => button.view.children[0].children[0].getAttribute('d');
+
+		expect(getD()).toBe('m200');
+
+		button.setIcon('m100');
+
+		expect(getD()).toBe('m100');
+	});
 });
