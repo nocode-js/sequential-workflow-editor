@@ -6,10 +6,11 @@ export interface InputComponent extends Component {
 	onChanged: SimpleEvent<string>;
 	setValue(value: string): void;
 	getValue(): string;
+	setReadonly(readonly: boolean): void;
 }
 
 export interface InputConfiguration {
-	type?: 'text' | 'number';
+	type?: 'text' | 'number' | 'password';
 	isReadonly?: boolean;
 	placeholder?: string;
 }
@@ -25,6 +26,14 @@ export function inputComponent(startValue: string, configuration?: InputConfigur
 		return view.value;
 	}
 
+	function setReadonly(readonly: boolean) {
+		if (readonly) {
+			view.setAttribute('readonly', 'readonly');
+		} else {
+			view.removeAttribute('readonly');
+		}
+	}
+
 	const view = Html.element('input', {
 		class: 'swe-input swe-stretched',
 		type: configuration?.type ?? 'text'
@@ -33,7 +42,7 @@ export function inputComponent(startValue: string, configuration?: InputConfigur
 		view.setAttribute('placeholder', configuration.placeholder);
 	}
 	if (configuration?.isReadonly) {
-		view.setAttribute('readonly', 'readonly');
+		setReadonly(true);
 	}
 	view.value = startValue;
 	view.addEventListener('input', () => {
@@ -44,6 +53,7 @@ export function inputComponent(startValue: string, configuration?: InputConfigur
 		view,
 		onChanged,
 		setValue,
-		getValue
+		getValue,
+		setReadonly
 	};
 }
