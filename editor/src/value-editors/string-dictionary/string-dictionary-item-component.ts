@@ -7,8 +7,7 @@ import { buttonComponent } from '../../components/button-component';
 import { DynamicListItemComponent } from '../../components/dynamic-list-component';
 import { Icons } from '../../core/icons';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface StringDictionaryItemComponent extends DynamicListItemComponent<StringDictionaryItem> {}
+export type StringDictionaryItemComponent = DynamicListItemComponent<StringDictionaryItem>;
 
 export function stringDictionaryItemComponent(item: StringDictionaryItem): StringDictionaryItemComponent {
 	function validate(error: string | null) {

@@ -49,10 +49,10 @@ export const setStringValueStepModel = createStepModel<SetStringValueStep>('setS
 			validate(context) {
 				const value = context.getValue();
 				if (value.modelId === 'string') {
-					const variables = TextVariableParser.parse(value.value as string);
-					const notFoundIndex = context.hasVariables(variables).findIndex(v => !v);
-					if (notFoundIndex >= 0) {
-						return `Variable $${variables[notFoundIndex]} is not defined`;
+					const variableNames = TextVariableParser.parse(value.value as string);
+					const undefinedVariableName = context.findFirstUndefinedVariable(variableNames);
+					if (undefinedVariableName) {
+						return `Variable $${undefinedVariableName} is not defined`;
 					}
 				}
 				return null;

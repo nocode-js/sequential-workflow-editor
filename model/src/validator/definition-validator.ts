@@ -88,14 +88,14 @@ export class DefinitionValidator {
 	}
 
 	private validateProperty(propertyModel: PropertyModel, definitionContext: DefinitionContext): ValidationResult {
-		const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
+		const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
 		const valueError = propertyModel.value.validate(valueContext);
 		if (valueError) {
 			return valueError;
 		}
 
 		if (propertyModel.validator) {
-			const propertyContext = PropertyValidatorContext.create(propertyModel, definitionContext);
+			const propertyContext = PropertyValidatorContext.create(valueContext);
 			const propertyError = propertyModel.validator.validate(propertyContext);
 			if (propertyError) {
 				return createValidationSingleError(propertyError);

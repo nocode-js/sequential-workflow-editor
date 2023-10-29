@@ -1,3 +1,11 @@
+## 0.11.0
+
+This version normalizes names of functions in `ValueContext` and `PropertyValidatorContext` classes.
+
+The `CustomValidatorContext` class is deleted now, please use the `PropertyValidatorContext` class instead.
+
+The `PropertyModelBuilder` class has deleted the `customValidator` function, please use the `validator` function instead.
+
 ## 0.10.0
 
 This version deletes all deprecated `*ValueModel` functions. From now, use only `create*ValueModel` functions.

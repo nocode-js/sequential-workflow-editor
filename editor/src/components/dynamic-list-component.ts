@@ -3,9 +3,11 @@ import { Html } from '../core/html';
 import { Component } from './component';
 import { validationErrorComponent } from './validation-error-component';
 
-export interface DynamicListComponent<TItem> extends Component {
+export interface DynamicListComponent<TItem, TItemComponent extends DynamicListItemComponent<TItem> = DynamicListItemComponent<TItem>>
+	extends Component {
 	onChanged: SimpleEvent<TItem[]>;
 	add(item: TItem): void;
+	forEach(callback: (component: TItemComponent) => void): void;
 }
 
 export interface DynamicListComponentConfiguration<TItem> {
@@ -19,12 +21,12 @@ export interface DynamicListItemComponent<TItem> extends Component {
 	validate(error: string | null): void;
 }
 
-export function dynamicListComponent<TItem>(
+export function dynamicListComponent<TItem, TItemComponent extends DynamicListItemComponent<TItem> = DynamicListItemComponent<TItem>>(
 	initialItems: TItem[],
-	itemComponentFactory: (item: TItem) => DynamicListItemComponent<TItem>,
+	itemComponentFactory: (item: TItem) => TItemComponent,
 	context: ValueContext,
 	configuration?: DynamicListComponentConfiguration<TItem>
-): DynamicListComponent<TItem> {
+): DynamicListComponent<TItem, TItemComponent> {
 	const onChanged = new SimpleEvent<TItem[]>();
 	const items = [...initialItems];
 
@@ -56,6 +58,10 @@ export function dynamicListComponent<TItem>(
 		items.push(item);
 		forward();
 		reloadList();
+	}
+
+	function forEach(callback: (component: TItemComponent) => void) {
+		components.forEach(callback);
 	}
 
 	function reloadList() {
@@ -99,13 +105,14 @@ export function dynamicListComponent<TItem>(
 	const validation = validationErrorComponent();
 	view.appendChild(validation.view);
 
-	const components: DynamicListItemComponent<TItem>[] = [];
+	const components: TItemComponent[] = [];
 
 	reloadList();
 
 	return {
 		onChanged,
 		view,
-		add
+		add,
+		forEach
 	};
 }

@@ -1,41 +1,24 @@
 import { Properties, PropertyValue } from 'sequential-workflow-model';
-import { PropertyModel } from '../model';
-import { DefinitionContext } from '../context';
-import { readPropertyValue } from '../context/read-property-value';
+import { ValueModel } from '../model';
+import { ValueContext } from '../context';
 
 export class PropertyValidatorContext<TValue extends PropertyValue = PropertyValue, TProperties extends Properties = Properties> {
 	public static create<TVal extends PropertyValue, TProps extends Properties>(
-		propertyModel: PropertyModel<TVal>,
-		definitionContext: DefinitionContext
+		valueContext: ValueContext<ValueModel, TProps>
 	): PropertyValidatorContext<TVal, TProps> {
-		return new PropertyValidatorContext<TVal, TProps>(propertyModel, definitionContext);
+		return new PropertyValidatorContext<TVal, TProps>(valueContext);
 	}
 
-	protected constructor(private readonly model: PropertyModel<TValue>, private readonly definitionContext: DefinitionContext) {}
+	protected constructor(private readonly valueContext: ValueContext<ValueModel, TProperties>) {}
+
+	public readonly getPropertyValue = this.valueContext.getPropertyValue;
+	public readonly getSupportedValueTypes = this.valueContext.getValueTypes;
+	public readonly hasVariable = this.valueContext.hasVariable;
+	public readonly findFirstUndefinedVariable = this.valueContext.findFirstUndefinedVariable;
+	public readonly isVariableDuplicated = this.valueContext.isVariableDuplicated;
+	public readonly getVariables = this.valueContext.getVariables;
 
 	public getValue(): TValue {
-		return this.model.path.read(this.definitionContext.object) as TValue;
-	}
-
-	public getPropertyValue<Key extends keyof TProperties>(name: Key): TProperties[Key] {
-		return readPropertyValue(name, this.model, this.definitionContext.object);
-	}
-
-	public hasVariable(name: string): boolean {
-		return this.hasVariables([name])[0];
-	}
-
-	public hasVariables(names: string[]): boolean[] {
-		const variables = this.definitionContext.parentsProvider.getVariables();
-		const variableNames = new Set(variables.map(v => v.name));
-		return names.map(name => variableNames.has(name));
+		return this.valueContext.getValue() as TValue;
 	}
 }
-
-/**
- * @deprecated Use `PropertyValidatorContext` instead.
- */
-export class CustomValidatorContext<
-	TValue extends PropertyValue = PropertyValue,
-	TProperties extends Properties = Properties
-> extends PropertyValidatorContext<TValue, TProperties> {}

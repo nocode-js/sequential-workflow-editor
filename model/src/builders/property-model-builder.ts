@@ -81,11 +81,6 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 		return this;
 	}
 
-	/**
-	 * @deprecated Use `validator` instead.
-	 */
-	public readonly customValidator = this.validator.bind(this);
-
 	public build(): PropertyModel<TValue> {
 		if (!this._value) {
 			throw new Error(`Model is not set for ${this.path.toString()}`);
