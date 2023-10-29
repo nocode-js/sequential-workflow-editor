@@ -1,64 +1,49 @@
 import { Properties, PropertyValue } from 'sequential-workflow-model';
-import { ContextVariable, PropertyModel, ValidationResult, ValueModel } from '../model';
+import { PropertyModel, ValidationResult, ValueModel } from '../model';
 import { Path, SimpleEvent } from '../core';
+import { ScopedPropertyContext } from './scoped-property-context';
+import { PropertyContext } from './property-context';
 import { DefinitionContext } from './definition-context';
-import { readPropertyValue } from './read-property-value';
-import { ValueType } from '../types';
 
 export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperties extends Properties = Properties> {
-	public static create<TValueModel extends ValueModel>(
-		valueModel: TValueModel,
+	public static createFromDefinitionContext<TValModel extends ValueModel, TProps extends Properties = Properties>(
+		valueModel: TValModel,
 		propertyModel: PropertyModel,
 		definitionContext: DefinitionContext
-	): ValueContext<TValueModel> {
-		return new ValueContext(valueModel, propertyModel, definitionContext);
+	) {
+		const propertyContext = PropertyContext.create<TProps>(definitionContext.object, propertyModel, definitionContext.definitionModel);
+		const scopedPropertyContext = ScopedPropertyContext.create<TProps>(propertyContext, definitionContext.parentsProvider);
+		return new ValueContext<TValModel, TProps>(valueModel, scopedPropertyContext);
 	}
 
 	public readonly onValueChanged = new SimpleEvent<Path>();
 
-	private constructor(
-		public readonly model: TValueModel,
-		private readonly propertyModel: PropertyModel,
-		private readonly definitionContext: DefinitionContext
-	) {}
+	private constructor(public readonly model: TValueModel, public readonly scopedPropertyContext: ScopedPropertyContext<TProperties>) {}
 
-	public getValue(): ReturnType<TValueModel['getDefaultValue']> {
-		return this.model.path.read<ReturnType<TValueModel['getDefaultValue']>>(this.definitionContext.object);
-	}
+	public readonly getPropertyValue = this.scopedPropertyContext.getPropertyValue;
+	public readonly getValueTypes = this.scopedPropertyContext.getValueTypes;
+	public readonly hasVariable = this.scopedPropertyContext.hasVariable;
+	public readonly findFirstUndefinedVariable = this.scopedPropertyContext.findFirstUndefinedVariable;
+	public readonly isVariableDuplicated = this.scopedPropertyContext.isVariableDuplicated;
+	public readonly getVariables = this.scopedPropertyContext.getVariables;
 
-	public setValue(value: ReturnType<TValueModel['getDefaultValue']>) {
-		this.model.path.write(this.definitionContext.object, value);
+	public readonly getValue = (): ReturnType<TValueModel['getDefaultValue']> => {
+		return this.model.path.read<ReturnType<TValueModel['getDefaultValue']>>(this.scopedPropertyContext.propertyContext.object);
+	};
+
+	public readonly setValue = (value: ReturnType<TValueModel['getDefaultValue']>) => {
+		this.model.path.write(this.scopedPropertyContext.propertyContext.object, value);
 		this.onValueChanged.forward(this.model.path);
-	}
+	};
 
 	public readonly validate = (): ValidationResult => {
 		return this.model.validate(this);
 	};
 
-	public readonly getPropertyValue = <Key extends keyof TProperties>(name: Key): TProperties[Key] => {
-		return readPropertyValue(name, this.propertyModel, this.definitionContext.object);
-	};
-
-	public getValueTypes(): ValueType[] {
-		return this.definitionContext.definitionModel.valueTypes;
-	}
-
-	public hasVariable(name: string, valueType: string): boolean {
-		return this.getVariables().some(v => v.name === name && v.type === valueType);
-	}
-
-	public isVariableDuplicated(name: string): boolean {
-		return this.getVariables().filter(v => v.name === name).length > 1;
-	}
-
-	public getVariables(): ContextVariable[] {
-		return this.definitionContext.parentsProvider.getVariables();
-	}
-
 	public createChildContext<TChildModel extends ValueModel<PropertyValue, object, TProperties>>(
-		childModel: TChildModel
+		childValueModel: TChildModel
 	): ValueContext<TChildModel> {
-		const context = ValueContext.create(childModel, this.propertyModel, this.definitionContext);
+		const context = new ValueContext(childValueModel, this.scopedPropertyContext);
 		context.onValueChanged.subscribe(this.onValueChanged.forward);
 		return context;
 	}

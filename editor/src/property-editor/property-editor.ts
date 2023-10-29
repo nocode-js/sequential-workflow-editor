@@ -19,7 +19,7 @@ export class PropertyEditor implements Component {
 		definitionContext: DefinitionContext,
 		editorServices: EditorServices
 	): PropertyEditor {
-		const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
+		const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
 		const valueEditorFactory = editorServices.valueEditorFactoryResolver.resolve(propertyModel.value.id, propertyModel.value.editorId);
 		const valueEditor = valueEditorFactory(valueContext, editorServices);
 		let hint: PropertyHintComponent | null = null;
@@ -64,7 +64,8 @@ export class PropertyEditor implements Component {
 
 		let validationError: PropertyValidationErrorComponent | null = null;
 		if (propertyModel.validator) {
-			const validatorContext = PropertyValidatorContext.create(propertyModel, definitionContext);
+			const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
+			const validatorContext = PropertyValidatorContext.create(valueContext);
 			validationError = propertyValidationErrorComponent(propertyModel.validator, validatorContext);
 			view.appendChild(validationError.view);
 		}

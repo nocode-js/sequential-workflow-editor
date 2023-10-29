@@ -10,8 +10,7 @@ import { Icons } from '../../core/icons';
 import { prependedInputComponent } from '../../components/prepended-input-component';
 import { inputComponent } from '../../components/input-component';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface VariableDefinitionItemComponent extends DynamicListItemComponent<VariableDefinition> {}
+export type VariableDefinitionItemComponent = DynamicListItemComponent<VariableDefinition>;
 
 export function variableDefinitionItemComponent(
 	variable: VariableDefinition,

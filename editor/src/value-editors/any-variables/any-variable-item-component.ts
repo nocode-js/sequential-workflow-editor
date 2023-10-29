@@ -7,8 +7,7 @@ import { formatVariableNameWithType } from '../../core/variable-name-formatter';
 import { DynamicListItemComponent } from '../../components/dynamic-list-component';
 import { Icons } from '../../core/icons';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AnyVariableItemComponent extends DynamicListItemComponent<AnyVariable> {}
+export type AnyVariableItemComponent = DynamicListItemComponent<AnyVariable>;
 
 export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItemComponent {
 	function validate(error: string | null) {

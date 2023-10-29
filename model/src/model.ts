@@ -88,8 +88,8 @@ export function createValidationSingleError(error: string): ValidationError {
 }
 
 export interface ContextVariable {
-	name: string;
-	type: ValueType;
-	stepId: string | null;
-	valueModelPath: Path;
+	readonly name: string;
+	readonly type: ValueType;
+	readonly stepId: string | null;
+	readonly valueModelPath: Path;
 }

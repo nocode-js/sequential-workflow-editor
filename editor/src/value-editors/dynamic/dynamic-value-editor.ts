@@ -36,7 +36,7 @@ export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, ser
 
 	function onTypeChanged() {
 		const newModel = subModels[subModelSelect.getSelectedIndex()];
-		const defaultValueContext = DefaultValueContext.createFromValueContext(services.activator, context);
+		const defaultValueContext = DefaultValueContext.create(services.activator, context.scopedPropertyContext.propertyContext);
 		const defaultValue = {
 			modelId: newModel.id,
 			value: newModel.getDefaultValue(defaultValueContext)

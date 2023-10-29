@@ -2,6 +2,7 @@ import { Definition, Step } from 'sequential-workflow-model';
 import { DefinitionModel, PropertyModel, PropertyModels } from '../model';
 import { UidGenerator } from '../external-types';
 import { DefaultValueContext } from '../context/default-value-context';
+import { PropertyContext } from '../context/property-context';
 
 export class ModelActivator<TDefinition extends Definition = Definition> {
 	public static create<TDef extends Definition>(
@@ -19,8 +20,9 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 		};
 		this.activatePropertiesInOrder(definition, this.definitionModel.root.properties);
 
-		const sequenceValueContext = DefaultValueContext.create(this, definition, this.definitionModel.root.sequence);
-		const sequence = this.definitionModel.root.sequence.value.getDefaultValue(sequenceValueContext);
+		const propertyContext = PropertyContext.create(definition, this.definitionModel.root.sequence, this.definitionModel);
+		const defaultValueContext = DefaultValueContext.create(this, propertyContext);
+		const sequence = this.definitionModel.root.sequence.value.getDefaultValue(defaultValueContext);
 		return {
 			...definition,
 			sequence
@@ -40,8 +42,9 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 		};
 		this.activatePropertiesInOrder(step, model.properties);
 
-		const nameValueContext = DefaultValueContext.create(this, step, model.name);
-		const name = model.name.value.getDefaultValue(nameValueContext);
+		const propertyContext = PropertyContext.create(step, model.name, this.definitionModel);
+		const defaultValueContext = DefaultValueContext.create(this, propertyContext);
+		const name = model.name.value.getDefaultValue(defaultValueContext);
 		return {
 			...step,
 			name
@@ -65,7 +68,8 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 	}
 
 	private activateProperty(object: object, model: PropertyModel) {
-		const defaultValueContext = DefaultValueContext.create(this, object, model);
+		const propertyContext = PropertyContext.create(object, model, this.definitionModel);
+		const defaultValueContext = DefaultValueContext.create(this, propertyContext);
 		const defaultValue = model.value.getDefaultValue(defaultValueContext);
 		model.value.path.write(object, defaultValue);
 	}

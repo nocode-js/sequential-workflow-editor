@@ -63,7 +63,7 @@ export class ParentsProvider {
 		definitionContext: DefinitionContext
 	) {
 		for (const propertyModel of propertyModels) {
-			const valueContext = ValueContext.create(propertyModel.value, propertyModel, definitionContext);
+			const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
 			const definitions = propertyModel.value.getVariableDefinitions(valueContext);
 
 			if (!definitions) {
