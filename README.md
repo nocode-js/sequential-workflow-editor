@@ -8,11 +8,17 @@ Powerful workflow editor builder for sequential workflows. Written in TypeScript
 
 📝 Check the [documentation](https://nocode-js.com/docs/category/sequential-workflow-editor) for more details.
 
+🤩 Don't miss [the pro version](https://nocode-js.com/sequential-workflow-editor-pro/pricing).
+
 ## 👀 Examples
 
 * [🛠 Playground](https://nocode-js.github.io/sequential-workflow-editor/webpack-app/public/playground.html)
 * [📖 Editors](https://nocode-js.github.io/sequential-workflow-editor/webpack-app/public/editors.html)
 * [🎯 Placement Restrictions](https://nocode-js.github.io/sequential-workflow-editor/webpack-app/public/placement-restrictions.html)
+
+Pro:
+
+* [📖 Pro Editors](https://nocode-js.com/examples/sequential-workflow-editor-pro/webpack-pro-app/public/editors.html)
 
 ## 🚀 Installation
 
