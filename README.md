@@ -115,7 +115,7 @@ import { Designer } from 'sequential-workflow-designer';
 
 const designer = Designer.create(placeholder, startDefinition, {
   editors: {
-    globalEditorProvider: editorProvider.createRootEditorProvider(),
+    rootEditorProvider: editorProvider.createRootEditorProvider(),
     stepEditorProvider: editorProvider.createStepEditorProvider()
   },
   validator: {

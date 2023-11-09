@@ -17,7 +17,7 @@ export class App {
 		const designer = Designer.create(placeholder, editorProvider.activateDefinition(), {
 			controlBar: true,
 			editors: {
-				globalEditorProvider: () => {
+				rootEditorProvider: () => {
 					const editor = document.createElement('div');
 					editor.innerHTML =
 						'This demo showcases all the supported editors by the Sequential Workflow Editor. <a href="https://github.com/nocode-js/sequential-workflow-editor">GitHub</a>';

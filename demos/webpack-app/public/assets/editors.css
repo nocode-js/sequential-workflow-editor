@@ -12,7 +12,7 @@ input,
 textarea {
 	font: 14px/1.3em Arial, Verdana, sans-serif;
 }
-.sqd-global-editor {
+.sqd-root-editor {
 	padding: 10px;
 	line-height: 1.3em;
 	box-sizing: border-box;

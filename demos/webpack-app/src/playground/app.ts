@@ -20,7 +20,7 @@ export class App {
 		const designer: Designer<MyDefinition> = Designer.create(placeholder, startState.definition, {
 			controlBar: true,
 			editors: {
-				globalEditorProvider: editorProvider.createRootEditorProvider(),
+				rootEditorProvider: editorProvider.createRootEditorProvider(),
 				stepEditorProvider: editorProvider.createStepEditorProvider()
 			},
 			validator: {

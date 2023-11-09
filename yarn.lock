@@ -5163,10 +5163,10 @@ semver@^7.3.4, semver@^7.3.7, semver@^7.3.8:
   dependencies:
     lru-cache "^6.0.0"
 
-sequential-workflow-designer@^0.16.1:
-  version "0.16.1"
-  resolved "https://registry.yarnpkg.com/sequential-workflow-designer/-/sequential-workflow-designer-0.16.1.tgz#9c70627dab95022f53702d86c4fecbc50cd99a90"
-  integrity sha512-YGp6FD9GJmVFWr+d3ztENE72pp5Glvi6CCEVyZtmlghDY8tA+2C0RcHDYAvUeZg4ZIJyN8Y9Dlkzc/5LnJsEdA==
+sequential-workflow-designer@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/sequential-workflow-designer/-/sequential-workflow-designer-0.17.0.tgz#fb126b4a45fef107ac54b041e116ddaca607e48f"
+  integrity sha512-RzKn99irxTqsLn84RkMp7Q6XnvVjufG3xTKUy89uSC9a4CgG0k70jL36zLXxpW7cGEjjzGK/LgIeQ9/kiUOInQ==
   dependencies:
     sequential-workflow-model "^0.2.0"
 

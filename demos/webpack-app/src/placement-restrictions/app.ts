@@ -24,7 +24,7 @@ export class App {
 		Designer.create(placeholder, definition, {
 			controlBar: true,
 			editors: {
-				globalEditorProvider: () => {
+				rootEditorProvider: () => {
 					const editor = document.createElement('div');
 					editor.innerHTML =
 						'This example shows how to restrict the placement of steps. The write socket step can only be placed inside a socket step. <a href="https://github.com/nocode-js/sequential-workflow-editor">GitHub</a>';
