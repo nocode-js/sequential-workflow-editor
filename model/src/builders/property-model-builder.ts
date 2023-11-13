@@ -11,7 +11,10 @@ export class PropertyModelBuilder<TValue extends PropertyValue = PropertyValue, 
 	private _dependencies: Path[] = [];
 	private _validator?: PropertyValidator;
 
-	public constructor(private readonly path: Path, private readonly circularDependencyDetector: CircularDependencyDetector) {}
+	public constructor(
+		private readonly path: Path,
+		private readonly circularDependencyDetector: CircularDependencyDetector
+	) {}
 
 	/**
 	 * @returns `true` if the model of the value is set, otherwise `false`.

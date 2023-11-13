@@ -1,6 +1,6 @@
 {
 	"name": "sequential-workflow-editor-model",
-	"version": "0.11.0",
+	"version": "0.11.1",
 	"homepage": "https://nocode-js.com/",
 	"author": {
 		"name": "NoCode JS",
@@ -28,7 +28,8 @@
 		"url": "https://github.com/nocode-js/sequential-workflow-editor.git"
 	},
 	"files": [
-		"lib/"
+		"lib/",
+		"dist/"
 	],
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,11 +52,12 @@
 		"sequential-workflow-model": "^0.2.0"
 	},
 	"devDependencies": {
+		"rollup": "^4.4.0",
+		"rollup-plugin-dts": "^6.1.0",
+		"rollup-plugin-typescript2": "^0.36.0",
+		"@rollup/plugin-node-resolve": "^15.2.3",
 		"typescript": "^4.9.5",
-		"rollup-plugin-dts": "^5.2.0",
-		"rollup-plugin-typescript2": "^0.34.1",
-		"rollup": "^3.18.0",
-		"prettier": "^2.8.7",
+		"prettier": "^3.1.0",
 		"@typescript-eslint/eslint-plugin": "^5.47.0",
 		"@typescript-eslint/parser": "^5.47.0",
 		"eslint": "^8.30.0",

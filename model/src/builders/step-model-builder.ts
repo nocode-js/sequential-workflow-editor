@@ -17,7 +17,10 @@ export class StepModelBuilder<TStep extends Step> {
 	private readonly nameBuilder = new PropertyModelBuilder<string>(namePath, this.circularDependencyDetector);
 	private readonly propertyBuilder: PropertyModelBuilder[] = [];
 
-	public constructor(protected readonly type: string, private readonly componentType: ComponentType) {
+	public constructor(
+		protected readonly type: string,
+		private readonly componentType: ComponentType
+	) {
 		if (!type) {
 			throw new Error('Step type is empty');
 		}

@@ -11,7 +11,10 @@ export class ScopedPropertyContext<TProperties extends Properties> {
 		return new ScopedPropertyContext<TProps>(propertyContext, parentsProvider);
 	}
 
-	private constructor(public readonly propertyContext: PropertyContext<TProperties>, private readonly parentsProvider: ParentsProvider) {}
+	private constructor(
+		public readonly propertyContext: PropertyContext<TProperties>,
+		private readonly parentsProvider: ParentsProvider
+	) {}
 
 	public readonly getPropertyValue = this.propertyContext.getPropertyValue;
 	public readonly getValueTypes = this.propertyContext.getValueTypes;

@@ -10,7 +10,10 @@ export class DefinitionValidator {
 		return new DefinitionValidator(definitionModel, definitionWalker);
 	}
 
-	private constructor(private readonly model: DefinitionModel, private readonly walker: DefinitionWalker) {}
+	private constructor(
+		private readonly model: DefinitionModel,
+		private readonly walker: DefinitionWalker
+	) {}
 
 	/**
 	 * Deeply validates the given definition.

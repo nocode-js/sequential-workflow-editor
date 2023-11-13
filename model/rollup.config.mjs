@@ -1,9 +1,14 @@
 import dts from 'rollup-plugin-dts';
 import typescript from 'rollup-plugin-typescript2';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import fs from 'fs';
 
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const external = Object.keys(packageJson.dependencies);
+
+const ts = typescript({
+	useTsconfigDeclarationDir: true
+});
 
 export default [
 	{
@@ -35,5 +40,21 @@ export default [
 			}
 		],
 		plugins: [dts()],
+	},
+	{
+		input: './src/index.ts',
+		plugins: [
+			nodeResolve({
+				browser: true,
+			}),
+			ts
+		],
+		output: [
+			{
+				file: './dist/index.umd.js',
+				format: 'umd',
+				name: 'sequentialWorkflowEditorModel'
+			}
+		]
 	}
 ];

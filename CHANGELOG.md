@@ -1,3 +1,7 @@
+## 0.11.1
+
+This version improves support for UMD bundles.
+
 ## 0.11.0
 
 This version normalizes names of functions in `ValueContext` and `PropertyValidatorContext` classes.
