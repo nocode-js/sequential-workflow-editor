@@ -18,7 +18,10 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 
 	public readonly onValueChanged = new SimpleEvent<Path>();
 
-	private constructor(public readonly model: TValueModel, public readonly scopedPropertyContext: ScopedPropertyContext<TProperties>) {}
+	private constructor(
+		public readonly model: TValueModel,
+		public readonly scopedPropertyContext: ScopedPropertyContext<TProperties>
+	) {}
 
 	public readonly getPropertyValue = this.scopedPropertyContext.getPropertyValue;
 	public readonly getValueTypes = this.scopedPropertyContext.getValueTypes;

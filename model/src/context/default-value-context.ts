@@ -10,7 +10,10 @@ export class DefaultValueContext<TProperties extends Properties = Properties> {
 		return new DefaultValueContext<TProps>(activator, propertyContext);
 	}
 
-	private constructor(private readonly activator: ModelActivator, public readonly propertyContext: PropertyContext<TProperties>) {}
+	private constructor(
+		private readonly activator: ModelActivator,
+		public readonly propertyContext: PropertyContext<TProperties>
+	) {}
 
 	public readonly getPropertyValue = this.propertyContext.getPropertyValue;
 	public readonly activateStep = this.activator.activateStep;

@@ -45,6 +45,9 @@ export default [
 			}),
 			ts
 		],
+		external: [
+			'sequential-workflow-editor-model'
+		],
 		output: [
 			{
 				file: './dist/index.umd.js',

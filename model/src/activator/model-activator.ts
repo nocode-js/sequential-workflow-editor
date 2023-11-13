@@ -12,7 +12,10 @@ export class ModelActivator<TDefinition extends Definition = Definition> {
 		return new ModelActivator(definitionModel, uidGenerator);
 	}
 
-	private constructor(private readonly definitionModel: DefinitionModel, private readonly uidGenerator: UidGenerator) {}
+	private constructor(
+		private readonly definitionModel: DefinitionModel,
+		private readonly uidGenerator: UidGenerator
+	) {}
 
 	public readonly activateDefinition = (): TDefinition => {
 		const definition: Omit<Definition, 'sequence'> = {

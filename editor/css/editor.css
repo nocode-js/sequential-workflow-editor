@@ -139,7 +139,9 @@
 	padding: 8px;
 	border-radius: 5px;
 	cursor: pointer;
-	transition: border-color 150ms, background 150ms;
+	transition:
+		border-color 150ms,
+		background 150ms;
 }
 .swe-button:hover {
 	background: #e5e5e5;
