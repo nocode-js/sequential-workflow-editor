@@ -6,13 +6,17 @@ export interface ChoiceStepModel extends Step {
 	componentType: 'task';
 	properties: {
 		minimalConfig: string;
-		defaultValueGreen: string;
+		defaultValueAllow: 'allow' | 'ignore' | 'deny';
 	};
 }
 
 export const choiceStepModel = createStepModel<ChoiceStepModel>('choice', 'task', step => {
-	const choices = ['red', 'blue', 'green'];
+	step.property('minimalConfig').value(createChoiceValueModel({ choices: ['red', 'blue', 'green'] }));
 
-	step.property('minimalConfig').value(createChoiceValueModel({ choices }));
-	step.property('defaultValueGreen').value(createChoiceValueModel({ choices, defaultValue: 'green' }));
+	step.property('defaultValueAllow').value(
+		createChoiceValueModel({
+			choices: ['allow', 'ignore'],
+			defaultValue: 'ignore'
+		})
+	);
 });

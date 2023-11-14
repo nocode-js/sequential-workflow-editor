@@ -16,6 +16,7 @@ export class PropertyValidatorContext<TValue extends PropertyValue = PropertyVal
 	public readonly hasVariable = this.valueContext.hasVariable;
 	public readonly findFirstUndefinedVariable = this.valueContext.findFirstUndefinedVariable;
 	public readonly isVariableDuplicated = this.valueContext.isVariableDuplicated;
+	public readonly tryGetVariableType = this.valueContext.tryGetVariableType;
 	public readonly getVariables = this.valueContext.getVariables;
 
 	public getValue(): TValue {
