@@ -2,6 +2,7 @@ import { Properties } from 'sequential-workflow-model';
 import { ContextVariable } from '../model';
 import { ParentsProvider } from './variables-provider';
 import { PropertyContext } from './property-context';
+import { ValueType } from '../types';
 
 export class ScopedPropertyContext<TProperties extends Properties> {
 	public static create<TProps extends Properties>(
@@ -30,6 +31,11 @@ export class ScopedPropertyContext<TProperties extends Properties> {
 
 	public readonly isVariableDuplicated = (variableName: string): boolean => {
 		return this.getVariables().filter(v => v.name === variableName).length > 1;
+	};
+
+	public readonly tryGetVariableType = (variableName: string): ValueType | null => {
+		const variable = this.getVariables().find(v => v.name === variableName);
+		return variable ? variable.type : null;
 	};
 
 	public readonly getVariables = (): ContextVariable[] => {

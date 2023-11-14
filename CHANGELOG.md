@@ -1,3 +1,7 @@
+## 0.11.2
+
+This version adds a generic type to the `ChoiceValueModel` interface.
+
 ## 0.11.1
 
 This version improves support for UMD bundles.

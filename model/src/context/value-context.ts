@@ -28,6 +28,7 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 	public readonly hasVariable = this.scopedPropertyContext.hasVariable;
 	public readonly findFirstUndefinedVariable = this.scopedPropertyContext.findFirstUndefinedVariable;
 	public readonly isVariableDuplicated = this.scopedPropertyContext.isVariableDuplicated;
+	public readonly tryGetVariableType = this.scopedPropertyContext.tryGetVariableType;
 	public readonly getVariables = this.scopedPropertyContext.getVariables;
 
 	public readonly getValue = (): ReturnType<TValueModel['getDefaultValue']> => {
