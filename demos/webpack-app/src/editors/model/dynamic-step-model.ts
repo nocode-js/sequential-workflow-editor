@@ -3,7 +3,9 @@ import {
 	createBooleanValueModel,
 	createStepModel,
 	createDynamicValueModel,
-	createStringValueModel
+	createStringValueModel,
+	StringDictionary,
+	createStringDictionaryValueModel
 } from 'sequential-workflow-editor-model';
 import { Step } from 'sequential-workflow-model';
 
@@ -12,6 +14,7 @@ export interface DynamicStepModel extends Step {
 	componentType: 'task';
 	properties: {
 		example: Dynamic<string | boolean>;
+		twoHeaderControls: Dynamic<StringDictionary | string>;
 	};
 }
 
@@ -19,6 +22,12 @@ export const dynamicStepModel = createStepModel<DynamicStepModel>('dynamic', 'ta
 	step.property('example').value(
 		createDynamicValueModel({
 			models: [createStringValueModel({}), createBooleanValueModel({})]
+		})
+	);
+
+	step.property('twoHeaderControls').value(
+		createDynamicValueModel({
+			models: [createStringDictionaryValueModel({}), createStringValueModel({})]
 		})
 	);
 });

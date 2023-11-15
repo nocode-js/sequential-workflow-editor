@@ -116,7 +116,7 @@
 	border-style: dashed;
 }
 .swe-select-small {
-	padding: 3px 5px;
+	padding: 4px 5px;
 }
 .swe-prepended-input {
 	width: 100%;
@@ -197,4 +197,10 @@
 .swe-dynamic-list-empty-row {
 	margin-bottom: 10px;
 	color: #777;
+}
+
+/* dynamic */
+
+.swe-dynamic-sub-control {
+	margin-left: 6px;
 }
