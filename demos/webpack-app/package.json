@@ -18,8 +18,8 @@
 		"sequential-workflow-model": "^0.2.0",
 		"sequential-workflow-designer": "^0.17.0",
 		"sequential-workflow-machine": "^0.4.0",
-		"sequential-workflow-editor-model": "^0.11.2",
-		"sequential-workflow-editor": "^0.11.2"
+		"sequential-workflow-editor-model": "^0.11.3",
+		"sequential-workflow-editor": "^0.11.3"
 	},
 	"devDependencies": {
 		"ts-loader": "^9.4.2",

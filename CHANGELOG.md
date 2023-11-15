@@ -1,3 +1,7 @@
+## 0.11.3
+
+This version improves the behavior of the `Dynamic` value editor, when the sub editor contains a control visible in the property header.
+
 ## 0.11.2
 
 This version adds a generic type to the `ChoiceValueModel` interface.

@@ -25,4 +25,12 @@ describe('RowComponent', () => {
 		expect(row.view.children[1].className).toBe('swe-col swe-col-2');
 		expect(row.view.children[2].className).toBe('swe-col');
 	});
+
+	it('adds custom class', () => {
+		const row = rowComponent([], {
+			class: 'custom-class'
+		});
+
+		expect(row.view.className).toBe('swe-row custom-class');
+	});
 });

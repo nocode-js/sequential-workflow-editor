@@ -5,38 +5,43 @@ import { valueEditorContainerComponent } from '../../components/value-editor-con
 import { rowComponent } from '../../components/row-component';
 import { InputComponent, inputComponent } from '../../components/input-component';
 import { TextareaComponent, textareaComponent } from '../../components/textarea-component';
+import { StringValueEditorConfiguration } from './string-value-editor-configuration';
 
 export const stringValueEditorId = 'string';
 
 const defaultMultiline = 4;
 
-export function stringValueEditor(context: ValueContext<StringValueModel>): ValueEditor<StringValueModel> {
-	function validate() {
-		validation.setDefaultError(context.validate());
-	}
+export function createStringValueEditor(configuration?: StringValueEditorConfiguration) {
+	return (context: ValueContext<StringValueModel>): ValueEditor<StringValueModel> => {
+		function validate() {
+			validation.setDefaultError(context.validate());
+		}
 
-	const startValue = context.getValue();
-	const multiline = context.model.configuration.multiline;
+		const startValue = context.getValue();
+		const multiline = context.model.configuration.multiline;
 
-	const input: InputComponent | TextareaComponent = multiline
-		? textareaComponent(startValue, {
-				rows: multiline === true ? defaultMultiline : multiline
-		  })
-		: inputComponent(startValue);
+		const input: InputComponent | TextareaComponent = multiline
+			? textareaComponent(startValue, {
+					rows: multiline === true ? defaultMultiline : multiline
+			  })
+			: inputComponent(startValue);
 
-	input.onChanged.subscribe(value => {
-		context.setValue(value);
+		input.onChanged.subscribe(value => {
+			context.setValue(value);
+			validate();
+		});
+
+		const row = rowComponent([input.view], {
+			class: configuration?.class
+		});
+
+		const validation = validationErrorComponent();
+		const container = valueEditorContainerComponent([row.view, validation.view]);
+
 		validate();
-	});
 
-	const row = rowComponent([input.view]);
-
-	const validation = validationErrorComponent();
-	const container = valueEditorContainerComponent([row.view, validation.view]);
-
-	validate();
-
-	return {
-		view: container.view
+		return {
+			view: container.view
+		};
 	};
 }

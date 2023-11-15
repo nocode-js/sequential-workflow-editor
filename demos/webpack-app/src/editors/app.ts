@@ -1,17 +1,24 @@
 import { Designer, Uid } from 'sequential-workflow-designer';
-import { EditorProvider } from 'sequential-workflow-editor';
+import { EditorProvider, StringValueEditorEditorExtension } from 'sequential-workflow-editor';
 import { definitionModel } from './model/definition-model';
 
 import 'sequential-workflow-designer/css/designer.css';
 import 'sequential-workflow-designer/css/designer-light.css';
 import 'sequential-workflow-editor/css/editor.css';
+import './app.css';
 
 export class App {
 	public static create(): App {
 		const placeholder = document.getElementById('designer') as HTMLElement;
 
 		const editorProvider = EditorProvider.create(definitionModel, {
-			uidGenerator: Uid.next
+			uidGenerator: Uid.next,
+			extensions: [
+				StringValueEditorEditorExtension.create({
+					editorId: 'string-magic',
+					class: 'string-magic-editor'
+				})
+			]
 		});
 
 		const designer = Designer.create(placeholder, editorProvider.activateDefinition(), {

@@ -1,5 +1,5 @@
 import { ValueEditorFactory } from './value-editor';
-import { stringValueEditor, stringValueEditorId } from './string/string-value-editor';
+import { createStringValueEditor, stringValueEditorId } from './string/string-value-editor';
 import { numberValueEditor, numberValueEditorId } from './number/number-value-editor';
 import { variableDefinitionsValueEditor, variableDefinitionsValueEditorId } from './variable-definitions/variable-definitions-value-editor';
 import { nullableVariableValueEditor, nullableVariableValueEditorId } from './nullable-variable/nullable-variable-value-editor';
@@ -26,7 +26,7 @@ const defaultMap: ValueEditorMap = {
 	[generatedStringValueEditorId]: generatedStringValueEditor as ValueEditorFactory,
 	[nullableVariableValueEditorId]: nullableVariableValueEditor as ValueEditorFactory,
 	[nullableVariableDefinitionValueEditorId]: nullableVariableDefinitionValueEditor as ValueEditorFactory,
-	[stringValueEditorId]: stringValueEditor as ValueEditorFactory,
+	[stringValueEditorId]: createStringValueEditor() as ValueEditorFactory,
 	[stringDictionaryValueModelId]: stringDictionaryValueEditor as ValueEditorFactory,
 	[numberValueEditorId]: numberValueEditor as ValueEditorFactory,
 	[variableDefinitionsValueEditorId]: variableDefinitionsValueEditor as ValueEditorFactory,

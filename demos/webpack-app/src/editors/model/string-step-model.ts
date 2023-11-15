@@ -20,11 +20,14 @@ export const stringStepModel = createStepModel<StringStepModel>('string', 'task'
 			defaultValue: 'Some default value'
 		})
 	);
-	step.property('minLength3').value(
-		createStringValueModel({
-			minLength: 3
-		})
-	);
+	step.property('minLength3')
+		.value(
+			createStringValueModel({
+				minLength: 3,
+				editorId: 'string-magic'
+			})
+		)
+		.hint('This editor has a different color than the others, because it uses the string editor with custom CSS class.');
 	step.property('patternYear').value(
 		createStringValueModel({
 			pattern: /^\d{4}$/

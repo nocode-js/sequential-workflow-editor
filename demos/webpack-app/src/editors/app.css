@@ -1,0 +1,7 @@
+.string-magic-editor input {
+	background: #e9e8ff;
+	border-color: #c0bef0;
+}
+.string-magic-editor input:focus {
+	border-color: #9794d9;
+}

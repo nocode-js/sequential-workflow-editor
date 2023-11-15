@@ -21,6 +21,10 @@ export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, ser
 	function reloadEditor() {
 		if (editor) {
 			placeholder.removeChild(editor.view);
+			if (subControl) {
+				control.removeChild(subControl);
+				subControl = null;
+			}
 		}
 
 		const value = context.getValue();
@@ -32,6 +36,13 @@ export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, ser
 		const childContext = context.createChildContext(model);
 		editor = services.valueEditorFactoryResolver.resolve(model.id, model.editorId)(childContext, services);
 		placeholder.appendChild(editor.view);
+		if (editor.controlView) {
+			subControl = Html.element('span', {
+				class: 'swe-dynamic-sub-control'
+			});
+			subControl.appendChild(editor.controlView);
+			control.appendChild(subControl);
+		}
 	}
 
 	function onTypeChanged() {
@@ -46,24 +57,31 @@ export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, ser
 	}
 
 	const startValue = context.getValue();
+
+	const control = Html.element('div', {
+		class: 'swe-dynamic-control'
+	});
+
 	const subModelSelect = selectComponent({
 		size: 'small'
 	});
 	subModelSelect.setValues(context.model.subModels.map(model => model.label));
 	subModelSelect.selectIndex(context.model.subModels.findIndex(model => model.id === startValue.modelId));
 	subModelSelect.onSelected.subscribe(onTypeChanged);
+	control.appendChild(subModelSelect.view);
 
 	const placeholder = Html.element('div', {
 		class: 'swe-dynamic-placeholder'
 	});
 	const container = valueEditorContainerComponent([placeholder]);
 	let editor: ValueEditor | null = null;
+	let subControl: HTMLElement | null = null;
 
 	reloadEditor();
 
 	return {
 		view: container.view,
-		controlView: subModelSelect.view,
+		controlView: control,
 		reloadDependencies
 	};
 }
