@@ -46,6 +46,9 @@ body {
 #playground .title a:hover {
 	text-decoration: none;
 }
+#playground .explanation {
+	font-size: 9pt;
+}
 #playground h4 {
 	margin: 0;
 	padding: 10px 0;
