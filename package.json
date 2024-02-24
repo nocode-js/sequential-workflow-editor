@@ -12,6 +12,7 @@
 	"workspaces": [
 		"model",
 		"editor",
+		"demos/vanilla-js-app",
 		"demos/webpack-app"
 	],
 	"devDependencies": {

@@ -1,0 +1,17 @@
+{
+	"name": "vanilla-js-app-demo",
+	"author": "b4rtaz",
+	"license": "MIT",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"build": "echo Skipped",
+		"eslint": "echo Skipped",
+		"test:single": "echo Skipped",
+		"prettier": "prettier --check ./*.html ./assets/*.js",
+		"prettier:fix": "prettier --write ./*.html ./assets/*.js"
+	},
+	"devDependencies": {
+		"prettier": "^2.8.7"
+	}
+}
