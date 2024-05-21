@@ -7,13 +7,19 @@ export function stringValueModelValidator(context: ValueContext<StringValueModel
 	const configuration = context.model.configuration;
 
 	if (typeof value !== 'string') {
-		return createValidationSingleError('The value must be a string.');
+		return createValidationSingleError(context.i18n('string.valueMustBeString', 'The value must be a string.'));
 	}
 	if (configuration.minLength !== undefined && value.length < configuration.minLength) {
-		return createValidationSingleError(`The value must be at least ${configuration.minLength} characters long.`);
+		return createValidationSingleError(
+			context.i18n('string.valueTooShort', 'The value must be at least :min characters long.', {
+				min: String(configuration.minLength)
+			})
+		);
 	}
 	if (configuration.pattern && !configuration.pattern.test(value)) {
-		return createValidationSingleError('The value does not match the required pattern.');
+		return createValidationSingleError(
+			context.i18n('string.valueDoesNotMatchPattern', 'The value does not match the required pattern.')
+		);
 	}
 	return null;
 }

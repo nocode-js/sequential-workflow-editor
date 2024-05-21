@@ -66,6 +66,9 @@ export interface ValueModel<
 	id: ValueModelId;
 	editorId?: string;
 	path: Path;
+	/**
+	 * Default translation for the label.
+	 */
 	label: string;
 	configuration: TConfiguration;
 	subModels?: ValueModel[];

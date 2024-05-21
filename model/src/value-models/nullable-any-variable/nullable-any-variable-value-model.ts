@@ -27,14 +27,18 @@ export const createNullableAnyVariableValueModel = (
 		validate(context: ValueContext<NullableAnyVariableValueModel>): ValidationResult {
 			const value = context.getValue();
 			if (configuration.isRequired && !value) {
-				return createValidationSingleError(`The variable is required.`);
+				return createValidationSingleError(context.i18n('nullableAnyVariable.variableIsRequired', 'The variable is required'));
 			}
 			if (value) {
 				if (!context.hasVariable(value.name, value.type)) {
-					return createValidationSingleError(`The variable ${value.name} is lost`);
+					return createValidationSingleError(
+						context.i18n('nullableAnyVariable.variableIsLost', 'The variable :name is lost', { name: value.name })
+					);
 				}
 				if (configuration.valueTypes && !configuration.valueTypes.includes(value.type)) {
-					return createValidationSingleError(`The variable ${value.name} has invalid type`);
+					return createValidationSingleError(
+						context.i18n('nullableAnyVariable.invalidVariableType', 'The variable :name has invalid type', { name: value.name })
+					);
 				}
 			}
 			return null;

@@ -5,5 +5,6 @@ export * from './core';
 export * from './validator';
 export * from './value-models';
 export * from './external-types';
+export * from './i18n';
 export * from './model';
 export * from './types';

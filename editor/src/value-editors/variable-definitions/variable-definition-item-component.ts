@@ -41,7 +41,7 @@ export function variableDefinitionItemComponent(
 	const input = prependedInputComponent(
 		'$',
 		inputComponent(variable.name, {
-			placeholder: 'Variable name'
+			placeholder: context.i18n('variableDefinitions.namePlaceholder', 'Variable name')
 		})
 	);
 	input.onChanged.subscribe(onNameChanged);
@@ -55,7 +55,7 @@ export function variableDefinitionItemComponent(
 	typeSelect.selectIndex(valueTypes.findIndex(type => type === variable.type));
 	typeSelect.onSelected.subscribe(onTypeChanged);
 
-	const deleteButton = buttonComponent('Delete', {
+	const deleteButton = buttonComponent(context.i18n('variableDefinitions.delete', 'Delete'), {
 		size: 'small',
 		theme: 'secondary',
 		icon: Icons.close

@@ -4,15 +4,17 @@ import { DefinitionContext, ValueContext } from '../context';
 import { PropertyValidatorContext } from './property-validator-context';
 import { Path } from '../core';
 import { StepValidatorContext } from './step-validator-context';
+import { I18n, defaultI18n } from '../i18n';
 
 export class DefinitionValidator {
-	public static create(definitionModel: DefinitionModel, definitionWalker: DefinitionWalker): DefinitionValidator {
-		return new DefinitionValidator(definitionModel, definitionWalker);
+	public static create(definitionModel: DefinitionModel, definitionWalker: DefinitionWalker, i18n?: I18n): DefinitionValidator {
+		return new DefinitionValidator(definitionModel, definitionWalker, i18n ?? defaultI18n);
 	}
 
 	private constructor(
 		private readonly model: DefinitionModel,
-		private readonly walker: DefinitionWalker
+		private readonly walker: DefinitionWalker,
+		private readonly i18n: I18n
 	) {}
 
 	/**
@@ -44,7 +46,7 @@ export class DefinitionValidator {
 	}
 
 	public validateStep(step: Step, definition: Definition): PropertyValidationError | null {
-		const definitionContext = DefinitionContext.createForStep(step, definition, this.model, this.walker);
+		const definitionContext = DefinitionContext.createForStep(step, definition, this.model, this.walker, this.i18n);
 
 		const stepModel = this.model.steps[step.type];
 		if (!stepModel) {
@@ -73,7 +75,7 @@ export class DefinitionValidator {
 	}
 
 	public validateRoot(definition: Definition): PropertyValidationError | null {
-		const definitionContext = DefinitionContext.createForRoot(definition, this.model, this.walker);
+		const definitionContext = DefinitionContext.createForRoot(definition, this.model, this.walker, this.i18n);
 		return this.validateProperties(this.model.root.properties, definitionContext);
 	}
 
@@ -91,7 +93,7 @@ export class DefinitionValidator {
 	}
 
 	private validateProperty(propertyModel: PropertyModel, definitionContext: DefinitionContext): ValidationResult {
-		const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
+		const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext, this.i18n);
 		const valueError = propertyModel.value.validate(valueContext);
 		if (valueError) {
 			return valueError;

@@ -20,7 +20,7 @@ export function booleanValueEditor(context: ValueContext<BooleanValueModel>): Va
 	const select = selectComponent({
 		stretched: true
 	});
-	select.setValues(['False', 'True']);
+	select.setValues([context.i18n('boolean.false', 'False'), context.i18n('boolean.true', 'True')]);
 	select.selectIndex(context.getValue() ? 1 : 0);
 	select.onSelected.subscribe(onSelected);
 

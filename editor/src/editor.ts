@@ -12,15 +12,15 @@ export class Editor {
 		headerData: EditorHeaderData | null,
 		validator: EditorValidator | null,
 		propertyModels: PropertyModels,
+		stepType: string | null,
 		definitionContext: DefinitionContext,
-		editorServices: EditorServices,
-		typeClassName: string
+		editorServices: EditorServices
 	): Editor {
 		const root = document.createElement('div');
-		root.className = `swe-editor swe-type-${typeClassName}`;
+		root.className = `swe-editor swe-type-${stepType ?? 'root'}`;
 
 		if (headerData) {
-			const header = EditorHeader.create(headerData);
+			const header = EditorHeader.create(headerData, stepType ?? 'root', editorServices.i18n);
 			root.appendChild(header.view);
 		}
 
@@ -36,7 +36,7 @@ export class Editor {
 				continue;
 			}
 
-			const propertyEditor = PropertyEditor.create(propertyModel, definitionContext, editorServices);
+			const propertyEditor = PropertyEditor.create(propertyModel, stepType, definitionContext, editorServices);
 			root.appendChild(propertyEditor.view);
 			editors.set(propertyModel, propertyEditor);
 		}

@@ -34,7 +34,9 @@ export function createGeneratedStringValueModel<TProperties extends Properties =
 				const subContext = GeneratedStringContext.create(context);
 				const value = configuration.generator(subContext);
 				if (context.getValue() !== value) {
-					return createValidationSingleError('Generator returns different value than the current value');
+					return createValidationSingleError(
+						context.i18n('generatedString.differentValue', 'Generator returns different value than the current value')
+					);
 				}
 				return null;
 			}

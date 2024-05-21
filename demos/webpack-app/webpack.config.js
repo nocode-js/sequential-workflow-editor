@@ -28,7 +28,8 @@ function bundle(name) {
 }
 
 module.exports = [
-	bundle('playground'),
 	bundle('editors'),
-	bundle('placement-restrictions')
+	bundle('i18n'),
+	bundle('placement-restrictions'),
+	bundle('playground'),
 ];

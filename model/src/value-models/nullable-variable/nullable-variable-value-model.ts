@@ -28,11 +28,15 @@ export const createNullableVariableValueModel = (
 		validate(context: ValueContext<NullableVariableValueModel>): ValidationResult {
 			const value = context.getValue();
 			if (configuration.isRequired && !value) {
-				return createValidationSingleError(`The variable is required.`);
+				return createValidationSingleError(context.i18n('nullableVariable.variableIsRequired', 'The variable is required'));
 			}
 			if (value && value.name) {
 				if (!context.hasVariable(value.name, configuration.valueType)) {
-					return createValidationSingleError(`The variable ${value.name} is not found.`);
+					return createValidationSingleError(
+						context.i18n('nullableVariable.variableIsLost', 'The variable :name is not found', {
+							name: value.name
+						})
+					);
 				}
 			}
 			return null;

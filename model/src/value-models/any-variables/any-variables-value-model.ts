@@ -31,11 +31,15 @@ export const createAnyVariablesValueModel = (
 
 			value.variables.forEach((variable, index) => {
 				if (!context.hasVariable(variable.name, variable.type)) {
-					errors[index] = `Variable ${variable.name} is lost`;
+					errors[index] = context.i18n('anyVariables.variableIsLost', 'Variable :name is lost', {
+						name: variable.name
+					});
 					return;
 				}
 				if (configuration.valueTypes && !configuration.valueTypes.includes(variable.type)) {
-					errors[index] = `Variable ${variable.name} has invalid type`;
+					errors[index] = context.i18n('anyVariables.invalidVariableType', 'Variable :name has invalid type', {
+						name: variable.name
+					});
 					return;
 				}
 			});

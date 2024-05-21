@@ -6,7 +6,9 @@ import {
 	ModelActivator,
 	DefinitionValidator,
 	Path,
-	StepValidatorContext
+	StepValidatorContext,
+	defaultI18n,
+	I18n
 } from 'sequential-workflow-editor-model';
 import { EditorServices, ValueEditorFactoryResolver } from './value-editors';
 import {
@@ -28,15 +30,17 @@ export class EditorProvider<TDefinition extends Definition> {
 		configuration: EditorProviderConfiguration
 	): EditorProvider<TDef> {
 		const definitionWalker = configuration.definitionWalker ?? new DefinitionWalker();
+		const i18n = configuration.i18n ?? defaultI18n;
 		const activator = ModelActivator.create(definitionModel, configuration.uidGenerator);
 		const validator = DefinitionValidator.create(definitionModel, definitionWalker);
 		const valueEditorFactoryResolver = ValueEditorFactoryResolver.create(configuration.extensions);
-		return new EditorProvider(activator, validator, definitionModel, definitionWalker, valueEditorFactoryResolver, configuration);
+		return new EditorProvider(activator, validator, definitionModel, definitionWalker, i18n, valueEditorFactoryResolver, configuration);
 	}
 
 	private readonly services: EditorServices = {
 		activator: this.activator,
-		valueEditorFactoryResolver: this.valueEditorFactoryResolver
+		valueEditorFactoryResolver: this.valueEditorFactoryResolver,
+		i18n: this.i18n
 	};
 
 	private constructor(
@@ -44,15 +48,15 @@ export class EditorProvider<TDefinition extends Definition> {
 		private readonly validator: DefinitionValidator,
 		private readonly definitionModel: DefinitionModel,
 		private readonly definitionWalker: DefinitionWalker,
+		private readonly i18n: I18n,
 		private readonly valueEditorFactoryResolver: ValueEditorFactoryResolver,
 		private readonly configuration: EditorProviderConfiguration
 	) {}
 
 	public createRootEditorProvider(): RootEditorProvider {
 		return (definition: Definition, context: GlobalEditorContext): HTMLElement => {
-			const rootContext = DefinitionContext.createForRoot(definition, this.definitionModel, this.definitionWalker);
-			const typeClassName = 'root';
-			const editor = Editor.create(null, null, this.definitionModel.root.properties, rootContext, this.services, typeClassName);
+			const rootContext = DefinitionContext.createForRoot(definition, this.definitionModel, this.definitionWalker, this.i18n);
+			const editor = Editor.create(null, null, this.definitionModel.root.properties, null, rootContext, this.services);
 			editor.onValuesChanged.subscribe(() => {
 				context.notifyPropertiesChanged();
 			});
@@ -62,9 +66,14 @@ export class EditorProvider<TDefinition extends Definition> {
 
 	public createStepEditorProvider(): StepEditorProvider {
 		return (step: Step, context: StepEditorContext, definition: Definition) => {
-			const definitionContext = DefinitionContext.createForStep(step, definition, this.definitionModel, this.definitionWalker);
+			const definitionContext = DefinitionContext.createForStep(
+				step,
+				definition,
+				this.definitionModel,
+				this.definitionWalker,
+				this.i18n
+			);
 			const stepModel = this.definitionModel.steps[step.type];
-			const typeClassName = stepModel.type;
 			const propertyModels = [stepModel.name, ...stepModel.properties];
 
 			const headerData: EditorHeaderData | null = this.configuration.isHeaderHidden
@@ -81,7 +90,7 @@ export class EditorProvider<TDefinition extends Definition> {
 				validator = () => stepValidator.validate(stepValidatorContext);
 			}
 
-			const editor = Editor.create(headerData, validator, propertyModels, definitionContext, this.services, typeClassName);
+			const editor = Editor.create(headerData, validator, propertyModels, stepModel.type, definitionContext, this.services);
 
 			editor.onValuesChanged.subscribe((paths: Path[]) => {
 				const isNameChanged = paths.some(path => path.equals(stepModel.name.value.path));
@@ -125,7 +134,7 @@ export class EditorProvider<TDefinition extends Definition> {
 		const groups: ToolboxGroup[] = [];
 		const categories = new Set<string | undefined>(stepModels.map(step => step.category));
 		categories.forEach((category: string | undefined) => {
-			const name = category ?? 'Others';
+			const name = category ?? this.i18n('toolbox.defaultGroupName', 'Others');
 			const groupStepModels = stepModels.filter(step => step.category === category);
 			const groupSteps = groupStepModels.map(step => this.activateStep(step.type));
 			groupSteps.sort((a, b) => a.name.localeCompare(b.name));

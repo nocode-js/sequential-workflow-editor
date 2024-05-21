@@ -31,7 +31,10 @@ export function nullableVariableValueEditor(context: ValueContext<NullableVariab
 	const select = selectComponent({
 		stretched: true
 	});
-	select.setValues(['- Select -', ...variables.map(variable => formatVariableNameWithType(variable.name, variable.type))]);
+	select.setValues([
+		context.i18n('nullableVariable.select', '- Select -'),
+		...variables.map(variable => formatVariableNameWithType(variable.name, variable.type))
+	]);
 	if (startValue) {
 		select.selectIndex(variables.findIndex(variable => variable.name === startValue.name) + 1);
 	} else {
