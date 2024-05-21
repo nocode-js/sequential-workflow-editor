@@ -1,10 +1,13 @@
 import {
+	Dynamic,
 	StringDictionary,
 	createBooleanValueModel,
 	createDefinitionModel,
+	createDynamicValueModel,
 	createNumberValueModel,
 	createStepModel,
-	createStringDictionaryValueModel
+	createStringDictionaryValueModel,
+	createStringValueModel
 } from 'sequential-workflow-editor-model';
 import { Definition, Step } from 'sequential-workflow-model';
 
@@ -19,6 +22,7 @@ export interface ChownStep extends Step {
 	type: 'chown';
 	componentType: 'task';
 	properties: {
+		stringOrNumber: Dynamic<string | number>;
 		users: StringDictionary;
 	};
 }
@@ -40,6 +44,20 @@ export const definitionModel = createDefinitionModel<I18nDefinition>(model => {
 	});
 	model.steps([
 		createStepModel<ChownStep>('chown', 'task', step => {
+			step.property('stringOrNumber').value(
+				createDynamicValueModel({
+					models: [
+						createStringValueModel({
+							pattern: /^[a-zA-Z0-9]+$/
+						}),
+						createNumberValueModel({
+							min: 1,
+							max: 100,
+							defaultValue: 50
+						})
+					]
+				})
+			);
 			step.property('users').value(
 				createStringDictionaryValueModel({
 					valueMinLength: 1,

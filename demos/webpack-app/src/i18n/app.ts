@@ -48,6 +48,10 @@ const editorDict: Record<string, string> = {
 	'boolean.true': 'Prawda',
 
 	'string.valueTooShort': 'Wartość musi mieć minimum :min znaków.',
+	'string.valueDoesNotMatchPattern': 'Wartość nie pasuje do oczekiwanego wzorca.',
+
+	'dynamic.string.label': 'Tekst',
+	'dynamic.number.label': 'Liczba',
 
 	// root
 	'root.property:properties/timeout': 'Przekroczenie czasu',
@@ -56,6 +60,7 @@ const editorDict: Record<string, string> = {
 	// steps
 	'step.chown.name': 'Uprawnienia',
 	'step.chown.property:name': 'Nazwa',
+	'step.chown.property:properties/stringOrNumber': 'Tekst lub liczba',
 	'step.chown.property:properties/users': 'Użytkownik'
 };
 
