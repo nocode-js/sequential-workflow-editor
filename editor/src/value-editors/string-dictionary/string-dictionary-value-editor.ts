@@ -22,14 +22,9 @@ export function stringDictionaryValueEditor(context: ValueContext<StringDictiona
 		});
 	}
 
-	const list = dynamicListComponent<StringDictionaryItem>(
-		context.getValue().items,
-		item => stringDictionaryItemComponent(item, context.i18n),
-		context,
-		{
-			emptyMessage: context.i18n('stringDictionary.noItems', 'No items')
-		}
-	);
+	const list = dynamicListComponent<StringDictionaryItem>(context.getValue().items, stringDictionaryItemComponent, context, {
+		emptyMessage: context.i18n('stringDictionary.noItems', 'No items')
+	});
 	list.onChanged.subscribe(onChanged);
 
 	const container = valueEditorContainerComponent([list.view]);

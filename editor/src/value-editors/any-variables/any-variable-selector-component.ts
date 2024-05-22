@@ -31,7 +31,7 @@ export function anyVariableSelectorComponent(context: ValueContext<AnyVariablesV
 	function reloadVariableSelector() {
 		variables = filterVariablesByType(context.getVariables(), getSelectedValueType());
 		const variableNames = variables.map(variable => formatVariableName(variable.name));
-		variableSelect.setValues(['- Select -', ...variableNames]);
+		variableSelect.setValues([context.i18n('anyVariable.select', '- Select -'), ...variableNames]);
 	}
 
 	function onAddClicked() {
@@ -57,7 +57,7 @@ export function anyVariableSelectorComponent(context: ValueContext<AnyVariablesV
 	});
 	let variables: ContextVariable[] | null = null;
 
-	const addButton = buttonComponent('Add variable', {
+	const addButton = buttonComponent(context.i18n('anyVariable.addVariable', 'Add variable'), {
 		icon: Icons.add
 	});
 	addButton.onClick.subscribe(onAddClicked);

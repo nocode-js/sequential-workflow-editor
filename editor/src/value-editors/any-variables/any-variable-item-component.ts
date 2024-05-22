@@ -1,4 +1,4 @@
-import { AnyVariable, SimpleEvent } from 'sequential-workflow-editor-model';
+import { AnyVariable, I18n, SimpleEvent } from 'sequential-workflow-editor-model';
 import { Html } from '../../core/html';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { buttonComponent } from '../../components/button-component';
@@ -9,7 +9,7 @@ import { Icons } from '../../core/icons';
 
 export type AnyVariableItemComponent = DynamicListItemComponent<AnyVariable>;
 
-export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItemComponent {
+export function anyVariableItemComponent(variable: AnyVariable, i18n: I18n): AnyVariableItemComponent {
 	function validate(error: string | null) {
 		validation.setError(error);
 	}
@@ -21,7 +21,7 @@ export function anyVariableItemComponent(variable: AnyVariable): AnyVariableItem
 	const name = Html.element('span');
 	name.innerText = formatVariableNameWithType(variable.name, variable.type);
 
-	const deleteButton = buttonComponent('Delete', {
+	const deleteButton = buttonComponent(i18n('anyVariable.delete', 'Delete'), {
 		size: 'small',
 		theme: 'secondary',
 		icon: Icons.close
