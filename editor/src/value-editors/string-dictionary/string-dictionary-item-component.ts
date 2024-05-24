@@ -1,4 +1,4 @@
-import { SimpleEvent, StringDictionaryItem } from 'sequential-workflow-editor-model';
+import { I18n, SimpleEvent, StringDictionaryItem } from 'sequential-workflow-editor-model';
 import { validationErrorComponent } from '../../components/validation-error-component';
 import { Html } from '../../core';
 import { rowComponent } from '../../components/row-component';
@@ -9,7 +9,7 @@ import { Icons } from '../../core/icons';
 
 export type StringDictionaryItemComponent = DynamicListItemComponent<StringDictionaryItem>;
 
-export function stringDictionaryItemComponent(item: StringDictionaryItem): StringDictionaryItemComponent {
+export function stringDictionaryItemComponent(item: StringDictionaryItem, i18n: I18n): StringDictionaryItemComponent {
 	function validate(error: string | null) {
 		validation.setError(error);
 	}
@@ -22,16 +22,16 @@ export function stringDictionaryItemComponent(item: StringDictionaryItem): Strin
 	const onDeleteClicked = new SimpleEvent<void>();
 
 	const keyInput = inputComponent(item.key, {
-		placeholder: 'Key'
+		placeholder: i18n('stringDictionary.key', 'Key')
 	});
 	keyInput.onChanged.subscribe(onChanged);
 
 	const valueInput = inputComponent(item.value, {
-		placeholder: 'Value'
+		placeholder: i18n('stringDictionary.value', 'Value')
 	});
 	valueInput.onChanged.subscribe(onChanged);
 
-	const deleteButton = buttonComponent('Delete', {
+	const deleteButton = buttonComponent(i18n('stringDictionary.delete', 'Delete'), {
 		size: 'small',
 		theme: 'secondary',
 		icon: Icons.close

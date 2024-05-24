@@ -1,4 +1,4 @@
-import { SimpleEvent, ValueContext } from 'sequential-workflow-editor-model';
+import { I18n, SimpleEvent, ValueContext } from 'sequential-workflow-editor-model';
 import { Html } from '../core/html';
 import { Component } from './component';
 import { validationErrorComponent } from './validation-error-component';
@@ -23,7 +23,7 @@ export interface DynamicListItemComponent<TItem> extends Component {
 
 export function dynamicListComponent<TItem, TItemComponent extends DynamicListItemComponent<TItem> = DynamicListItemComponent<TItem>>(
 	initialItems: TItem[],
-	itemComponentFactory: (item: TItem) => TItemComponent,
+	itemComponentFactory: (item: TItem, i18n: I18n) => TItemComponent,
 	context: ValueContext,
 	configuration?: DynamicListComponentConfiguration<TItem>
 ): DynamicListComponent<TItem, TItemComponent> {
@@ -74,7 +74,7 @@ export function dynamicListComponent<TItem, TItemComponent extends DynamicListIt
 
 		if (items.length > 0) {
 			items.forEach((item, index) => {
-				const component = itemComponentFactory(item);
+				const component = itemComponentFactory(item, context.i18n);
 				component.onItemChanged.subscribe(item => onItemChanged(item, index));
 				component.onDeleteClicked.subscribe(() => onItemDeleted(index));
 				view.insertBefore(component.view, validation.view);

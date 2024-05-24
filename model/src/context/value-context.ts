@@ -4,15 +4,17 @@ import { Path, SimpleEvent } from '../core';
 import { ScopedPropertyContext } from './scoped-property-context';
 import { PropertyContext } from './property-context';
 import { DefinitionContext } from './definition-context';
+import { I18n } from '../i18n';
 
 export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperties extends Properties = Properties> {
 	public static createFromDefinitionContext<TValModel extends ValueModel, TProps extends Properties = Properties>(
 		valueModel: TValModel,
 		propertyModel: PropertyModel,
-		definitionContext: DefinitionContext
+		definitionContext: DefinitionContext,
+		i18n: I18n
 	) {
 		const propertyContext = PropertyContext.create<TProps>(definitionContext.object, propertyModel, definitionContext.definitionModel);
-		const scopedPropertyContext = ScopedPropertyContext.create<TProps>(propertyContext, definitionContext.parentsProvider);
+		const scopedPropertyContext = ScopedPropertyContext.create<TProps>(propertyContext, definitionContext.parentsProvider, i18n);
 		return new ValueContext<TValModel, TProps>(valueModel, scopedPropertyContext);
 	}
 
@@ -30,6 +32,7 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 	public readonly isVariableDuplicated = this.scopedPropertyContext.isVariableDuplicated;
 	public readonly tryGetVariableType = this.scopedPropertyContext.tryGetVariableType;
 	public readonly getVariables = this.scopedPropertyContext.getVariables;
+	public readonly i18n = this.scopedPropertyContext.i18n;
 
 	public readonly getValue = (): ReturnType<TValueModel['getDefaultValue']> => {
 		return this.model.path.read<ReturnType<TValueModel['getDefaultValue']>>(this.scopedPropertyContext.propertyContext.object);

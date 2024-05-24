@@ -37,7 +37,7 @@ export function createChoiceValueModel<TValue extends string>(
 			validate(context: ValueContext<ChoiceValueModel<TValue>>): ValidationResult {
 				const value = context.getValue();
 				if (!configuration.choices.includes(value)) {
-					return createValidationSingleError('Choice is not supported.');
+					return createValidationSingleError(context.i18n('choice.notSupportedValue', 'Value is not supported.'));
 				}
 				return null;
 			}

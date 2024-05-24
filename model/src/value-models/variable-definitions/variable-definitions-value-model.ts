@@ -43,15 +43,15 @@ export const createVariableDefinitionsValueModel = (
 				}
 				const isDuplicated = value.variables.some((v, i) => i !== index && v.name === variable.name);
 				if (isDuplicated) {
-					errors[index] = 'Variable name is duplicated';
+					errors[index] = context.i18n('variableDefinitions.variableNameIsDuplicated', 'Variable name is duplicated');
 					return;
 				}
 				if (context.isVariableDuplicated(variable.name)) {
-					errors[index] = 'Variable name is already used';
+					errors[index] = context.i18n('variableDefinitions.variableNameIsDuplicated', 'Variable name is already used');
 					return;
 				}
 				if (configuration.valueTypes && !configuration.valueTypes.includes(variable.type)) {
-					errors[index] = 'Value type is not allowed';
+					errors[index] = context.i18n('variableDefinitions.valueTypeIsNotAllowed', 'Value type is not allowed');
 				}
 			});
 

@@ -65,7 +65,11 @@ export function dynamicValueEditor(context: ValueContext<DynamicValueModel>, ser
 	const subModelSelect = selectComponent({
 		size: 'small'
 	});
-	subModelSelect.setValues(context.model.subModels.map(model => model.label));
+	subModelSelect.setValues(
+		context.model.subModels.map(model => {
+			return context.i18n(`dynamic.${model.id}.label`, model.label);
+		})
+	);
 	subModelSelect.selectIndex(context.model.subModels.findIndex(model => model.id === startValue.modelId));
 	subModelSelect.onSelected.subscribe(onTypeChanged);
 	control.appendChild(subModelSelect.view);

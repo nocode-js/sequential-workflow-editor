@@ -3,17 +3,20 @@ import { ContextVariable } from '../model';
 import { ParentsProvider } from './variables-provider';
 import { PropertyContext } from './property-context';
 import { ValueType } from '../types';
+import { I18n } from '../i18n';
 
 export class ScopedPropertyContext<TProperties extends Properties> {
 	public static create<TProps extends Properties>(
 		propertyContext: PropertyContext<TProps>,
-		parentsProvider: ParentsProvider
+		parentsProvider: ParentsProvider,
+		i18n: I18n
 	): ScopedPropertyContext<TProps> {
-		return new ScopedPropertyContext<TProps>(propertyContext, parentsProvider);
+		return new ScopedPropertyContext<TProps>(propertyContext, i18n, parentsProvider);
 	}
 
 	private constructor(
 		public readonly propertyContext: PropertyContext<TProperties>,
+		public readonly i18n: I18n,
 		private readonly parentsProvider: ParentsProvider
 	) {}
 

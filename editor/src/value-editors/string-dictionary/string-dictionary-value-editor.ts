@@ -23,13 +23,13 @@ export function stringDictionaryValueEditor(context: ValueContext<StringDictiona
 	}
 
 	const list = dynamicListComponent<StringDictionaryItem>(context.getValue().items, stringDictionaryItemComponent, context, {
-		emptyMessage: 'No items'
+		emptyMessage: context.i18n('stringDictionary.noItems', 'No items')
 	});
 	list.onChanged.subscribe(onChanged);
 
 	const container = valueEditorContainerComponent([list.view]);
 
-	const addButton = buttonComponent('Add item', {
+	const addButton = buttonComponent(context.i18n('stringDictionary.addItem', 'Add item'), {
 		size: 'small',
 		icon: Icons.add
 	});

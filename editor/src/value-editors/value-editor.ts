@@ -1,4 +1,4 @@
-import { ModelActivator, ValueModel, ValueContext } from 'sequential-workflow-editor-model';
+import { ModelActivator, ValueModel, ValueContext, I18n } from 'sequential-workflow-editor-model';
 import { ValueEditorFactoryResolver } from './value-editor-factory-resolver';
 import { Component } from '../components/component';
 
@@ -16,4 +16,5 @@ export type ValueEditorFactory<TValueModel extends ValueModel = ValueModel> = (
 export interface EditorServices {
 	valueEditorFactoryResolver: ValueEditorFactoryResolver;
 	activator: ModelActivator;
+	i18n: I18n;
 }

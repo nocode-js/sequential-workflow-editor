@@ -38,7 +38,9 @@ export const createNullableVariableDefinitionValueModel = (
 		validate(context: ValueContext<NullableVariableDefinitionValueModel>): ValidationResult {
 			const value = context.getValue();
 			if (configuration.isRequired && !value) {
-				return createValidationSingleError('Variable name is required.');
+				return createValidationSingleError(
+					context.i18n('nullableVariableDefinition.variableIsRequired', 'The variable is required')
+				);
 			}
 			if (value) {
 				const nameError = variableNameValidator(value.name);
@@ -46,10 +48,16 @@ export const createNullableVariableDefinitionValueModel = (
 					return createValidationSingleError(nameError);
 				}
 				if (value.type !== configuration.valueType) {
-					return createValidationSingleError(`Variable type must be ${configuration.valueType}.`);
+					return createValidationSingleError(
+						context.i18n('nullableVariableDefinition.expectedType', 'Variable type must be :type', {
+							type: configuration.valueType
+						})
+					);
 				}
 				if (context.isVariableDuplicated(value.name)) {
-					return createValidationSingleError('Variable name is already used.');
+					return createValidationSingleError(
+						context.i18n('nullableVariableDefinition.variableIsDuplicated', 'Variable name is already used')
+					);
 				}
 			}
 			return null;

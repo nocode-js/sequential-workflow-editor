@@ -16,10 +16,16 @@ import { PropertyHintComponent, propertyHint } from './property-hint';
 export class PropertyEditor implements Component {
 	public static create(
 		propertyModel: PropertyModel,
+		stepType: string | null,
 		definitionContext: DefinitionContext,
 		editorServices: EditorServices
 	): PropertyEditor {
-		const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
+		const valueContext = ValueContext.createFromDefinitionContext(
+			propertyModel.value,
+			propertyModel,
+			definitionContext,
+			editorServices.i18n
+		);
 		const valueEditorFactory = editorServices.valueEditorFactoryResolver.resolve(propertyModel.value.id, propertyModel.value.editorId);
 		const valueEditor = valueEditorFactory(valueContext, editorServices);
 		let hint: PropertyHintComponent | null = null;
@@ -34,7 +40,8 @@ export class PropertyEditor implements Component {
 		const label = Html.element('h4', {
 			class: 'swe-property-header-label'
 		});
-		label.innerText = propertyModel.label;
+		const i18nPrefix = stepType ? `step.${stepType}.property:` : 'root.property:';
+		label.innerText = editorServices.i18n(i18nPrefix + propertyModel.path.toString(), propertyModel.label);
 
 		header.appendChild(label);
 		view.appendChild(header);
@@ -64,7 +71,12 @@ export class PropertyEditor implements Component {
 
 		let validationError: PropertyValidationErrorComponent | null = null;
 		if (propertyModel.validator) {
-			const valueContext = ValueContext.createFromDefinitionContext(propertyModel.value, propertyModel, definitionContext);
+			const valueContext = ValueContext.createFromDefinitionContext(
+				propertyModel.value,
+				propertyModel,
+				definitionContext,
+				editorServices.i18n
+			);
 			const validatorContext = PropertyValidatorContext.create(valueContext);
 			validationError = propertyValidationErrorComponent(propertyModel.validator, validatorContext);
 			view.appendChild(validationError.view);

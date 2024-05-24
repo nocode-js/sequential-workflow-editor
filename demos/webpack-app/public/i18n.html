@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>🚩 I18n Example - Sequential Workflow Editor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="icon" href="./assets/favicon.ico" />
+		<script src="./builds/i18n.js" defer></script>
+		<link rel="stylesheet" href="./assets/i18n.css" />
+	</head>
+	<body>
+		<header class="header">
+			<div class="column flex-1 hidden-mobile">
+				<h1>🚩 I18n Example</h1>
+			</div>
+			<div class="column">
+				Language:
+				<select id="lang">
+					<option value="pl">🇵🇱 Polish</option>
+					<option value="en">🇬🇧 English</option>
+				</select>
+			</div>
+			<div class="column flex-1 text-end">
+				<a href="https://github.com/nocode-js/sequential-workflow-editor" target="_blank">GitHub</a>
+			</div>
+		</header>
+		<div id="designer"></div>
+	</body>
+</html>

@@ -26,7 +26,7 @@ export function anyVariablesValueEditor(context: ValueContext<AnyVariablesValueM
 	selector.onAdded.subscribe(onNewAdded);
 
 	const list = dynamicListComponent<AnyVariable>(context.getValue().variables, anyVariableItemComponent, context, {
-		emptyMessage: 'No variables selected'
+		emptyMessage: context.i18n('anyVariables.noVariablesSelected', 'No variables selected')
 	});
 	list.onChanged.subscribe(onChanged);
 

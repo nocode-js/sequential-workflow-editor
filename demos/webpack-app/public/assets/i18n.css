@@ -1,0 +1,59 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+body {
+	display: flex;
+	flex-direction: column;
+}
+body,
+input,
+h1,
+textarea {
+	font: 14px/1.3em Arial, Verdana, sans-serif;
+}
+.header {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	background: #203fd2;
+	color: #fff;
+}
+.header h1 {
+	margin: 0;
+	padding: 0;
+}
+.header a {
+	color: #fff;
+}
+.header .column {
+	padding: 10px;
+}
+.header .column.flex-1 {
+	flex: 1;
+}
+.header .text-center {
+	text-align: center;
+}
+.header .column.text-end {
+	text-align: right;
+}
+@media only screen and (max-width: 700px) {
+	.header .column.hidden-mobile {
+		display: none;
+	}
+}
+a {
+	color: #000;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}
+#designer {
+	flex: 1;
+}

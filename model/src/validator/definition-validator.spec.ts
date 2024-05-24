@@ -2,6 +2,7 @@ import { Definition, DefinitionWalker, Step } from 'sequential-workflow-model';
 import { createDefinitionModel, createRootModel, createStepModel } from '../builders';
 import { createNumberValueModel } from '../value-models';
 import { DefinitionValidator } from './definition-validator';
+import { defaultI18n } from '../i18n';
 
 interface FooDefinition extends Definition {
 	properties: {
@@ -38,7 +39,7 @@ describe('DefinitionValidator', () => {
 		);
 	});
 	const walker = new DefinitionWalker();
-	const validator = DefinitionValidator.create(model, walker);
+	const validator = DefinitionValidator.create(model, walker, defaultI18n);
 
 	it('returns error when root is invalid', () => {
 		const def: FooDefinition = {
