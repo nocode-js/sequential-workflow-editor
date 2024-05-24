@@ -1,3 +1,7 @@
+## 0.12.0
+
+This version introduces the localization feature. Now you can localize the editor to any language you want.
+
 ## 0.11.3
 
 This version improves the behavior of the `Dynamic` value editor, when the sub editor contains a control visible in the property header.
