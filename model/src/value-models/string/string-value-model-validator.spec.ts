@@ -11,7 +11,7 @@ describe('stringValueModelValidator', () => {
 
 		const context1 = createValueContextStub<StringValueModel>('', configuration);
 		const error1 = stringValueModelValidator(context1);
-		expect(error1?.$).toBe('The value must be at least 2 characters long.');
+		expect(error1?.$).toBe('The value must be at least 2 characters long');
 
 		const context2 = createValueContextStub<StringValueModel>('fo', configuration);
 		const error2 = stringValueModelValidator(context2);
@@ -21,7 +21,7 @@ describe('stringValueModelValidator', () => {
 	it('returns error when value is not string', () => {
 		const context1 = createValueContextStub<StringValueModel>(0x123, {});
 		const error1 = stringValueModelValidator(context1);
-		expect(error1?.$).toBe('The value must be a string.');
+		expect(error1?.$).toBe('The value must be a string');
 	});
 
 	it('returns correct response when pattern is set', () => {
@@ -31,7 +31,7 @@ describe('stringValueModelValidator', () => {
 
 		const context1 = createValueContextStub<StringValueModel>('1', configuration);
 		const error1 = stringValueModelValidator(context1);
-		expect(error1?.$).toBe('The value does not match the required pattern.');
+		expect(error1?.$).toBe('The value does not match the required pattern');
 
 		const context2 = createValueContextStub<StringValueModel>('a', configuration);
 		const error2 = stringValueModelValidator(context2);
