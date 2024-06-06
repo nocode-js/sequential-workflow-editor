@@ -53,7 +53,7 @@ describe('DefinitionValidator', () => {
 
 		expect(error?.stepId).toEqual(null);
 		expect(error?.propertyPath.toString()).toEqual('properties/velocity');
-		expect(error?.error.$).toEqual('The value must be at least 0.');
+		expect(error?.error.$).toEqual('The value must be at least 0');
 	});
 
 	it('returns error when step has invalid delta value', () => {
@@ -87,7 +87,7 @@ describe('DefinitionValidator', () => {
 
 		expect(error?.stepId).toEqual('0xFFFFFF');
 		expect(error?.propertyPath.toString()).toEqual('properties/delta');
-		expect(error?.error.$).toEqual('The value must be at most 0.');
+		expect(error?.error.$).toEqual('The value must be at most 0');
 	});
 
 	it('returns error when step has invalid name', () => {
@@ -112,7 +112,7 @@ describe('DefinitionValidator', () => {
 
 		expect(error?.stepId).toEqual('0xAAAAAA');
 		expect(error?.propertyPath.toString()).toEqual('name');
-		expect(error?.error.$).toEqual('The value must be at least 1 characters long.');
+		expect(error?.error.$).toEqual('The value must be at least 1 characters long');
 	});
 
 	it('returns null when definition is valid', () => {

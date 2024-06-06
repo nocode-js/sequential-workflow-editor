@@ -12,7 +12,7 @@ describe('branchesValueModelValidator', () => {
 			}
 		);
 		const error = branchesValueModelValidator(context);
-		expect(error?.$).toBe('No branches defined.');
+		expect(error?.$).toBe('No branches defined');
 	});
 
 	it('returns "Missing branch" if branch is missing', () => {
@@ -29,7 +29,7 @@ describe('branchesValueModelValidator', () => {
 			}
 		);
 		const error = branchesValueModelValidator(context);
-		expect(error?.$).toBe('Missing branch: false.');
+		expect(error?.$).toBe('Missing branch: false');
 	});
 
 	it('returns "Invalid number of branches" if there is more branches', () => {
@@ -47,7 +47,7 @@ describe('branchesValueModelValidator', () => {
 			}
 		);
 		const error = branchesValueModelValidator(context);
-		expect(error?.$).toBe('Invalid number of branches.');
+		expect(error?.$).toBe('Invalid number of branches');
 	});
 
 	it('returns "The value must be object" if there is not any branch', () => {
@@ -58,7 +58,7 @@ describe('branchesValueModelValidator', () => {
 			}
 		});
 		const error = branchesValueModelValidator(context);
-		expect(error?.$).toBe('The value must be object.');
+		expect(error?.$).toBe('The value must be object');
 	});
 
 	it('returns null if there is valid branches', () => {

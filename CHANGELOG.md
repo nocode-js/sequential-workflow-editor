@@ -1,3 +1,7 @@
+## 0.12.1
+
+This version normalizes translations.
+
 ## 0.12.0
 
 This version introduces the localization feature. Now you can localize the editor to any language you want.

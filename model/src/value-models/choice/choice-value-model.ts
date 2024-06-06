@@ -27,7 +27,7 @@ export function createChoiceValueModel<TValue extends string>(
 			getDefaultValue() {
 				if (configuration.defaultValue) {
 					if (!configuration.choices.includes(configuration.defaultValue)) {
-						throw new Error(`Default value "${configuration.defaultValue}" does not match any of the choices.`);
+						throw new Error(`Default value "${configuration.defaultValue}" does not match any of the choices`);
 					}
 					return configuration.defaultValue;
 				}
@@ -37,7 +37,7 @@ export function createChoiceValueModel<TValue extends string>(
 			validate(context: ValueContext<ChoiceValueModel<TValue>>): ValidationResult {
 				const value = context.getValue();
 				if (!configuration.choices.includes(value)) {
-					return createValidationSingleError(context.i18n('choice.notSupportedValue', 'Value is not supported.'));
+					return createValidationSingleError(context.i18n('choice.notSupportedValue', 'Value is not supported'));
 				}
 				return null;
 			}

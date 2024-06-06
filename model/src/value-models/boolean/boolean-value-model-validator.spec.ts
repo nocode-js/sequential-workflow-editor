@@ -12,6 +12,6 @@ describe('booleanValueModelValidator', () => {
 	it('returns "The value must be a boolean" if value is not a boolean', () => {
 		const context = createValueContextStub<BooleanValueModel>('this is not a boolean', {});
 		const error = booleanValueModelValidator(context);
-		expect(error?.$).toBe('The value must be a boolean.');
+		expect(error?.$).toBe('The value must be a boolean');
 	});
 });
