@@ -1,2 +1,2 @@
 export * from './generated-string-context';
-export * from './generated-string-model';
+export * from './generated-string-value-model';
