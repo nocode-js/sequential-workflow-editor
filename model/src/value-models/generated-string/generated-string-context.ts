@@ -1,6 +1,6 @@
 import { Properties } from 'sequential-workflow-model';
 import { ValueContext } from '../../context';
-import { GeneratedStringVariableValueModel } from './generated-string-model';
+import { GeneratedStringVariableValueModel } from './generated-string-value-model';
 import { DefaultValueContext } from '../../context/default-value-context';
 
 export class GeneratedStringContext<TProperties extends Properties = Properties> {

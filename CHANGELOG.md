@@ -1,3 +1,7 @@
+## 0.13.0
+
+This version introduces several internal changes that allowed for the creation of a new type of editor in the pro version: the hidden dependent value editor.
+
 ## 0.12.1
 
 This version normalizes translations.

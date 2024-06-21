@@ -27,7 +27,8 @@ export class App {
 				rootEditorProvider: () => {
 					const editor = document.createElement('div');
 					editor.innerHTML =
-						'This demo showcases all the supported editors by the Sequential Workflow Editor. <a href="https://github.com/nocode-js/sequential-workflow-editor">GitHub</a>';
+						'This demo showcases all the supported editors by the <a href="https://github.com/nocode-js/sequential-workflow-editor">Sequential Workflow Editor</a>.<br /><br />' +
+						'Start exploring by clicking on each step.';
 					return editor;
 				},
 				stepEditorProvider: editorProvider.createStepEditorProvider()

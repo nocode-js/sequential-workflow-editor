@@ -12,6 +12,8 @@ export interface BooleanStepModel extends Step {
 }
 
 export const booleanStepModel = createStepModel<BooleanStepModel>('boolean', 'task', step => {
+	step.description('This step demonstrates properties with boolean values.');
+
 	step.property('zeroConfig').value(createBooleanValueModel({}));
 	step.property('defaultValueTrue').value(
 		createBooleanValueModel({

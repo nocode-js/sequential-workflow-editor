@@ -32,10 +32,6 @@ export class Editor {
 
 		const editors = new Map<PropertyModel, PropertyEditor>();
 		for (const propertyModel of propertyModels) {
-			if (editorServices.valueEditorFactoryResolver.isHidden(propertyModel.value.id, propertyModel.value.editorId)) {
-				continue;
-			}
-
 			const propertyEditor = PropertyEditor.create(propertyModel, stepType, definitionContext, editorServices);
 			root.appendChild(propertyEditor.view);
 			editors.set(propertyModel, propertyEditor);

@@ -11,6 +11,8 @@ export interface AnyVariablesStepModel extends Step {
 }
 
 export const anyVariablesStepModel = createStepModel<AnyVariablesStepModel>('anyVariables', 'task', step => {
+	step.description('In this step, you can select a collection of variables of any type.');
+
 	step.property('zeroConfig').value(createAnyVariablesValueModel({}));
 	step.property('onlyBoolean').value(
 		createAnyVariablesValueModel({
