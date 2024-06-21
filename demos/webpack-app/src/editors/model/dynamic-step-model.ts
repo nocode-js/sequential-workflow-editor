@@ -19,6 +19,10 @@ export interface DynamicStepModel extends Step {
 }
 
 export const dynamicStepModel = createStepModel<DynamicStepModel>('dynamic', 'task', step => {
+	step.description(
+		'This step has properties with dynamic values. For each property, you can change the value type by selecting the desired type.'
+	);
+
 	step.property('example').value(
 		createDynamicValueModel({
 			models: [createStringValueModel({}), createBooleanValueModel({})]

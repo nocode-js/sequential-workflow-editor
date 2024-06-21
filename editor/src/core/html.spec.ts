@@ -23,4 +23,16 @@ describe('Html', () => {
 
 		expect(element.getAttribute('data-test')).toBe('555');
 	});
+
+	it('toggles class', () => {
+		const element = document.createElement('div');
+
+		Html.toggleClass(element, true, 'foo');
+
+		expect(element.classList.contains('foo')).toBe(true);
+
+		Html.toggleClass(element, false, 'foo');
+
+		expect(element.classList.contains('foo')).toBe(false);
+	});
 });

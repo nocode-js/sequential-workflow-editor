@@ -11,6 +11,8 @@ export interface ChoiceStepModel extends Step {
 }
 
 export const choiceStepModel = createStepModel<ChoiceStepModel>('choice', 'task', step => {
+	step.description('In this step, you can see properties that allow you to select a value from a predefined list.');
+
 	step.property('minimalConfig').value(createChoiceValueModel({ choices: ['red', 'blue', 'green'] }));
 
 	step.property('defaultValueAllow').value(

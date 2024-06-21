@@ -29,6 +29,9 @@
 .swe-editor > .swe-validation-error {
 	margin: 0 10px;
 }
+.swe-hidden {
+	display: none;
+}
 
 /* properties */
 

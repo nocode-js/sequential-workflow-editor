@@ -15,6 +15,7 @@ import { nullableAnyVariableValueEditor, nullableAnyVariableValueEditorId } from
 import { booleanValueEditor, booleanValueEditorId } from './boolean/boolean-value-editor';
 import { generatedStringValueEditor, generatedStringValueEditorId } from './generated-string/generated-string-value-editor';
 import { stringDictionaryValueEditor } from './string-dictionary/string-dictionary-value-editor';
+import { hiddenValueEditor } from './hidden/hidden-value-editor';
 import { EditorExtension } from '../editor-extension';
 
 const defaultMap: ValueEditorMap = {
@@ -30,8 +31,8 @@ const defaultMap: ValueEditorMap = {
 	[stringDictionaryValueModelId]: stringDictionaryValueEditor as ValueEditorFactory,
 	[numberValueEditorId]: numberValueEditor as ValueEditorFactory,
 	[variableDefinitionsValueEditorId]: variableDefinitionsValueEditor as ValueEditorFactory,
-	[sequenceValueModelId]: null,
-	[branchesValueModelId]: null
+	[sequenceValueModelId]: hiddenValueEditor,
+	[branchesValueModelId]: hiddenValueEditor
 };
 
 type ValueEditorMap = Record<string, ValueEditorFactory | null>;
@@ -61,17 +62,5 @@ export class ValueEditorFactoryResolver {
 			throw new Error(`Editor id ${id} is not supported`);
 		}
 		return editor;
-	}
-
-	public isHidden(valueModelId: string, editorId: string | undefined): boolean {
-		const id = editorId ?? valueModelId;
-		const editor = this.map[editorId ?? valueModelId];
-		if (editor === null) {
-			return true;
-		}
-		if (editor !== undefined) {
-			return false;
-		}
-		throw new Error(`Editor id ${id} is not supported`);
 	}
 }

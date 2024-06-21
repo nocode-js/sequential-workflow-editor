@@ -11,6 +11,10 @@ export interface GeneratedStringStepModel extends Step {
 }
 
 export const generatedStringStepModel = createStepModel<GeneratedStringStepModel>('generatedString', 'task', step => {
+	step.description(
+		'This step has a property whose value is generated using data from another property. To see how it works, please change the value of the "X" property to 0, 1, 2, etc.'
+	);
+
 	step.property('x').value(createNumberValueModel({}));
 
 	step.property('example')

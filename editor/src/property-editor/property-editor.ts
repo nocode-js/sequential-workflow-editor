@@ -12,6 +12,7 @@ import { Component } from '../components/component';
 import { PropertyValidationErrorComponent, propertyValidationErrorComponent } from '../components/property-validation-error-component';
 import { Icons } from '../core/icons';
 import { PropertyHintComponent, propertyHint } from './property-hint';
+import { StackedSimpleEvent } from '../core';
 
 export class PropertyEditor implements Component {
 	public static create(
@@ -31,9 +32,13 @@ export class PropertyEditor implements Component {
 		let hint: PropertyHintComponent | null = null;
 
 		const nameClassName = propertyModel.path.last();
+		const pathStr = propertyModel.path.toString();
+
 		const view = Html.element('div', {
 			class: `swe-property swe-name-${nameClassName}`
 		});
+		view.setAttribute('data-path', pathStr);
+
 		const header = Html.element('div', {
 			class: 'swe-property-header'
 		});
@@ -41,7 +46,7 @@ export class PropertyEditor implements Component {
 			class: 'swe-property-header-label'
 		});
 		const i18nPrefix = stepType ? `step.${stepType}.property:` : 'root.property:';
-		label.innerText = editorServices.i18n(i18nPrefix + propertyModel.path.toString(), propertyModel.label);
+		label.innerText = editorServices.i18n(i18nPrefix + pathStr, propertyModel.label);
 
 		header.appendChild(label);
 		view.appendChild(header);
@@ -61,15 +66,16 @@ export class PropertyEditor implements Component {
 
 		view.appendChild(valueEditor.view);
 
+		let control: HTMLElement | null = null;
 		if (valueEditor.controlView) {
-			const control = Html.element('div', {
+			control = Html.element('div', {
 				class: 'swe-property-header-control'
 			});
 			control.appendChild(valueEditor.controlView);
 			header.appendChild(control);
 		}
 
-		let validationError: PropertyValidationErrorComponent | null = null;
+		let propertyValidationError: PropertyValidationErrorComponent | null = null;
 		if (propertyModel.validator) {
 			const valueContext = ValueContext.createFromDefinitionContext(
 				propertyModel.value,
@@ -78,38 +84,65 @@ export class PropertyEditor implements Component {
 				editorServices.i18n
 			);
 			const validatorContext = PropertyValidatorContext.create(valueContext);
-			validationError = propertyValidationErrorComponent(propertyModel.validator, validatorContext);
-			view.appendChild(validationError.view);
+			propertyValidationError = propertyValidationErrorComponent(propertyModel.validator, validatorContext);
+			view.appendChild(propertyValidationError.view);
 		}
 
-		const editor = new PropertyEditor(view, valueContext.onValueChanged, valueEditor, validationError);
-		if (propertyModel.validator) {
+		const editor = new PropertyEditor(view, valueContext.onValueChanged, valueEditor, control, propertyValidationError);
+		if (propertyValidationError) {
 			valueContext.onValueChanged.subscribe(editor.onValueChangedHandler);
 		}
+		if (valueEditor.onIsHiddenChanged) {
+			valueEditor.onIsHiddenChanged.subscribe(editor.onEditorIsHiddenChanged);
+		}
+		editor.reloadVisibility();
 		return editor;
 	}
+
+	private readonly onReloadVisibilityRequested = new StackedSimpleEvent<void>();
 
 	public constructor(
 		public readonly view: HTMLElement,
 		public readonly onValueChanged: SimpleEvent<Path>,
 		private readonly valueEditor: ValueEditor,
-		private readonly validationError: PropertyValidationErrorComponent | null
-	) {}
+		private readonly control: HTMLElement | null,
+		private readonly propertyValidationError: PropertyValidationErrorComponent | null
+	) {
+		this.onReloadVisibilityRequested.subscribe(this.reloadVisibility);
+	}
 
 	public reloadDependencies() {
 		if (this.valueEditor.reloadDependencies) {
 			this.valueEditor.reloadDependencies();
 		}
-		this.revalidate();
+		this.validateProperty();
+		this.onReloadVisibilityRequested.push();
 	}
 
-	private revalidate() {
-		if (this.validationError) {
-			this.validationError.validate();
+	private validateProperty() {
+		if (this.propertyValidationError) {
+			this.propertyValidationError.validate();
 		}
 	}
 
+	private readonly reloadVisibility = () => {
+		const isValueEditorHidden = this.valueEditor.isHidden ? this.valueEditor.isHidden() : false;
+		const isValidationErrorHidden = this.propertyValidationError ? this.propertyValidationError.isHidden() : true;
+
+		const isPropertyEditorHidden = isValueEditorHidden && isValidationErrorHidden;
+
+		Html.toggleClass(this.view, isPropertyEditorHidden, 'swe-hidden');
+		Html.toggleClass(this.valueEditor.view, isValueEditorHidden, 'swe-hidden');
+		if (this.control) {
+			Html.toggleClass(this.control, isValueEditorHidden, 'swe-hidden');
+		}
+	};
+
 	private readonly onValueChangedHandler = () => {
-		this.revalidate();
+		this.validateProperty();
+	};
+
+	private readonly onEditorIsHiddenChanged = () => {
+		this.onReloadVisibilityRequested.push();
 	};
 }

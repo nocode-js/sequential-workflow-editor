@@ -17,4 +17,12 @@ export class Html {
 		}
 		return element;
 	}
+
+	public static toggleClass(element: Element, isEnabled: boolean, className: string) {
+		if (isEnabled) {
+			element.classList.add(className);
+		} else {
+			element.classList.remove(className);
+		}
+	}
 }

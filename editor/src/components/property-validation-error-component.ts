@@ -4,6 +4,7 @@ import { validationErrorComponent } from './validation-error-component';
 
 export interface PropertyValidationErrorComponent extends Component {
 	validate(): void;
+	isHidden(): boolean;
 }
 
 export function propertyValidationErrorComponent(
@@ -21,6 +22,7 @@ export function propertyValidationErrorComponent(
 
 	return {
 		view: validation.view,
-		validate
+		validate,
+		isHidden: validation.isHidden
 	};
 }
