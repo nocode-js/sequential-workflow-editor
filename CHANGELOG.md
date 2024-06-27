@@ -1,3 +1,7 @@
+## 0.13.1
+
+This version adds missing translations for the `variableNameValidator` function [#37](https://github.com/nocode-js/sequential-workflow-editor/issues/37).
+
 ## 0.13.0
 
 This version introduces several internal changes that allowed for the creation of a new type of editor in the pro version: the hidden dependent value editor.

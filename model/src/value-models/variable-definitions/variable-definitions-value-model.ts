@@ -36,7 +36,7 @@ export const createVariableDefinitionsValueModel = (
 			const value = context.getValue();
 
 			value.variables.forEach((variable, index) => {
-				const nameError = variableNameValidator(variable.name);
+				const nameError = variableNameValidator(context.i18n, variable.name);
 				if (nameError) {
 					errors[index] = nameError;
 					return;

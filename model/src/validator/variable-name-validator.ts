@@ -1,14 +1,18 @@
+import { I18n } from '../i18n';
+
 const MAX_LENGTH = 32;
 
-export function variableNameValidator(name: string): string | null {
+export function variableNameValidator(i18n: I18n, name: string): string | null {
 	if (!name) {
-		return 'Variable name is required.';
+		return i18n('variableName.required', 'Variable name is required');
 	}
 	if (name.length > MAX_LENGTH) {
-		return `Variable name must be ${MAX_LENGTH} characters or less.`;
+		return i18n('variableName.maxLength', 'Variable name must be :n characters or less', {
+			n: String(MAX_LENGTH)
+		});
 	}
 	if (!/^[A-Za-z][a-zA-Z_0-9-]*$/.test(name)) {
-		return 'Variable name contains invalid characters.';
+		return i18n('variableName.invalidCharacters', 'Variable name contains invalid characters');
 	}
 	return null;
 }

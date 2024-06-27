@@ -43,7 +43,7 @@ export const createNullableVariableDefinitionValueModel = (
 				);
 			}
 			if (value) {
-				const nameError = variableNameValidator(value.name);
+				const nameError = variableNameValidator(context.i18n, value.name);
 				if (nameError) {
 					return createValidationSingleError(nameError);
 				}
