@@ -46,6 +46,8 @@ This document lists all the I18N keys used in the Sequential Workflow Editor.
   "toolbox.defaultGroupName": "Others",
   "variableDefinitions.delete": "Delete",
   "variableDefinitions.namePlaceholder": "Variable name",
+  "variableDefinitions.newVariable": "New variable",
+  "variableDefinitions.noVariablesDefined": "No variables defined",
   "variableDefinitions.valueTypeIsNotAllowed": "Value type is not allowed",
   "variableDefinitions.variableNameIsDuplicated": "Variable name is already used",
   "variableName.invalidCharacters": "Variable name contains invalid characters",
