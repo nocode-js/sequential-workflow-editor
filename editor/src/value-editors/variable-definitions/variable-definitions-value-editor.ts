@@ -29,12 +29,12 @@ export function variableDefinitionsValueEditor(
 		item => variableDefinitionItemComponent(item, context),
 		context,
 		{
-			emptyMessage: 'No variables defined'
+			emptyMessage: context.i18n('variableDefinitions.noVariablesDefined', 'No variables defined')
 		}
 	);
 	list.onChanged.subscribe(onChanged);
 
-	const addButton = buttonComponent('New variable', {
+	const addButton = buttonComponent(context.i18n('variableDefinitions.newVariable', 'New variable'), {
 		size: 'small',
 		icon: Icons.add
 	});

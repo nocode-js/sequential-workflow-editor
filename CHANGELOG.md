@@ -1,3 +1,7 @@
+## 0.13.2
+
+This version adds missing translations for the `variableDefinitions` value editor.
+
 ## 0.13.1
 
 This version adds missing translations for the `variableNameValidator` function [#37](https://github.com/nocode-js/sequential-workflow-editor/issues/37).
