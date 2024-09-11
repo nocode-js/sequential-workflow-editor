@@ -11,7 +11,7 @@ export const createBooleanValueModel = (configuration: BooleanValueModelConfigur
 	create: (path: Path) => ({
 		id: booleanValueModelId,
 		editorId: configuration.editorId,
-		label: 'Boolean',
+		label: configuration.label ?? 'Boolean',
 		path,
 		configuration,
 		getDefaultValue() {

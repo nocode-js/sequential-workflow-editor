@@ -10,8 +10,8 @@ export const numberValueModelId = 'number';
 export const createNumberValueModel = (configuration: NumberValueModelConfiguration): ValueModelFactoryFromModel<NumberValueModel> => ({
 	create: (path: Path) => ({
 		id: numberValueModelId,
+		label: configuration.label ?? 'Number',
 		editorId: configuration.editorId,
-		label: 'Number',
 		path,
 		configuration,
 		getDefaultValue() {

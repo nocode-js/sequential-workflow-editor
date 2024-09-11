@@ -10,8 +10,8 @@ export const stringValueModelId = 'string';
 export const createStringValueModel = (configuration: StringValueModelConfiguration): ValueModelFactoryFromModel<StringValueModel> => ({
 	create: (path: Path) => ({
 		id: stringValueModelId,
+		label: configuration.label ?? 'String',
 		editorId: configuration.editorId,
-		label: 'String',
 		path,
 		configuration,
 		getDefaultValue() {

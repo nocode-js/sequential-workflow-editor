@@ -32,7 +32,9 @@ export function nullableVariableValueEditor(context: ValueContext<NullableVariab
 		stretched: true
 	});
 	select.setValues([
-		context.i18n('nullableVariable.select', '- Select -'),
+		context.i18n('nullableVariable.selectType', '- Select: :type -', {
+			type: context.model.configuration.valueType
+		}),
 		...variables.map(variable => formatVariableNameWithType(variable.name, variable.type))
 	]);
 	if (startValue) {

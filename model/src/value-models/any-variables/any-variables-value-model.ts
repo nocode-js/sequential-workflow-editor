@@ -4,7 +4,9 @@ import { AnyVariables, ValueType } from '../../types';
 import { ValueContext } from '../../context';
 
 export interface AnyVariablesValueModelConfiguration {
+	label?: string;
 	valueTypes?: ValueType[];
+	editorId?: string;
 }
 
 export type AnyVariablesValueModel = ValueModel<AnyVariables, AnyVariablesValueModelConfiguration>;
@@ -16,7 +18,8 @@ export const createAnyVariablesValueModel = (
 ): ValueModelFactoryFromModel<AnyVariablesValueModel> => ({
 	create: (path: Path) => ({
 		id: anyVariablesValueModelId,
-		label: 'Variables',
+		label: configuration.label ?? 'Variables',
+		editorId: configuration.editorId,
 		path,
 		configuration,
 		getDefaultValue() {
