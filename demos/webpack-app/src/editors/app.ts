@@ -47,8 +47,8 @@ export class App {
 		});
 
 		if (location.hash) {
-			const type = location.hash.substring(1);
-			const step = designer.getDefinition().sequence.find(s => s.type === type);
+			const type = location.hash.substring(1).toLowerCase();
+			const step = designer.getDefinition().sequence.find(s => s.type.toLowerCase() === type);
 			if (step) {
 				designer.selectStepById(step.id);
 			}

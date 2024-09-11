@@ -13,7 +13,8 @@ export const createStringDictionaryValueModel = (
 ): ValueModelFactoryFromModel<StringDictionaryValueModel> => ({
 	create: (path: Path) => ({
 		id: stringDictionaryValueModelId,
-		label: 'Dictionary',
+		label: configuration.label ?? 'Dictionary',
+		editorId: configuration.editorId,
 		path,
 		configuration,
 		getDefaultValue() {

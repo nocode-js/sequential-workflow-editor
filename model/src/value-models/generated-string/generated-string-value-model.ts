@@ -6,7 +6,9 @@ import { GeneratedStringContext } from './generated-string-context';
 import { DefaultValueContext } from '../../context/default-value-context';
 
 export interface GeneratedStringValueModelConfiguration<TProperties extends Properties = Properties> {
+	label?: string;
 	generator(context: GeneratedStringContext<TProperties>): string;
+	editorId?: string;
 }
 
 export type GeneratedStringVariableValueModel<TProperties extends Properties = Properties> = ValueModel<
@@ -22,7 +24,8 @@ export function createGeneratedStringValueModel<TProperties extends Properties =
 	return {
 		create: (path: Path) => ({
 			id: generatedStringValueModelId,
-			label: 'Generated string',
+			label: configuration.label ?? 'Generated string',
+			editorId: configuration.editorId,
 			path,
 			configuration,
 			getDefaultValue(context: DefaultValueContext<TProperties>) {

@@ -4,8 +4,10 @@ import { NullableAnyVariable, ValueType } from '../../types';
 import { ValueContext } from '../../context';
 
 export interface NullableAnyVariableValueModelConfiguration {
+	label?: string;
 	isRequired?: boolean;
 	valueTypes?: ValueType[];
+	editorId?: string;
 }
 
 export type NullableAnyVariableValueModel = ValueModel<NullableAnyVariable, NullableAnyVariableValueModelConfiguration>;
@@ -17,7 +19,8 @@ export const createNullableAnyVariableValueModel = (
 ): ValueModelFactoryFromModel<NullableAnyVariableValueModel> => ({
 	create: (path: Path) => ({
 		id: nullableAnyVariableValueModelId,
-		label: 'Variable',
+		label: configuration.label ?? 'Variable',
+		editorId: configuration.editorId,
 		path,
 		configuration,
 		getDefaultValue() {

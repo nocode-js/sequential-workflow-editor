@@ -35,10 +35,15 @@ export function nullableAnyVariableValueEditor(
 	const select = selectComponent({
 		stretched: true
 	});
-	select.setValues([
-		context.i18n('nullableAnyVariable.select', '- Select -'),
-		...variables.map(variable => formatVariableNameWithType(variable.name, variable.type))
-	]);
+
+	const expectedTypes = context.model.configuration.valueTypes ? context.model.configuration.valueTypes.join(', ') : null;
+	const actionText = expectedTypes
+		? context.i18n('nullableAnyVariable.selectTypes', '- Select: :types -', {
+				types: expectedTypes
+		  })
+		: context.i18n('nullableAnyVariable.select', '- Select -');
+
+	select.setValues([actionText, ...variables.map(variable => formatVariableNameWithType(variable.name, variable.type))]);
 	if (startValue) {
 		select.selectIndex(variables.findIndex(variable => variable.name === startValue.name) + 1);
 	} else {

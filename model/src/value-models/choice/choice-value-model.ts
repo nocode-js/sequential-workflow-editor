@@ -3,8 +3,10 @@ import { Path } from '../../core/path';
 import { ValueContext } from '../../context';
 
 export interface ChoiceValueModelConfiguration<TValue extends string = string> {
+	label?: string;
 	choices: TValue[];
 	defaultValue?: TValue;
+	editorId?: string;
 }
 
 export type ChoiceValueModel<TValue extends string = string> = ValueModel<TValue, ChoiceValueModelConfiguration<TValue>>;
@@ -21,7 +23,8 @@ export function createChoiceValueModel<TValue extends string>(
 	return {
 		create: (path: Path) => ({
 			id: choiceValueModelId,
-			label: 'Choice',
+			label: configuration.label ?? 'Choice',
+			editorId: configuration.editorId,
 			path,
 			configuration,
 			getDefaultValue() {
