@@ -1,3 +1,7 @@
+## 0.14.2
+
+This version adds the `formatPropertyValue` method to the `PropertyValidatorContext` class.
+
 ## 0.14.1
 
 This version adds the `formatPropertyValue` method to: `PropertyContext`, `DefaultValueContext`, `ScopedPropertyContext` and `ValueContext` classes.
