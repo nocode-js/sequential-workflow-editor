@@ -12,6 +12,7 @@ export class PropertyValidatorContext<TValue extends PropertyValue = PropertyVal
 	protected constructor(private readonly valueContext: ValueContext<ValueModel, TProperties>) {}
 
 	public readonly getPropertyValue = this.valueContext.getPropertyValue;
+	public readonly formatPropertyValue = this.valueContext.formatPropertyValue;
 	public readonly getSupportedValueTypes = this.valueContext.getValueTypes;
 	public readonly hasVariable = this.valueContext.hasVariable;
 	public readonly findFirstUndefinedVariable = this.valueContext.findFirstUndefinedVariable;
