@@ -21,6 +21,7 @@ export class ScopedPropertyContext<TProperties extends Properties> {
 	) {}
 
 	public readonly getPropertyValue = this.propertyContext.getPropertyValue;
+	public readonly formatPropertyValue = this.propertyContext.formatPropertyValue;
 	public readonly getValueTypes = this.propertyContext.getValueTypes;
 
 	public readonly hasVariable = (variableName: string, valueType: string | null): boolean => {

@@ -16,5 +16,6 @@ export class DefaultValueContext<TProperties extends Properties = Properties> {
 	) {}
 
 	public readonly getPropertyValue = this.propertyContext.getPropertyValue;
+	public readonly formatPropertyValue = this.propertyContext.formatPropertyValue;
 	public readonly activateStep = this.activator.activateStep;
 }

@@ -1,3 +1,7 @@
+## 0.14.1
+
+This version adds the `formatPropertyValue` method to: `PropertyContext`, `DefaultValueContext`, `ScopedPropertyContext` and `ValueContext` classes.
+
 ## 0.14.0
 
 From now, the nullable any variable editor and the nullable variable editor display the expected variable types to select. This version also allows changes to the labels in the dropdown menu of the dynamic value editor.
