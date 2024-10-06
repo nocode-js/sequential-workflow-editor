@@ -18,11 +18,37 @@ export class PropertyContext<TProperties extends Properties = Properties> {
 		private readonly definitionModel: DefinitionModel
 	) {}
 
+	/**
+	 * Get the value of a property by name.
+	 * @param name The name of the property.
+	 * @returns The value of the property.
+	 */
 	public readonly getPropertyValue = <Key extends keyof TProperties>(name: Key): TProperties[Key] => {
 		return readPropertyValue(name, this.propertyModel, this.object);
 	};
 
+	/**
+	 * @returns The supported value types for variables.
+	 */
 	public readonly getValueTypes = (): ValueType[] => {
 		return this.definitionModel.valueTypes;
+	};
+
+	/**
+	 * Format a property value using a formatter function.
+	 * @param name The name of the property.
+	 * @param formatter The formatter function.
+	 * @param undefinedValue The value to return if the property value is `null` or `undefined`.
+	 */
+	public readonly formatPropertyValue = <Key extends keyof TProperties>(
+		name: Key,
+		formatter: (value: NonNullable<TProperties[Key]>) => string,
+		undefinedValue?: string
+	): string => {
+		const value = this.getPropertyValue(name);
+		if (value === undefined || value === null) {
+			return undefinedValue || '?';
+		}
+		return formatter(value);
 	};
 }

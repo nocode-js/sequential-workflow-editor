@@ -17,15 +17,5 @@ export class GeneratedStringContext<TProperties extends Properties = Properties>
 	) {}
 
 	public readonly getPropertyValue = this.context.getPropertyValue;
-
-	public formatPropertyValue<Key extends keyof TProperties>(
-		name: Key,
-		formatter: (value: NonNullable<TProperties[Key]>) => string
-	): string {
-		const value = this.getPropertyValue(name);
-		if (value === undefined || value === null) {
-			return '?';
-		}
-		return formatter(value);
-	}
+	public readonly formatPropertyValue = this.context.formatPropertyValue;
 }

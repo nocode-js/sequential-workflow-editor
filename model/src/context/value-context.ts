@@ -26,6 +26,7 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 	) {}
 
 	public readonly getPropertyValue = this.scopedPropertyContext.getPropertyValue;
+	public readonly formatPropertyValue = this.scopedPropertyContext.formatPropertyValue;
 	public readonly getValueTypes = this.scopedPropertyContext.getValueTypes;
 	public readonly hasVariable = this.scopedPropertyContext.hasVariable;
 	public readonly findFirstUndefinedVariable = this.scopedPropertyContext.findFirstUndefinedVariable;
