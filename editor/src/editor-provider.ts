@@ -23,6 +23,7 @@ import {
 } from './external-types';
 import { EditorProviderConfiguration } from './editor-provider-configuration';
 import { EditorHeaderData } from './editor-header';
+import { sortToolboxGroups } from './core/sort-toolbox-groups';
 
 export class EditorProvider<TDefinition extends Definition> {
 	public static create<TDef extends Definition>(
@@ -130,20 +131,22 @@ export class EditorProvider<TDefinition extends Definition> {
 	}
 
 	public getToolboxGroups(): ToolboxGroup[] {
-		const stepModels = Object.values(this.definitionModel.steps);
+		const stepModels = Object.values(this.definitionModel.steps).filter(step => step.toolbox);
 		const groups: ToolboxGroup[] = [];
 		const categories = new Set<string | undefined>(stepModels.map(step => step.category));
+
 		categories.forEach((category: string | undefined) => {
 			const name = category ?? this.i18n('toolbox.defaultGroupName', 'Others');
 			const groupStepModels = stepModels.filter(step => step.category === category);
 			const groupSteps = groupStepModels.map(step => this.activateStep(step.type));
-			groupSteps.sort((a, b) => a.name.localeCompare(b.name));
 			groups.push({
 				name,
 				steps: groupSteps
 			});
 		});
-		groups.sort((a, b) => a.name.localeCompare(b.name));
+
+		const sort = this.configuration.toolboxSorter || sortToolboxGroups;
+		sort(groups);
 		return groups;
 	}
 
