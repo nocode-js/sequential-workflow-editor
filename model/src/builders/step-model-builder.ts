@@ -13,6 +13,7 @@ export class StepModelBuilder<TStep extends Step> {
 	private _label?: string;
 	private _description?: string;
 	private _category?: string;
+	private _toolbox = true;
 	private _validator?: StepValidator;
 	private readonly nameBuilder = new PropertyModelBuilder<string>(namePath, this.circularDependencyDetector);
 	private readonly propertyBuilder: PropertyModelBuilder[] = [];
@@ -54,6 +55,16 @@ export class StepModelBuilder<TStep extends Step> {
 	 */
 	public category(category: string): this {
 		this._category = category;
+		return this;
+	}
+
+	/**
+	 * Sets whether the step should be displayed in the toolbox. Default is `true`.
+	 * @param toolbox Whether the step should be displayed in the toolbox.
+	 * @example `builder.toolbox(false);`
+	 */
+	public toolbox(toolbox: boolean): this {
+		this._toolbox = toolbox;
 		return this;
 	}
 
@@ -103,6 +114,7 @@ export class StepModelBuilder<TStep extends Step> {
 			label: this._label ?? buildLabel(this.type),
 			category: this._category,
 			description: this._description,
+			toolbox: this._toolbox,
 			validator: this._validator,
 			name: this.nameBuilder.build(),
 			properties: this.propertyBuilder.map(builder => builder.build())

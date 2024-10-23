@@ -1,3 +1,24 @@
+## 0.14.3
+
+This version provides the ability to sort the steps in the toolbox in a custom way. By default, the steps are sorted alphabetically.
+
+```ts
+EditorProvider.create(definitionModel, {
+  // ...
+  toolboxSorter(groups: ToolboxGroup[]) {
+    // ...
+  }
+});
+```
+
+You can also hide certain steps from the toolbox by using the hidden method in the step builder.
+
+```ts
+createStepModel<MyStep>('myStep', 'task', step => {
+  step.toolbox(false);
+});
+```
+
 ## 0.14.2
 
 This version adds the `formatPropertyValue` method to the `PropertyValidatorContext` class.

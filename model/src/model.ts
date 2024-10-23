@@ -23,6 +23,7 @@ export interface StepModel {
 	type: string;
 	componentType: string;
 	category?: string;
+	toolbox: boolean;
 	label: string;
 	description?: string;
 	name: PropertyModel<string>;
