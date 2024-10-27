@@ -18,10 +18,9 @@ import {
 	StepEditorContext,
 	StepEditorProvider,
 	StepLabelProvider,
-	StepValidator,
-	ToolboxGroup
+	StepValidator
 } from './external-types';
-import { EditorProviderConfiguration } from './editor-provider-configuration';
+import { EditorProviderConfiguration, ToolboxGroup } from './editor-provider-configuration';
 import { EditorHeaderData } from './editor-header';
 import { sortToolboxGroups } from './core/sort-toolbox-groups';
 

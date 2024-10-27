@@ -1,5 +1,4 @@
-import { EditorToolboxSorter } from '../editor-provider-configuration';
-import { ToolboxGroup } from '../external-types';
+import { EditorToolboxSorter, ToolboxGroup } from '../editor-provider-configuration';
 
 export const sortToolboxGroups: EditorToolboxSorter = (groups: ToolboxGroup[]) => {
 	groups.forEach(group => {
