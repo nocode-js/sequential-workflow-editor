@@ -17,8 +17,3 @@ export type StepLabelProvider = (step: { type: string }) => string;
 
 export type StepValidator = (step: Step, _: unknown, definition: Definition) => boolean;
 export type RootValidator = (definition: Definition) => boolean;
-
-export interface ToolboxGroup {
-	name: string;
-	steps: Step[];
-}

@@ -79,7 +79,7 @@ export class StepModelBuilder<TStep extends Step> {
 
 	/**
 	 * @returns The builder for the `name` property.
-	 * @example `builder.name().value(stringValueModel({ defaultValue: 'Some name' })).label('Name');`
+	 * @example `builder.name().value(createStringValueModel({ defaultValue: 'Some name' })).label('Name');`
 	 */
 	public name(): PropertyModelBuilder<string, TStep['properties']> {
 		return this.nameBuilder;
@@ -88,7 +88,7 @@ export class StepModelBuilder<TStep extends Step> {
 	/**
 	 * @param propertyName Name of the property in the step.
 	 * @returns The builder for the property.
-	 * @example `builder.property('foo').value(stringValueModel({ defaultValue: 'Some value' })).label('Foo');`
+	 * @example `builder.property('foo').value(createStringValueModel({ defaultValue: 'Some value' })).label('Foo');`
 	 */
 	public property<Key extends keyof TStep['properties']>(
 		propertyName: Key

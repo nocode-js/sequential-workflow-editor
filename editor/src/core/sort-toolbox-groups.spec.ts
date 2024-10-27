@@ -1,6 +1,6 @@
 import { Step } from 'sequential-workflow-model';
-import { ToolboxGroup } from '../external-types';
 import { sortToolboxGroups } from './sort-toolbox-groups';
+import { ToolboxGroup } from '../editor-provider-configuration';
 
 function createStep(name: string): Step {
 	return {
