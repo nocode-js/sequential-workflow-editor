@@ -25,6 +25,12 @@ import { EditorHeaderData } from './editor-header';
 import { sortToolboxGroups } from './core/sort-toolbox-groups';
 
 export class EditorProvider<TDefinition extends Definition> {
+	/**
+	 * Creates an editor provider.
+	 * @param definitionModel The definition model.
+	 * @param configuration The configuration.
+	 * @returns The editor provider.
+	 */
 	public static create<TDef extends Definition>(
 		definitionModel: DefinitionModel<TDef>,
 		configuration: EditorProviderConfiguration
@@ -121,10 +127,19 @@ export class EditorProvider<TDefinition extends Definition> {
 		};
 	}
 
+	/**
+	 * Activates the definition (creates a new instance of the definition with the default values).
+	 * @returns The activated definition.
+	 */
 	public activateDefinition(): TDefinition {
 		return this.activator.activateDefinition();
 	}
 
+	/**
+	 * Activates a step with the default values.
+	 * @param type The type of the step to activate.
+	 * @returns The activated step.
+	 */
 	public activateStep(type: string): Step {
 		return this.activator.activateStep(type);
 	}
