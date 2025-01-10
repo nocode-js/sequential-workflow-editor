@@ -1,3 +1,7 @@
+## O.14.5
+
+Added comments to describe the `EditorProvider` class.
+
 ## 0.14.4
 
 This version exposes the `ToolboxGroup` interface in the `sequential-workflow-editor` package [#46](https://github.com/nocode-js/sequential-workflow-editor/issues/46#issuecomment-2439817733).
