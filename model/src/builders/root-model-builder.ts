@@ -12,6 +12,11 @@ export class RootModelBuilder<TProperties extends Properties> {
 	private readonly propertyBuilders: PropertyModelBuilder[] = [];
 	private readonly sequenceBuilder = new PropertyModelBuilder<Sequence, TProperties>(sequencePath, this.circularDependencyDetector);
 
+	/**
+	 * @param propertyName Name of the property.
+	 * @returns The builder for the property.
+	 * @example `builder.property('foo').value(createStringValueModel({ defaultValue: 'Some value' })).label('Foo');`
+	 */
 	public property<Key extends keyof TProperties>(propertyName: Key): PropertyModelBuilder<TProperties[Key], TProperties> {
 		const path = Path.create(['properties', String(propertyName)]);
 		const builder = new PropertyModelBuilder<TProperties[Key], TProperties>(path, this.circularDependencyDetector);
@@ -19,6 +24,10 @@ export class RootModelBuilder<TProperties extends Properties> {
 		return builder;
 	}
 
+	/**
+	 * @returns the builder for the sequence property.
+	 * @example `builder.sequence().value(createSequenceValueModel(...));`
+	 */
 	public sequence(): PropertyModelBuilder<Sequence> {
 		return this.sequenceBuilder;
 	}

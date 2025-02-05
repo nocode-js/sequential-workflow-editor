@@ -9,6 +9,10 @@ const branchesPath = Path.create('branches');
 export class BranchedStepModelBuilder<TStep extends BranchedStep> extends StepModelBuilder<TStep> {
 	private readonly branchesBuilder = new PropertyModelBuilder<Branches>(branchesPath, this.circularDependencyDetector);
 
+	/**
+	 * @returns the builder for the branches property.
+	 * @example `builder.branches().value(createBranchesValueModel(...));`
+	 */
 	public branches(): PropertyModelBuilder<Branches, TStep['properties']> {
 		return this.branchesBuilder;
 	}

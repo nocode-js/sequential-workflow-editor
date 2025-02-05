@@ -1,3 +1,7 @@
+## O.14.6
+
+Added comments to describe the `BranchedStepModelBuilder`, `SequentialStepModelBuilder` and `RootModelBuilder` classes.
+
 ## O.14.5
 
 Added comments to describe the `EditorProvider` class.
