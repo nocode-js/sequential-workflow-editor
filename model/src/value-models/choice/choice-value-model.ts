@@ -1,13 +1,7 @@
-import { ValueModel, ValidationResult, createValidationSingleError, ValueModelFactory } from '../../model';
+import { ValueModel, ValueModelFactory } from '../../model';
 import { Path } from '../../core/path';
-import { ValueContext } from '../../context';
-
-export interface ChoiceValueModelConfiguration<TValue extends string = string> {
-	label?: string;
-	choices: TValue[];
-	defaultValue?: TValue;
-	editorId?: string;
-}
+import { ChoiceValueModelConfiguration } from './choice-value-model-configuration';
+import { choiceValueModelValidator } from './choice-value-model-validator';
 
 export type ChoiceValueModel<TValue extends string = string> = ValueModel<TValue, ChoiceValueModelConfiguration<TValue>>;
 
@@ -37,13 +31,7 @@ export function createChoiceValueModel<TValue extends string>(
 				return configuration.choices[0];
 			},
 			getVariableDefinitions: () => null,
-			validate(context: ValueContext<ChoiceValueModel<TValue>>): ValidationResult {
-				const value = context.getValue();
-				if (!configuration.choices.includes(value)) {
-					return createValidationSingleError(context.i18n('choice.notSupportedValue', 'Value is not supported'));
-				}
-				return null;
-			}
+			validate: choiceValueModelValidator
 		})
 	};
 }

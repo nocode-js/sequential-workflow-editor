@@ -13,6 +13,10 @@ export class SequentialStepModelBuilder<TStep extends SequentialStep> extends St
 		this.circularDependencyDetector
 	);
 
+	/**
+	 * @returns the builder for the sequence property.
+	 * @example `builder.sequence().value(createSequenceValueModel(...));`
+	 */
 	public sequence(): PropertyModelBuilder<Sequence> {
 		return this.sequenceBuilder;
 	}
