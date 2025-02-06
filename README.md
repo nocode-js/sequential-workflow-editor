@@ -22,6 +22,7 @@ Pro:
 
 * [📖 Pro Editors](https://nocode-js.com/examples/sequential-workflow-editor-pro/webpack-pro-app/public/editors.html)
 * [📫 Template System](https://nocode-js.com/examples/sequential-workflow-editor-pro/webpack-pro-app/public/template-system.html)
+* [🎱 Dynamic Variables](https://nocode-js.com/examples/sequential-workflow-editor-pro/webpack-pro-app/public/dynamic-variables.html)
 
 ## 🚀 Installation
 
