@@ -23,7 +23,7 @@ export interface DynamicListItemComponent<TItem> extends Component {
 
 export function dynamicListComponent<TItem, TItemComponent extends DynamicListItemComponent<TItem> = DynamicListItemComponent<TItem>>(
 	initialItems: TItem[],
-	itemComponentFactory: (item: TItem, i18n: I18n) => TItemComponent,
+	itemComponentFactory: (item: TItem, i18n: I18n, index: number) => TItemComponent,
 	context: ValueContext,
 	configuration?: DynamicListComponentConfiguration<TItem>
 ): DynamicListComponent<TItem, TItemComponent> {
@@ -74,7 +74,7 @@ export function dynamicListComponent<TItem, TItemComponent extends DynamicListIt
 
 		if (items.length > 0) {
 			items.forEach((item, index) => {
-				const component = itemComponentFactory(item, context.i18n);
+				const component = itemComponentFactory(item, context.i18n, index);
 				component.onItemChanged.subscribe(item => onItemChanged(item, index));
 				component.onDeleteClicked.subscribe(() => onItemDeleted(index));
 				view.insertBefore(component.view, validation.view);

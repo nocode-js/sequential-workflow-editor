@@ -1,3 +1,7 @@
+## O.14.7
+
+Added an `index` argument to the `itemComponentFactory` callback in the `dynamicListComponent` function.
+
 ## O.14.6
 
 Added comments to describe the `BranchedStepModelBuilder`, `SequentialStepModelBuilder` and `RootModelBuilder` classes.

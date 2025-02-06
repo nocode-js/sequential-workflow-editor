@@ -1,4 +1,4 @@
-import { SimpleEvent, ValueContext } from 'sequential-workflow-editor-model';
+import { I18n, SimpleEvent, ValueContext } from 'sequential-workflow-editor-model';
 import { Html } from '../core/html';
 import { dynamicListComponent } from './dynamic-list-component';
 
@@ -6,11 +6,13 @@ interface TestItem {
 	id: number;
 }
 
-function testItemComponentFactory(item: TestItem) {
+function testItemComponentFactory(item: TestItem, _: I18n, index: number) {
+	const view = Html.element('span', {
+		class: `test-item-${item.id}`
+	});
+	view.setAttribute('data-index', String(index));
 	return {
-		view: Html.element('span', {
-			class: `test-item-${item.id}`
-		}),
+		view,
 		onItemChanged: new SimpleEvent<TestItem>(),
 		onDeleteClicked: new SimpleEvent<void>(),
 		validate: () => {
@@ -32,7 +34,9 @@ describe('DynamicListComponent', () => {
 
 		expect(children.length).toBe(3);
 		expect(children[0].className).toBe('test-item-123');
+		expect(children[0].getAttribute('data-index')).toBe('0');
 		expect(children[1].className).toBe('test-item-456');
+		expect(children[1].getAttribute('data-index')).toBe('1');
 		expect(children[2].className).toBe('swe-validation-error');
 	});
 
@@ -47,13 +51,16 @@ describe('DynamicListComponent', () => {
 
 		expect(children.length).toBe(2);
 		expect(children[0].className).toBe('test-item-135');
+		expect(children[0].getAttribute('data-index')).toBe('0');
 		expect(children[1].className).toBe('swe-validation-error');
 
 		component.add({ id: 246 });
 
 		expect(children.length).toBe(3);
 		expect(children[0].className).toBe('test-item-135');
+		expect(children[0].getAttribute('data-index')).toBe('0');
 		expect(children[1].className).toBe('test-item-246');
+		expect(children[1].getAttribute('data-index')).toBe('1');
 		expect(children[2].className).toBe('swe-validation-error');
 	});
 
