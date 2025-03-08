@@ -2,6 +2,7 @@ import {
 	Dynamic,
 	StringDictionary,
 	createBooleanValueModel,
+	createChoiceValueModel,
 	createDefinitionModel,
 	createDynamicValueModel,
 	createNumberValueModel,
@@ -24,6 +25,7 @@ export interface ChownStep extends Step {
 	properties: {
 		stringOrNumber: Dynamic<string | number>;
 		users: StringDictionary;
+		mode: string;
 	};
 }
 
@@ -62,6 +64,12 @@ export const definitionModel = createDefinitionModel<I18nDefinition>(model => {
 				createStringDictionaryValueModel({
 					valueMinLength: 1,
 					uniqueKeys: true
+				})
+			);
+			step.property('mode').value(
+				createChoiceValueModel({
+					choices: ['Read', 'Write', 'Execute'],
+					defaultValue: 'Read'
 				})
 			);
 		})

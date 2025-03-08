@@ -4,6 +4,7 @@ import { validationErrorComponent } from '../../components/validation-error-comp
 import { valueEditorContainerComponent } from '../../components/value-editor-container-component';
 import { rowComponent } from '../../components/row-component';
 import { selectComponent } from '../../components/select-component';
+import { createStepI18nPrefix } from '../../core/step-i18n-prefix';
 
 export const choiceValueEditorId = 'choice';
 
@@ -13,7 +14,7 @@ export function choiceValueEditor(context: ValueContext<ChoiceValueModel>): Valu
 	}
 
 	function onSelected(index: number) {
-		const value = context.model.configuration.choices[index];
+		const value = choices[index];
 		context.setValue(value);
 		validate();
 	}
@@ -21,8 +22,19 @@ export function choiceValueEditor(context: ValueContext<ChoiceValueModel>): Valu
 	const select = selectComponent({
 		stretched: true
 	});
-	select.setValues(context.model.configuration.choices);
-	const startIndex = context.model.configuration.choices.indexOf(context.getValue());
+
+	const stepType = context.tryGetStepType();
+	const i18nPrefix = createStepI18nPrefix(stepType);
+
+	const choices = context.model.configuration.choices;
+	const translatedChoices = choices.map(choice => {
+		const pathStr = context.model.path.toString();
+		const key = `${i18nPrefix}${pathStr}:choice:${choice}`;
+		return context.i18n(key, choice);
+	});
+
+	select.setValues(translatedChoices);
+	const startIndex = choices.indexOf(context.getValue());
 	select.selectIndex(startIndex);
 	select.onSelected.subscribe(onSelected);
 

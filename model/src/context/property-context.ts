@@ -1,4 +1,4 @@
-import { Properties } from 'sequential-workflow-model';
+import { Properties, Step } from 'sequential-workflow-model';
 import { DefinitionModel, PropertyModel } from '../model';
 import { ValueType } from '../types';
 import { readPropertyValue } from './read-property-value';
@@ -17,6 +17,14 @@ export class PropertyContext<TProperties extends Properties = Properties> {
 		private readonly propertyModel: PropertyModel,
 		private readonly definitionModel: DefinitionModel
 	) {}
+
+	/**
+	 * @returns the type of the step, or `null` if the object is root.
+	 */
+	public readonly tryGetStepType = (): string | null => {
+		const type = (this.object as Step).type;
+		return type ? type : null;
+	};
 
 	/**
 	 * Get the value of a property by name.

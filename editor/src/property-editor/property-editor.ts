@@ -13,6 +13,7 @@ import { PropertyValidationErrorComponent, propertyValidationErrorComponent } fr
 import { Icons } from '../core/icons';
 import { PropertyHintComponent, propertyHint } from './property-hint';
 import { StackedSimpleEvent } from '../core';
+import { createStepI18nPrefix } from '../core/step-i18n-prefix';
 
 export class PropertyEditor implements Component {
 	public static create(
@@ -45,7 +46,7 @@ export class PropertyEditor implements Component {
 		const label = Html.element('h4', {
 			class: 'swe-property-header-label'
 		});
-		const i18nPrefix = stepType ? `step.${stepType}.property:` : 'root.property:';
+		const i18nPrefix = createStepI18nPrefix(stepType);
 		label.innerText = editorServices.i18n(i18nPrefix + pathStr, propertyModel.label);
 
 		header.appendChild(label);

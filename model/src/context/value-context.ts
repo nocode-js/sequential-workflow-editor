@@ -25,6 +25,7 @@ export class ValueContext<TValueModel extends ValueModel = ValueModel, TProperti
 		public readonly scopedPropertyContext: ScopedPropertyContext<TProperties>
 	) {}
 
+	public readonly tryGetStepType = this.scopedPropertyContext.tryGetStepType;
 	public readonly getPropertyValue = this.scopedPropertyContext.getPropertyValue;
 	public readonly formatPropertyValue = this.scopedPropertyContext.formatPropertyValue;
 	public readonly getValueTypes = this.scopedPropertyContext.getValueTypes;
