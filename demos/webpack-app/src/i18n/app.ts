@@ -63,7 +63,11 @@ const editorDict: Record<string, Record<string, string>> = {
 		'step.chown.name': 'Uprawnienia',
 		'step.chown.property:name': 'Nazwa',
 		'step.chown.property:properties/stringOrNumber': 'Tekst lub liczba',
-		'step.chown.property:properties/users': 'Użytkownik'
+		'step.chown.property:properties/users': 'Użytkownik',
+		'step.chown.property:properties/mode': 'Tryb',
+		'step.chown.property:properties/mode:choice:Read': 'Odczyt',
+		'step.chown.property:properties/mode:choice:Write': 'Zapis',
+		'step.chown.property:properties/mode:choice:Execute': 'Wykonanie'
 	}
 };
 

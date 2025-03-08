@@ -20,6 +20,7 @@ export class ScopedPropertyContext<TProperties extends Properties> {
 		private readonly parentsProvider: ParentsProvider
 	) {}
 
+	public readonly tryGetStepType = this.propertyContext.tryGetStepType;
 	public readonly getPropertyValue = this.propertyContext.getPropertyValue;
 	public readonly formatPropertyValue = this.propertyContext.formatPropertyValue;
 	public readonly getValueTypes = this.propertyContext.getValueTypes;
