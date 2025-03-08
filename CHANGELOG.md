@@ -1,3 +1,7 @@
+## O.14.8
+
+This PR adds support for the internationalization of options in the choice value model [#53](https://github.com/nocode-js/sequential-workflow-editor/issues/53).
+
 ## O.14.7
 
 Added an `index` argument to the `itemComponentFactory` callback in the `dynamicListComponent` function.
