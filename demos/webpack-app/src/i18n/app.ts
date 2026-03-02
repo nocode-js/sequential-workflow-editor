@@ -153,7 +153,7 @@ export class App {
 			},
 			i18n: this.designerI18n
 		});
-		this.designer.onDefinitionChanged.subscribe(d => (this.definition = d));
+		this.designer.onDefinitionChanged.subscribe(event => (this.definition = event.definition));
 	}
 }
 
